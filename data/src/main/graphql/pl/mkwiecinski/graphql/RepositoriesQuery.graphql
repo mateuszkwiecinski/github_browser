@@ -1,0 +1,14 @@
+query Repositories($owner: String!, $count: Int!, $after: String) {
+  repositoryOwner(login: $owner) {
+    repositories(first: $count, after: $after) {
+      nodes {
+        name
+        url
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

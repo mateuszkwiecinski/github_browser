@@ -18,4 +18,6 @@ dependencies {
     implementation Libs.archExtensions
     implementation Libs.archViewModel
     implementation Libs.liveData
+    implementation Libs.pagingRuntime
+    implementation Libs.rxAndroid
 }

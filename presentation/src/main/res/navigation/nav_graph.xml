@@ -8,6 +8,7 @@
 
     <fragment
         android:id="@+id/mainList"
+        android:label="@string/list_title"
         android:name="pl.mkwiecinski.presentation.list.ui.ListFragment"
         tools:layout="@layout/fragment_list">
 
@@ -19,6 +20,11 @@
     <fragment
         android:id="@+id/details"
         android:name="pl.mkwiecinski.presentation.details.ui.DetailsFragment"
-        tools:layout="@layout/fragment_details"/>
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="name"
+            app:argType="string"/>
+    </fragment>
 
 </navigation>

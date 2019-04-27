@@ -1,2 +1,5 @@
 <resources>
+    <string name="retry">Retry</string>
+    <string name="list_title">Browse</string>
+    <string name="list_loading_error">Error while loading data.</string>
 </resources>

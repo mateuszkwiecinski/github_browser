@@ -1,4 +1,9 @@
 apply plugin: 'library.kotlin'
+apply plugin: 'com.apollographql.android'
 
 dependencies {
+    implementation project(":domain")
+    implementation Libs.apolloGraphql
+    implementation Libs.okHttp
 }
+

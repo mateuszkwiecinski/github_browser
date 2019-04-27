@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
+import pl.mkwiecinski.presentation.BR
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -26,7 +27,7 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     @Inject
     lateinit var viewModelFactory: ViewModelsFactory
 
-    protected val compositeDisposable = CompositeDisposable()
+    protected val disposeBag = CompositeDisposable()
 
     protected val viewModel: TViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)[viewModelClass.java]
@@ -38,6 +39,7 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        binding.setVariable(BR.model, viewModel)
         init(savedInstanceState)
 
         return binding.root
@@ -46,7 +48,7 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     abstract fun init(savedInstanceState: Bundle?)
 
     override fun onDestroy() {
-        compositeDisposable.dispose()
+        disposeBag.dispose()
         super.onDestroy()
     }
 }

@@ -14,14 +14,22 @@ object Libs {
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"
     const val materialDesign = "com.google.android.material:material:1.1.0-alpha05"
 
-    const val navVersion = "2.1.0-alpha02"
+    private const val navVersion = "2.1.0-alpha02"
     const val archNavigationFragment = "androidx.navigation:navigation-fragment-ktx:$navVersion"
     const val archNavigation = "androidx.navigation:navigation-ui-ktx:$navVersion"
 
-    const val lifecycleVersion = "2.1.0-alpha04"
+    private const val lifecycleVersion = "2.1.0-alpha04"
     const val archExtensions = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     const val archViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    private const val pagingVersion = "2.1.0"
+    const val pagingCommon = "androidx.paging:paging-common-ktx:$pagingVersion"
+    const val pagingRuntime = "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:$pagingVersion"
+
+    const val apolloGraphql = "com.apollographql.apollo:apollo-runtime:1.0.1-SNAPSHOT"
+    const val okHttp = "com.squareup.okhttp3:okhttp:3.14.1"
 }
 
 object TestLibs {
