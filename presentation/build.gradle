@@ -1,0 +1,21 @@
+apply plugin: 'library.android'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation project(":domain")
+
+    implementation Libs.appCompat
+    implementation Libs.constraintLayout
+    implementation Libs.materialDesign
+    implementation Libs.archNavigation
+    implementation Libs.archNavigationFragment
+    implementation Libs.archExtensions
+    implementation Libs.archViewModel
+    implementation Libs.liveData
+}

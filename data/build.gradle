@@ -1,0 +1,4 @@
+apply plugin: 'library.kotlin'
+
+dependencies {
+}

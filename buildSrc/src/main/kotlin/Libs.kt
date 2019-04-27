@@ -6,6 +6,22 @@ object Libs {
     const val dagger = "com.google.dagger:dagger:$daggerVersion"
     const val daggerAndroid = "com.google.dagger:dagger-android:$daggerVersion"
     const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.8"
+    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+    const val appCompat = "androidx.appcompat:appcompat:1.0.2"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"
+    const val materialDesign = "com.google.android.material:material:1.1.0-alpha05"
+
+    const val navVersion = "2.1.0-alpha02"
+    const val archNavigationFragment = "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    const val archNavigation = "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    const val lifecycleVersion = "2.1.0-alpha04"
+    const val archExtensions = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    const val archViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 }
 
 object TestLibs {
