@@ -10,9 +10,6 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import pl.mkwiecinski.domain.details.entities.IssuesInfo
-import pl.mkwiecinski.domain.details.entities.PullRequestsInfo
-import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 
@@ -30,13 +27,7 @@ internal class GetRepositoryDetailsUseCaseTest {
 
     @Test
     fun `calls gateway with proper parameters`() {
-        val details = RepositoryDetails(
-            id = "id",
-            name = "name",
-            url = "url",
-            issues = IssuesInfo(100, emptyList(), 10, emptyList()),
-            pullRequests = PullRequestsInfo(200, emptyList(), 20, emptyList())
-        )
+        val details = details("random_id")
         gateway.stub {
             on { getRepositoryDetails(any(), any()) } doReturn Single.just(details)
         }

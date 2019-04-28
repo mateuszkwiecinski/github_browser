@@ -1,0 +1,102 @@
+{
+    "data": {
+        "repository": {
+            "__typename": "Repository",
+            "id": "MDEwOlJlcG9zaXRvcnkxMDYyODk3",
+            "name": "gitignore",
+            "url": "https://github.com/github/gitignore",
+            "openedIssues": {
+                "__typename": "IssueConnection",
+                "totalCount": 0,
+                "nodes": []
+            },
+            "closedIssues": {
+                "totalCount": 0,
+                "__typename": "IssueConnection",
+                "nodes": []
+            },
+            "openedPRs": {
+                "__typename": "PullRequestConnection",
+                "totalCount": 94,
+                "nodes": [
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjIzNDEyMDI=",
+                        "number": 1239,
+                        "title": "Create new CodeComposerStudio.gitignore",
+                        "url": "https://github.com/github/gitignore/pull/1239"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0NjE4NzMyMTM=",
+                        "number": 1893,
+                        "title": "Add Kobalt gitignore",
+                        "url": "https://github.com/github/gitignore/pull/1893"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0NjUyMTU4Nzk=",
+                        "number": 1933,
+                        "title": "Add .gitignore for TestComplete",
+                        "url": "https://github.com/github/gitignore/pull/1933"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0NjY2MTc3NDU=",
+                        "number": 1944,
+                        "title": "Create ProgressABL.gitignore",
+                        "url": "https://github.com/github/gitignore/pull/1944"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0NzAwODI1ODg=",
+                        "number": 1980,
+                        "title": "[Global/Emacs] add numerous rules ",
+                        "url": "https://github.com/github/gitignore/pull/1980"
+                    }
+                ]
+            },
+            "closedPRs": {
+                "__typename": "PullRequestConnection",
+                "totalCount": 2908,
+                "nodes": [
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjYwMzA=",
+                        "number": 1,
+                        "title": "OSX git ignore for the .DS_Store </rap>",
+                        "url": "https://github.com/github/gitignore/pull/1"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjYwMzE=",
+                        "number": 2,
+                        "title": "ignore .rvmrc and rcov's coverage files",
+                        "url": "https://github.com/github/gitignore/pull/2"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjYwMzI=",
+                        "number": 3,
+                        "title": "Kohana .gitignore",
+                        "url": "https://github.com/github/gitignore/pull/3"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjYwMzM=",
+                        "number": 4,
+                        "title": "Python & Jython ignores",
+                        "url": "https://github.com/github/gitignore/pull/4"
+                    },
+                    {
+                        "__typename": "PullRequest",
+                        "id": "MDExOlB1bGxSZXF1ZXN0MjYwMzU=",
+                        "number": 5,
+                        "title": "Adding .DS_Store to Rails gitignore",
+                        "url": "https://github.com/github/gitignore/pull/5"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,12 +1,8 @@
 package pl.mkwiecinski.data
 
-import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.Error
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
 import io.reactivex.Single
-import io.reactivex.exceptions.CompositeException
+import pl.mkwiecinski.data.base.rxEnqueue
 import pl.mkwiecinski.data.mappings.toIssueInfo
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
@@ -68,25 +64,6 @@ class GraphqlGateway @Inject constructor(
         )
             .rxEnqueue()
             .map { it.repository()?.toIssueInfo() }
-
-    private fun <T> ApolloCall<T>.rxEnqueue(): Single<T> {
-        return Single.create<T> { emitter ->
-            enqueue(object : ApolloCall.Callback<T>() {
-                override fun onFailure(exception: ApolloException) {
-                    emitter.onError(exception)
-                }
-
-                override fun onResponse(response: Response<T>) {
-                    response.data()?.let(emitter::onSuccess)
-                        ?: emitter.onError(response.errors().toException())
-                }
-            })
-            emitter.setCancellable { cancel() }
-        }
-    }
-
-    private fun MutableList<Error>.toException(): Throwable =
-        CompositeException(map { ApolloException(it.message()) })
 
     companion object {
         private const val DEFAULT_PREVIEW_COUNT = 5

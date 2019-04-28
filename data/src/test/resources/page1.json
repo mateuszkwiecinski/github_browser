@@ -1,0 +1,47 @@
+{
+    "data": {
+        "repositoryOwner": {
+            "__typename": "Organization",
+            "repositories": {
+                "__typename": "RepositoryConnection",
+                "nodes": [
+                    {
+                        "__typename": "Repository",
+                        "id": "MDEwOlJlcG9zaXRvcnkzMjIy",
+                        "name": "media",
+                        "url": "https://github.com/github/media"
+                    },
+                    {
+                        "__typename": "Repository",
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkyOQ==",
+                        "name": "albino",
+                        "url": "https://github.com/github/albino"
+                    },
+                    {
+                        "__typename": "Repository",
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMA==",
+                        "name": "hubahuba",
+                        "url": "https://github.com/github/hubahuba"
+                    },
+                    {
+                        "__typename": "Repository",
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMQ==",
+                        "name": "jquery-hotkeys",
+                        "url": "https://github.com/github/jquery-hotkeys"
+                    },
+                    {
+                        "__typename": "Repository",
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMg==",
+                        "name": "jquery-relatize_date",
+                        "url": "https://github.com/github/jquery-relatize_date"
+                    }
+                ],
+                "pageInfo": {
+                    "__typename": "PageInfo",
+                    "hasNextPage": true,
+                    "endCursor": "NQ"
+                }
+            }
+        }
+    }
+}

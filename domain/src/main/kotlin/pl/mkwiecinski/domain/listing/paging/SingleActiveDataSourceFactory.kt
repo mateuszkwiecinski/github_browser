@@ -2,18 +2,17 @@ package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.DataSource
 import io.reactivex.disposables.CompositeDisposable
+import pl.mkwiecinski.domain.base.plusAssign
 import pl.mkwiecinski.domain.listing.PagingUseCase
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
-import pl.mkwiecinski.domain.listing.gateways.ListingGateway
-import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
 internal class SingleActiveDataSourceFactory @Inject constructor(
-    private val gateway: ListingGateway,
     private val pagingEvents: InMemoryPagingEvents,
-    private val owner: RepositoryOwner
+    private val dataSourceProvider: Provider<RepoDataSource>
 ) : DataSource.Factory<String, RepositoryInfo>(), PagingUseCase {
 
     private val disposeBag = CompositeDisposable()
@@ -21,12 +20,14 @@ internal class SingleActiveDataSourceFactory @Inject constructor(
 
     override fun create(): DataSource<String, RepositoryInfo> {
         disposeBag.clear()
-        return RepoDataSource(gateway, pagingEvents, disposeBag, owner).also {
+        return dataSourceProvider.get().also {
+            disposeBag += it
             currentSource = it
         }
     }
 
-    override fun getDataFactory() = this
+    override fun getDataFactory(): DataSource.Factory<String, RepositoryInfo> =
+        this
 
     override fun retry() {
         currentSource?.retry?.invoke()

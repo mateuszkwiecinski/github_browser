@@ -5,24 +5,27 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import pl.mkwiecinski.domain.base.plusAssign
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
-import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
+import pl.mkwiecinski.domain.listing.gateways.ListingGateway
+import javax.inject.Inject
 
-internal class RepoDataSource(
+internal class RepoDataSource @Inject constructor(
     private val gateway: ListingGateway,
     private val events: InMemoryPagingEvents,
-    private val compositeDisposable: CompositeDisposable,
     private val repositoryOwner: RepositoryOwner
-) : PageKeyedDataSource<String, RepositoryInfo>(), Disposable by compositeDisposable {
+) : PageKeyedDataSource<String, RepositoryInfo>(), Disposable {
+
+    private val disposeBag = CompositeDisposable()
 
     internal var retry: () -> Unit = { }
         private set
 
     override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, RepositoryInfo>) {
-        compositeDisposable += gateway.getFirstPage(repositoryOwner, params.requestedLoadSize)
+        disposeBag += gateway.getFirstPage(repositoryOwner, params.requestedLoadSize)
             .doOnSubscribe { events.onNetworkCall() }
             .subscribe(
                 {
+                    retry = {}
                     events.onLoadSuccessful()
                     callback.onResult(it.data, null, it.nextPageKey)
                 },
@@ -37,8 +40,9 @@ internal class RepoDataSource(
         val call =
             gateway.getPageAfter(repositoryOwner, params.key, params.requestedLoadSize)
                 .doOnSubscribe { events.onNetworkCall() }
-        compositeDisposable += call.subscribe(
+        disposeBag += call.subscribe(
             {
+                retry = {}
                 events.onLoadSuccessful()
                 callback.onResult(it.data, it.nextPageKey)
             },
@@ -50,4 +54,8 @@ internal class RepoDataSource(
     }
 
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) = Unit
+
+    override fun dispose() = disposeBag.dispose()
+
+    override fun isDisposed() = disposeBag.isDisposed
 }

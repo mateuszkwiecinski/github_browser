@@ -4,8 +4,10 @@ android {
     defaultConfig {
         applicationId "pl.mateuszkwiecinski.browser"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 1
         def token = findGithubToken()
         buildConfigField "String", "GITHUB_TOKEN", "\"$token\""
+        buildConfigField "String", "GITHUB_API", "\"https://api.github.com/graphql\""
     }
     buildTypes {
         debug {
@@ -38,16 +40,25 @@ dependencies {
     compileOnly Libs.apolloGraphql
 }
 
-String findGithubToken() {
+private String findGithubToken() {
+    if (hasProperty('github.token')) {
+        return getProperty("github.token")
+    }
     def env = System.getenv('github_token')
     if (env != null) {
         return env
     }
-    if (System.hasProperty('github.token')) {
-        return System.getProperty("github.token")
-    }
-    Properties properties = new Properties()
-    properties.load(rootProject.file('local.properties').newDataInputStream())
+    def localProperties = rootProject.file('local.properties')
+    if(localProperties.exists()){
+        Properties properties = new Properties()
+        properties.load(rootProject.file('local.properties').newDataInputStream())
 
-    return properties.getProperty('github.token')
+        return properties.getProperty('github.token')
+    }
+
+    throw new GradleException("Could not find github api token. " +
+        "Set a `github_token` environment variable," +
+        "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
+        "or add `github.token` entry to your `local.properties` file")
+
 }

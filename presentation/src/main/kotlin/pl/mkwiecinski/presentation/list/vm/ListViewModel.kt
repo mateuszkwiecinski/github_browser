@@ -12,6 +12,10 @@ internal class ListViewModel @Inject constructor(
     private val paging: PagingUseCase
 ) : BaseViewModel() {
 
+    /**
+     * For better UX, the network progress could be hidden in case when user swipes to refresh and additional progress is being shown.
+     * At this moment there are 2 progresses visible at the same time. I decided to leave it that way due to lack time.
+     */
     val refreshState = paging.getRefreshState().toLiveData()
     val networkState = paging.getNetworkState().toLiveData()
 

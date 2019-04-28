@@ -1,4 +1,5 @@
 private const val daggerVersion = "2.22.1"
+private const val okHttpVersion = "3.14.1"
 
 object Libs {
     val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KotlinVersion.CURRENT}"
@@ -30,7 +31,7 @@ object Libs {
 
     const val apolloGraphql = "com.apollographql.apollo:apollo-runtime:1.0.1-SNAPSHOT"
     const val apolloCache = "com.apollographql.apollo:apollo-http-cache:1.0.1-SNAPSHOT"
-    const val okHttp = "com.squareup.okhttp3:okhttp:3.14.1"
+    const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
 }
 
 object TestLibs {
@@ -41,6 +42,7 @@ object TestLibs {
     const val archCoreTesting = "androidx.arch.core:core-testing:2.1.0-alpha02"
     const val archCoreKtx = "androidx.test:core-ktx:1.2.0-alpha04"
     const val archRules = "androidx.test:rules:1.2.0-alpha04"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 }
 
 object Kapt {

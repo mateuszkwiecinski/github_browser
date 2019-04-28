@@ -1,4 +1,4 @@
-package pl.mkwiecinski.data
+package pl.mkwiecinski.data.di
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy
@@ -9,6 +9,7 @@ import dagger.Reusable
 import dagger.multibindings.IntoSet
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import pl.mkwiecinski.data.AuthInterceptor
 import pl.mkwiecinski.data.adapters.UriToStringAdapter
 import pl.mkwiecinski.graphql.type.CustomType
 
@@ -28,11 +29,15 @@ internal class ConnectionModule {
 
     @Provides
     @Reusable
-    fun apollo(client: OkHttpClient): ApolloClient =
+    fun apollo(client: OkHttpClient, config: GithubConfig): ApolloClient =
         ApolloClient.builder().apply {
-            serverUrl("https://api.github.com/graphql")
+            serverUrl(config.url)
             okHttpClient(client)
-            normalizedCache(LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(1024 * 1024).build()))
+            normalizedCache(LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(CACHE_SIZE).build()))
             addCustomTypeAdapter(CustomType.URI, UriToStringAdapter)
         }.build()
+
+    companion object {
+        private const val CACHE_SIZE = 1024 * 1024L
+    }
 }

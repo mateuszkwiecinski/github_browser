@@ -1,0 +1,137 @@
+{
+    "data": {
+        "repositoryOwner": {
+            "__typename": "Organization",
+            "repositories": {
+                "__typename": "RepositoryConnection",
+                "nodes": [
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkzMjIy",
+                        "name": "media",
+                        "url": "https://github.com/github/media",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkyOQ==",
+                        "name": "albino",
+                        "url": "https://github.com/github/albino",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMA==",
+                        "name": "hubahuba",
+                        "url": "https://github.com/github/hubahuba",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMQ==",
+                        "name": "jquery-hotkeys",
+                        "url": "https://github.com/github/jquery-hotkeys",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMg==",
+                        "name": "jquery-relatize_date",
+                        "url": "https://github.com/github/jquery-relatize_date",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzMw==",
+                        "name": "request_timer",
+                        "url": "https://github.com/github/request_timer",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxNTkzNA==",
+                        "name": "will_paginate_with_hotkeys",
+                        "url": "https://github.com/github/will_paginate_with_hotkeys",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk2NzQ4OQ==",
+                        "name": "gem-builder",
+                        "url": "https://github.com/github/gem-builder",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxMjQzOTM=",
+                        "name": "learn.github.com",
+                        "url": "https://github.com/github/learn.github.com",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxMjYzNTM=",
+                        "name": "safegem",
+                        "url": "https://github.com/github/safegem",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxMzEyMzc=",
+                        "name": "develop.github.com",
+                        "url": "https://github.com/github/develop.github.com",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxODQ5OTY=",
+                        "name": "version_sorter",
+                        "url": "https://github.com/github/version_sorter",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkzNTU4OTM=",
+                        "name": "markup",
+                        "url": "https://github.com/github/markup",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk0MDEwMjU=",
+                        "name": "hub",
+                        "url": "https://github.com/github/hub",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk1OTI3NDc=",
+                        "name": "upload",
+                        "url": "https://github.com/github/upload",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk2NjcxNjM=",
+                        "name": "github-services",
+                        "url": "https://github.com/github/github-services",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk4OTYxNDU=",
+                        "name": "gitcasts",
+                        "url": "https://github.com/github/gitcasts",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnk5OTE1Njc=",
+                        "name": "rails",
+                        "url": "https://github.com/github/rails",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxMDYyODk3",
+                        "name": "gitignore",
+                        "url": "https://github.com/github/gitignore",
+                        "__typename": "Repository"
+                    },
+                    {
+                        "id": "MDEwOlJlcG9zaXRvcnkxMzA0NzM4",
+                        "name": "dmca",
+                        "url": "https://github.com/github/dmca",
+                        "__typename": "Repository"
+                    }
+                ],
+                "pageInfo": {
+                    "__typename": "PageInfo",
+                    "hasNextPage": true,
+                    "endCursor": "MjA"
+                }
+            }
+        }
+    }
+}
