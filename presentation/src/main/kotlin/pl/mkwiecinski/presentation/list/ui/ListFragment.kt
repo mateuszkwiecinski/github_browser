@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.observe
 import androidx.navigation.ui.setupWithNavController
-import pl.mkwiecinski.domain.paging.models.LoadingState
+import pl.mkwiecinski.domain.listing.models.LoadingState
 import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.base.BaseFragment
 import pl.mkwiecinski.presentation.databinding.FragmentListBinding

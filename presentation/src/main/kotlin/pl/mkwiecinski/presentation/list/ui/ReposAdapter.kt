@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import pl.mkwiecinski.domain.entities.RepositoryInfo
-import pl.mkwiecinski.domain.paging.models.LoadingState
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.models.LoadingState
 import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.databinding.ItemNetworkStateBinding
 import pl.mkwiecinski.presentation.databinding.ItemRepoInfoBinding

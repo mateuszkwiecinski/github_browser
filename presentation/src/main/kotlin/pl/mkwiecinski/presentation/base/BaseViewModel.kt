@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -32,4 +33,7 @@ internal abstract class BaseViewModel : ViewModel() {
 
         return liveData
     }
+
+    protected fun <T> Single<T>.toLiveData() =
+        toObservable().toLiveData()
 }

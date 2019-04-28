@@ -3,6 +3,7 @@ package pl.mkwiecinski.data
 import com.apollographql.apollo.ApolloClient
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.multibindings.IntoSet
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,6 +25,7 @@ internal class ConnectionModule {
         }.build()
 
     @Provides
+    @Reusable
     fun apollo(client: OkHttpClient): ApolloClient =
         ApolloClient.builder().apply {
             serverUrl("https://api.github.com/graphql")

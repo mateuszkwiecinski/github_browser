@@ -2,49 +2,64 @@ package pl.mkwiecinski.data
 
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.Error
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import io.reactivex.Single
-import pl.mkwiecinski.data.mappings.toDomain
-import pl.mkwiecinski.domain.entities.RepositoryInfo
-import pl.mkwiecinski.domain.gateways.RepoGateway
-import pl.mkwiecinski.domain.paging.models.PagedResult
+import io.reactivex.exceptions.CompositeException
+import pl.mkwiecinski.data.mappings.toIssueInfo
+import pl.mkwiecinski.domain.details.entities.RepositoryDetails
+import pl.mkwiecinski.domain.details.gateways.DetailsGateway
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
+import pl.mkwiecinski.domain.listing.gateways.ListingGateway
+import pl.mkwiecinski.domain.listing.models.PagedResult
 import pl.mkwiecinski.graphql.RepositoriesQuery
+import pl.mkwiecinski.graphql.RepositoryDetailsQuery
 import javax.inject.Inject
 
 class GraphqlGateway @Inject constructor(
     private val client: ApolloClient
-) : RepoGateway {
+) : ListingGateway, DetailsGateway {
 
-    override fun getFirstPage(owner: String, limit: Int): Single<PagedResult<RepositoryInfo>> {
+    override fun getFirstPage(owner: RepositoryOwner, limit: Int): Single<PagedResult<RepositoryInfo>> {
         return client.query(RepositoriesQuery.builder().apply {
-            owner(owner)
+            owner(owner.name)
             count(limit)
         }.build())
             .rxEnqueue()
             .map { result ->
                 val repositories = result.repositoryOwner()?.repositories()
-                val data = repositories?.nodes()?.map { it.toDomain() }
+                val data = repositories?.nodes()?.map { it.toIssueInfo() }
                     ?: throw IllegalStateException("No data")
                 val nexPageKey = repositories.pageInfo().endCursor()
                 PagedResult(data, nexPageKey)
             }
     }
 
-    override fun getPageAfter(owner: String, pageKey: String, limit: Int): Single<PagedResult<RepositoryInfo>> =
+    override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int): Single<PagedResult<RepositoryInfo>> =
         client.query(RepositoriesQuery.builder().apply {
-            owner(owner)
+            owner(owner.name)
             count(limit)
             after(pageKey)
         }.build())
             .rxEnqueue()
             .map { result ->
                 val repositories = result.repositoryOwner()?.repositories()
-                val data = repositories?.nodes()?.map { it.toDomain() }
+                val data = repositories?.nodes()?.map { it.toIssueInfo() }
                     ?: throw IllegalStateException("No data")
                 val nexPageKey = repositories.pageInfo().endCursor()
                 PagedResult(data, nexPageKey)
             }
+
+    override fun getRepositoryDetails(owner: RepositoryOwner, name: String): Single<RepositoryDetails> =
+        client.query(RepositoryDetailsQuery.builder().apply {
+            owner(owner.name)
+            name(name)
+            previewCount(10)
+        }.build())
+            .rxEnqueue()
+            .map { it.repository()?.toIssueInfo() }
 
     private fun <T> ApolloCall<T>.rxEnqueue(): Single<T> {
         return Single.create<T> { emitter ->
@@ -54,10 +69,14 @@ class GraphqlGateway @Inject constructor(
                 }
 
                 override fun onResponse(response: Response<T>) {
-                    emitter.onSuccess(response.data()!!)
+                    response.data()?.let(emitter::onSuccess)
+                        ?: emitter.onError(response.errors().toException())
                 }
             })
             emitter.setCancellable { cancel() }
         }
     }
+
+    private fun MutableList<Error>.toException(): Throwable =
+        CompositeException(map { ApolloException(it.message()) })
 }

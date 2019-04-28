@@ -3,8 +3,8 @@ package pl.mkwiecinski.presentation.list.vm
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import pl.mkwiecinski.domain.PagingUseCase
-import pl.mkwiecinski.domain.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.PagingUseCase
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 

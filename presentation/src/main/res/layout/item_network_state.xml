@@ -6,9 +6,9 @@
 
         <variable
             name="model"
-            type="pl.mkwiecinski.domain.paging.models.LoadingState"/>
+            type="LoadingState"/>
 
-        <import type="pl.mkwiecinski.domain.paging.models.LoadingState"/>
+        <import type="pl.mkwiecinski.domain.listing.models.LoadingState"/>
     </data>
 
     <LinearLayout

@@ -1,4 +1,4 @@
-package pl.mkwiecinski.domain.paging.models
+package pl.mkwiecinski.domain.listing.models
 
 class PagedResult<T>(
     val data: List<T>,

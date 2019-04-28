@@ -2,12 +2,57 @@ query Repositories($owner: String!, $count: Int!, $after: String) {
   repositoryOwner(login: $owner) {
     repositories(first: $count, after: $after) {
       nodes {
+        id
         name
         url
       }
       pageInfo {
         hasNextPage
         endCursor
+      }
+    }
+  }
+}
+
+query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
+  repository(owner:$owner, name:$name) {
+  	id
+  	name
+  	url
+    openedIssues: issues(first: $previewCount, filterBy: {states: [CLOSED]}) {
+      totalCount
+      nodes {
+        id
+        number
+        title
+        url
+      }
+    }
+    closedIssues: issues(first: $previewCount, filterBy: {states: [OPEN]}) {
+      totalCount
+      nodes {
+        id
+        number
+        title
+        url
+      }
+    }
+    openedPRs: pullRequests(first: $previewCount, states: [OPEN]) {
+      totalCount
+      nodes {
+        id
+        number
+        title
+        url
+      }
+    }
+    closedPRs: pullRequests(first: $previewCount, states: [CLOSED, MERGED]) {
+      totalCount
+      nodes {
+        id
+        number
+        title
+        url
       }
     }
   }

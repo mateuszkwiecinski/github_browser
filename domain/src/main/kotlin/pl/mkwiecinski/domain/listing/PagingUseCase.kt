@@ -1,9 +1,9 @@
-package pl.mkwiecinski.domain
+package pl.mkwiecinski.domain.listing
 
 import androidx.paging.DataSource
 import io.reactivex.Observable
-import pl.mkwiecinski.domain.entities.RepositoryInfo
-import pl.mkwiecinski.domain.paging.models.LoadingState
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.models.LoadingState
 
 interface PagingUseCase {
 

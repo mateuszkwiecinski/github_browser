@@ -1,4 +1,4 @@
-package pl.mkwiecinski.domain.paging.models
+package pl.mkwiecinski.domain.listing.models
 
 enum class LoadingState {
     RUNNING,

@@ -1,8 +1,8 @@
-package pl.mkwiecinski.domain.paging
+package pl.mkwiecinski.domain.listing.paging
 
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import pl.mkwiecinski.domain.paging.models.LoadingState
+import pl.mkwiecinski.domain.listing.models.LoadingState
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,17 +1,17 @@
-package pl.mkwiecinski.domain.paging
+package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.DataSource
 import io.reactivex.disposables.CompositeDisposable
-import pl.mkwiecinski.domain.PagingUseCase
-import pl.mkwiecinski.domain.entities.RepositoryInfo
-import pl.mkwiecinski.domain.gateways.RepoGateway
-import pl.mkwiecinski.domain.paging.models.RepositoryOwner
+import pl.mkwiecinski.domain.listing.PagingUseCase
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.gateways.ListingGateway
+import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 internal class SingleActiveDataSourceFactory @Inject constructor(
-    private val gateway: RepoGateway,
+    private val gateway: ListingGateway,
     private val pagingEvents: InMemoryPagingEvents,
     private val owner: RepositoryOwner
 ) : DataSource.Factory<String, RepositoryInfo>(), PagingUseCase {
