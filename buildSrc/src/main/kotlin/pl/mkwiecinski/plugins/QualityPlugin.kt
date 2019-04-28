@@ -11,8 +11,10 @@ class QualityPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
         tasks.register(QUALITY_TASK_NAME)
         tasks.named("check").dependsOn(QUALITY_TASK_NAME)
-        addDetekt()
-        addKtlint()
+        project.afterEvaluate {
+            it.addDetekt()
+            it.addKtlint()
+        }
     }
 
     private fun Project.addDetekt() {
@@ -34,6 +36,7 @@ class QualityPlugin : Plugin<Project> {
         extensions.configure(KotlinterExtension::class.java) {
             it.indentSize = INDENTATION_SIZE
             it.continuationIndentSize = INDENTATION_SIZE
+            it.experimentalRules = true
             it.reporters = arrayOf("plain")
         }
         tasks.named(QUALITY_TASK_NAME) { qualityTask ->

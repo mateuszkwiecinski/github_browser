@@ -33,7 +33,6 @@ internal class PullRequestAdapter : FooterAdapter<Int, PullRequestPreview>(PullR
 
     override fun hasExtraRow() = footerData != null && footerData != actualItemsCount
 
-
     class PullRequestViewHolder(val binding: ItemPullRequestInfoBinding) : RecyclerView.ViewHolder(binding.root)
     class FooterViewHolder(val binding: ItemDetailFooterBinding) : RecyclerView.ViewHolder(binding.root)
 }

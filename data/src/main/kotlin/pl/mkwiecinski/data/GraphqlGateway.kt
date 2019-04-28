@@ -23,41 +23,49 @@ class GraphqlGateway @Inject constructor(
 ) : ListingGateway, DetailsGateway {
 
     override fun getFirstPage(owner: RepositoryOwner, limit: Int): Single<PagedResult<RepositoryInfo>> {
-        return client.query(RepositoriesQuery.builder().apply {
-            owner(owner.name)
-            count(limit)
-        }.build())
+        return client.query(
+            RepositoriesQuery.builder().apply {
+                owner(owner.name)
+                count(limit)
+            }.build()
+        )
             .rxEnqueue()
             .map { result ->
                 val repositories = result.repositoryOwner()?.repositories()
-                val data = repositories?.nodes()?.map { it.toIssueInfo() }
-                    ?: throw IllegalStateException("No data")
+                val data =
+                    repositories?.nodes()?.map { it.toIssueInfo() }
+                        ?: throw IllegalStateException("No data")
                 val nexPageKey = repositories.pageInfo().endCursor()
                 PagedResult(data, nexPageKey)
             }
     }
 
     override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
-        client.query(RepositoriesQuery.builder().apply {
-            owner(owner.name)
-            count(limit)
-            after(pageKey)
-        }.build())
+        client.query(
+            RepositoriesQuery.builder().apply {
+                owner(owner.name)
+                count(limit)
+                after(pageKey)
+            }.build()
+        )
             .rxEnqueue()
             .map { result ->
                 val repositories = result.repositoryOwner()?.repositories()
-                val data = repositories?.nodes()?.map { it.toIssueInfo() }
-                    ?: throw IllegalStateException("No data")
+                val data =
+                    repositories?.nodes()?.map { it.toIssueInfo() }
+                        ?: throw IllegalStateException("No data")
                 val nexPageKey = repositories.pageInfo().endCursor()
                 PagedResult(data, nexPageKey)
             }
 
     override fun getRepositoryDetails(owner: RepositoryOwner, name: String): Single<RepositoryDetails> =
-        client.query(RepositoryDetailsQuery.builder().apply {
-            owner(owner.name)
-            name(name)
-            previewCount(DEFAULT_PREVIEW_COUNT)
-        }.build())
+        client.query(
+            RepositoryDetailsQuery.builder().apply {
+                owner(owner.name)
+                name(name)
+                previewCount(DEFAULT_PREVIEW_COUNT)
+            }.build()
+        )
             .rxEnqueue()
             .map { it.repository()?.toIssueInfo() }
 

@@ -12,7 +12,7 @@ class KotlinPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
         pluginManager.apply("kotlin")
         pluginManager.apply("kotlin-kapt")
-        pluginManager.apply("quality")
+        pluginManager.apply(QualityPlugin::class.java)
 
         configureRepositories()
 

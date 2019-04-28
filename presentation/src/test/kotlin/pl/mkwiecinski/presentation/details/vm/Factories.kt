@@ -4,7 +4,6 @@ import pl.mkwiecinski.domain.details.entities.IssuesInfo
 import pl.mkwiecinski.domain.details.entities.PullRequestsInfo
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 
-
 internal fun details(id: String) = RepositoryDetails(
     id = id,
     name = "name$id",

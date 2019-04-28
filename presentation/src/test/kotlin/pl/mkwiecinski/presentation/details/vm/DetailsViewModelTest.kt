@@ -55,7 +55,7 @@ internal class DetailsViewModelTest {
 
     @Test
     fun `shows progress on subsequent load`() {
-        emitter.onSuccess(details("1")) //first load
+        emitter.onSuccess(details("1")) // first load
 
         viewModel.retry()
         assertThat(viewModel.isLoading.value).isTrue()
@@ -75,10 +75,9 @@ internal class DetailsViewModelTest {
         verify(usecase).invoke(any())
     }
 
-
     @Test
     fun `shows error on subsequent load`() {
-        emitter.onSuccess(details("1")) //first load
+        emitter.onSuccess(details("1")) // first load
 
         viewModel.retry()
         assertThat(viewModel.error.value).isNull()

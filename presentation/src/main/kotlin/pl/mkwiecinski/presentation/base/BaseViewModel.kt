@@ -26,7 +26,7 @@ internal abstract class BaseViewModel : ViewModel() {
         val liveData = MutableLiveData<T>()
 
         observeOn(AndroidSchedulers.mainThread())
-            .subscribe{
+            .subscribe {
                 liveData.value = it
             }
             .disposeInBag()

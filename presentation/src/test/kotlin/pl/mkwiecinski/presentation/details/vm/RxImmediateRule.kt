@@ -25,7 +25,6 @@ class RxImmediateRule : TestRule {
                     RxAndroidPlugins.reset()
                 }
             }
-
         }
     }
 }

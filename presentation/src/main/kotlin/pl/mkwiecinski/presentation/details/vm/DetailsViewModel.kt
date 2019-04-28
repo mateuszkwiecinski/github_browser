@@ -1,7 +1,6 @@
 package pl.mkwiecinski.presentation.details.vm
 
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
@@ -17,18 +16,18 @@ internal class DetailsViewModel @Inject constructor(
     private val loadSubject = BehaviorSubject.createDefault(Unit)
     val isLoading = MutableLiveData<Boolean>(false)
 
-    val details = loadSubject.switchMapMaybe {
-        getRepositoryDetails(name)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.value = true }
-            .doFinally { isLoading.value = false }
-            .doOnError { error.value = it }
-            .doOnSuccess { error.value = null }
-            .toMaybe()
-            .onErrorComplete()
-    }
-        .toLiveData()
-
+    val details =
+        loadSubject.switchMapMaybe {
+            getRepositoryDetails(name)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { isLoading.value = true }
+                .doFinally { isLoading.value = false }
+                .doOnError { error.value = it }
+                .doOnSuccess { error.value = null }
+                .toMaybe()
+                .onErrorComplete()
+        }
+            .toLiveData()
 
     fun retry() {
         loadSubject.onNext(Unit)

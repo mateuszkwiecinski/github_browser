@@ -17,7 +17,7 @@ internal abstract class DetailsModule {
 
         @Provides
         @JvmStatic
-        fun repoName(fragment: DetailsFragment):String = fragment.args.name
+        fun repoName(fragment: DetailsFragment): String = fragment.args.name
     }
 
     @Binds

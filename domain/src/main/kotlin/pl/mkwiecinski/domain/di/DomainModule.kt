@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import pl.mkwiecinski.domain.listing.PagingUseCase
-import pl.mkwiecinski.domain.listing.paging.SingleActiveDataSourceFactory
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
+import pl.mkwiecinski.domain.listing.paging.SingleActiveDataSourceFactory
 
 @Module
 abstract class DomainModule {
