@@ -27,7 +27,7 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
     }
 
     private fun setupList() {
-        val adapter = ReposAdapter(viewModel::retryFailed) {
+        val adapter = RepoAdapter(viewModel::retryFailed) {
             navController.navigate(ListFragmentDirections.actionListToDetails(it.name))
         }
         binding.repoList.adapter = adapter
@@ -39,9 +39,6 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
     }
 
     private fun setupSwipeRefresh() {
-        binding.swipeRefresh.setOnRefreshListener {
-            viewModel.refresh()
-        }
         viewModel.refreshState.observe(this) {
             binding.swipeRefresh.isRefreshing = it == LoadingState.RUNNING
         }

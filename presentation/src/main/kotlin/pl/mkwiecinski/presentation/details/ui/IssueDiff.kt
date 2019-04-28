@@ -1,10 +1,10 @@
 package pl.mkwiecinski.presentation.details.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import pl.mkwiecinski.domain.details.entities.IssueInfo
+import pl.mkwiecinski.domain.details.entities.IssuePreview
 
-object IssueDiff : DiffUtil.ItemCallback<IssueInfo>() {
-    override fun areItemsTheSame(oldItem: IssueInfo, newItem: IssueInfo) = oldItem.id == newItem.id
+object IssueDiff : DiffUtil.ItemCallback<IssuePreview>() {
+    override fun areItemsTheSame(oldItem: IssuePreview, newItem: IssuePreview) = oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: IssueInfo, newItem: IssueInfo) = oldItem == newItem
+    override fun areContentsTheSame(oldItem: IssuePreview, newItem: IssuePreview) = oldItem == newItem
 }

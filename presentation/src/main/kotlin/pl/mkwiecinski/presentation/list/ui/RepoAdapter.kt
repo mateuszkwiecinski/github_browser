@@ -11,10 +11,10 @@ import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.databinding.ItemNetworkStateBinding
 import pl.mkwiecinski.presentation.databinding.ItemRepoInfoBinding
 
-internal class ReposAdapter(
+internal class RepoAdapter(
     private val onRetry: () -> Unit,
     private val onItemSelected: (RepositoryInfo) -> Unit
-) : PagedListAdapter<RepositoryInfo, ReposAdapter.BindableViewHolder>(RepoDiff) {
+) : PagedListAdapter<RepositoryInfo, RepoAdapter.BindableViewHolder>(RepoDiff) {
 
     var networkState: LoadingState? = null
         set(value) {

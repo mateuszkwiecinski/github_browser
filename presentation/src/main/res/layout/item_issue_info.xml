@@ -8,14 +8,14 @@
 
         <variable
             name="model"
-            type="pl.mkwiecinski.domain.details.entities.IssueInfo" />
+            type="pl.mkwiecinski.domain.details.entities.IssuePreview" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/txtNumber"

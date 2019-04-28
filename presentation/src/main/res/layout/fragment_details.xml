@@ -27,10 +27,44 @@
                 android:theme="@style/AppTheme.Dark" />
         </com.google.android.material.appbar.AppBarLayout>
 
+        <LinearLayout
+            android:id="@+id/errorContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="@{model.error != null}"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:text="@string/list_loading_error" />
+
+            <Button
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="@{!safeUnbox(model.isLoading)}"
+                android:text="@string/retry"
+                android:onClick="@{() -> model.retry()}" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp"
+            android:visibility="@{model.isLoading}" />
+
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:visibility="@{model.error == null}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -58,9 +92,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="10dp"
                     android:text="@string/issues"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
@@ -68,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@{@string/opened_issues_count(model.details.openedIssues.totalCount)}"
+                    android:text="@{@string/opened_issues_count(model.details.issues.openedTotalCount)}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:visibility="@{model.details != null}"
                     tools:text="@string/opened_issues_count" />
@@ -87,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{@string/closed_issues_count(model.details.closedIssues.totalCount)}"
+                    android:text="@{@string/closed_issues_count(model.details.issues.closedTotalCount)}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:visibility="@{model.details != null}"
                     tools:text="@string/closed_issues_count" />
@@ -104,9 +138,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="10dp"
                     android:text="@string/pull_requests"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
@@ -114,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@{@string/opened_pull_requests_count(model.details.openedIssues.totalCount)}"
+                    android:text="@{@string/opened_pull_requests_count(model.details.pullRequests.openedTotalCount)}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:visibility="@{model.details != null}"
                     tools:text="@string/opened_pull_requests_count" />
@@ -133,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{@string/closed_pull_requests_count(model.details.closedIssues.totalCount)}"
+                    android:text="@{@string/closed_pull_requests_count(model.details.pullRequests.closedTotalCount)}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:visibility="@{model.details != null}"
                     tools:text="@string/closed_pull_requests_count" />
@@ -155,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_open_in_new" />
+            android:src="@drawable/ic_open_in_new"
+            android:visibility="@{model.details.url != null}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

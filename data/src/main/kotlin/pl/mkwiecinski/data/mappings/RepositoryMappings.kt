@@ -1,9 +1,9 @@
 package pl.mkwiecinski.data.mappings
 
-import pl.mkwiecinski.domain.details.entities.IssueData
-import pl.mkwiecinski.domain.details.entities.IssueInfo
-import pl.mkwiecinski.domain.details.entities.PullRequestData
-import pl.mkwiecinski.domain.details.entities.PullRequestInfo
+import pl.mkwiecinski.domain.details.entities.IssuePreview
+import pl.mkwiecinski.domain.details.entities.IssuesInfo
+import pl.mkwiecinski.domain.details.entities.PullRequestsInfo
+import pl.mkwiecinski.domain.details.entities.PullRequestPreview
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.graphql.RepositoriesQuery
@@ -21,53 +21,46 @@ internal fun RepositoryDetailsQuery.Repository.toIssueInfo() =
         id = id(),
         name = name(),
         url = url().toString(),
-        openedIssues = openedIssues().toIssueData(),
-        closedIssues = closedIssues().toIssueData(),
-        openedPullRequests = openedPRs().toPullRequestData(),
-        closedPullRequests = closedPRs().toPullRequestData()
+        issues = toIssuesInfo(),
+        pullRequests = toPullRequestData()
     )
 
-private fun RepositoryDetailsQuery.OpenedIssues.toIssueData() = IssueData(
-    totalCount = totalCount(),
-    preview = nodes().orEmpty().map { it.toIssueInfo() }
+private fun RepositoryDetailsQuery.Repository.toIssuesInfo() = IssuesInfo(
+    openedTotalCount = openedIssues().totalCount(),
+    openedPreview = openedIssues().nodes().orEmpty().map { it.toIssueInfo() },
+    closedTotalCount = closedIssues().totalCount(),
+    closedPreview = closedIssues().nodes().orEmpty().map { it.toIssueInfo() }
 )
 
-private fun RepositoryDetailsQuery.ClosedIssues.toIssueData() = IssueData(
-    totalCount = totalCount(),
-    preview = nodes().orEmpty().map { it.toIssueInfo() }
+private fun RepositoryDetailsQuery.Repository.toPullRequestData() = PullRequestsInfo(
+    openedTotalCount = openedPRs().totalCount(),
+    openedPreview = openedPRs().nodes().orEmpty().map { it.toPullRequestInfo() },
+    closedTotalCount = closedPRs().totalCount(),
+    closedPreview = closedPRs().nodes().orEmpty().map { it.toPullRequestInfo() }
 )
 
-private fun RepositoryDetailsQuery.Node1.toIssueInfo() = IssueInfo(
+private fun RepositoryDetailsQuery.Node1.toIssueInfo() = IssuePreview(
     id = id(),
     name = title(),
     url = url().toString(),
     number = number()
 )
 
-private fun RepositoryDetailsQuery.Node.toIssueInfo() = IssueInfo(
-    id = id(),
-    name = title(),
-    url = url().toString(),
-    number = number()
-)
-private fun RepositoryDetailsQuery.ClosedPRs.toPullRequestData() = PullRequestData(
-    totalCount = totalCount(),
-    preview = nodes().orEmpty().map { it.toPullRequestInfo() }
-)
-
-private fun RepositoryDetailsQuery.OpenedPRs.toPullRequestData() = PullRequestData(
-    totalCount = totalCount(),
-    preview = nodes().orEmpty().map { it.toPullRequestInfo() }
-)
-
-private fun RepositoryDetailsQuery.Node2.toPullRequestInfo() = PullRequestInfo(
+private fun RepositoryDetailsQuery.Node.toIssueInfo() = IssuePreview(
     id = id(),
     name = title(),
     url = url().toString(),
     number = number()
 )
 
-private fun RepositoryDetailsQuery.Node3.toPullRequestInfo() = PullRequestInfo(
+private fun RepositoryDetailsQuery.Node2.toPullRequestInfo() = PullRequestPreview(
+    id = id(),
+    name = title(),
+    url = url().toString(),
+    number = number()
+)
+
+private fun RepositoryDetailsQuery.Node3.toPullRequestInfo() = PullRequestPreview(
     id = id(),
     name = title(),
     url = url().toString(),

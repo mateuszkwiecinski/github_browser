@@ -1,7 +1,10 @@
 package pl.mkwiecinski.presentation.details.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -20,34 +23,63 @@ internal class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsVie
     override fun init(savedInstanceState: Bundle?) {
         bindIssues()
         bindPullRequests()
+        bindFab()
+    }
+
+    private fun bindFab() {
+        viewModel.details
+            .map { it?.url }
+            .observe(this) { url ->
+                val onClick = url?.let {
+                    View.OnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data = Uri.parse(url)
+                        }
+                        startActivity(intent)
+                    }
+                }
+                binding.fabOpenBrowser.setOnClickListener(onClick)
+            }
     }
 
     private fun bindPullRequests() {
         val openedPRsAdapter = PullRequestAdapter()
         binding.listOpenedPRs.adapter = openedPRsAdapter
-        viewModel.details.observe(this) {
-            openedPRsAdapter.submitList(it.openedPullRequests.preview)
-        }
+        viewModel.details
+            .map { it?.pullRequests }
+            .observe(this) {
+                openedPRsAdapter.submitList(it?.openedPreview)
+                openedPRsAdapter.footerData = it?.openedTotalCount
+            }
 
         val closedPRsAdapter = PullRequestAdapter()
         binding.listClosedPRs.adapter = closedPRsAdapter
-        viewModel.details.observe(this) {
-            closedPRsAdapter.submitList(it.closedPullRequests.preview)
-        }
+        viewModel.details
+            .map { it?.pullRequests }
+            .observe(this) {
+                closedPRsAdapter.submitList(it?.closedPreview)
+                closedPRsAdapter.footerData = it?.closedTotalCount
+            }
     }
 
     private fun bindIssues() {
         val openedIssuesAdapter = IssueAdapter()
         binding.listOpenedIssues.adapter = openedIssuesAdapter
-        viewModel.details.observe(this) {
-            openedIssuesAdapter.submitList(it.openedIssues.preview)
-        }
+        viewModel.details
+            .map { it?.issues }
+            .observe(this) {
+                openedIssuesAdapter.submitList(it?.openedPreview)
+                openedIssuesAdapter.footerData = it?.openedTotalCount
+            }
 
         val closedIssuesAdapter = IssueAdapter()
         binding.listClosedIssues.adapter = closedIssuesAdapter
-        viewModel.details.observe(this) {
-            closedIssuesAdapter.submitList(it.closedIssues.preview)
-        }
+        viewModel.details
+            .map { it?.issues }
+            .observe(this) {
+                closedIssuesAdapter.submitList(it?.closedPreview)
+                closedIssuesAdapter.footerData = it?.closedTotalCount
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

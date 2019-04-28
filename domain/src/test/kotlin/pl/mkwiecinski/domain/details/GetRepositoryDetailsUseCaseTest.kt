@@ -10,8 +10,8 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import pl.mkwiecinski.domain.details.entities.IssueData
-import pl.mkwiecinski.domain.details.entities.PullRequestData
+import pl.mkwiecinski.domain.details.entities.IssuesInfo
+import pl.mkwiecinski.domain.details.entities.PullRequestsInfo
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
@@ -34,10 +34,8 @@ internal class GetRepositoryDetailsUseCaseTest {
             id = "id",
             name = "name",
             url = "url",
-            openedIssues = IssueData(emptyList(), 100),
-            closedIssues = IssueData(emptyList(), 10),
-            openedPullRequests = PullRequestData(emptyList(), 200),
-            closedPullRequests = PullRequestData(emptyList(), 20)
+            issues = IssuesInfo(100, emptyList(), 10, emptyList()),
+            pullRequests = PullRequestsInfo(200, emptyList(), 20, emptyList())
         )
         gateway.stub {
             on { getRepositoryDetails(any(), any()) } doReturn Single.just(details)

@@ -37,6 +37,9 @@ object TestLibs {
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     const val mockito = "org.mockito:mockito-core:2.27.0"
     const val assertJ = "org.assertj:assertj-core:3.12.2"
+    const val archCoreTesting = "androidx.arch.core:core-testing:2.1.0-alpha02"
+    const val archCoreKtx = "androidx.test:core-ktx:1.2.0-alpha04"
+    const val archRules = "androidx.test:rules:1.2.0-alpha04"
 }
 
 object Kapt {
