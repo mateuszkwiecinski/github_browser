@@ -29,6 +29,7 @@ object Libs {
     const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:$pagingVersion"
 
     const val apolloGraphql = "com.apollographql.apollo:apollo-runtime:1.0.1-SNAPSHOT"
+    const val apolloCache = "com.apollographql.apollo:apollo-http-cache:1.0.1-SNAPSHOT"
     const val okHttp = "com.squareup.okhttp3:okhttp:3.14.1"
 }
 
