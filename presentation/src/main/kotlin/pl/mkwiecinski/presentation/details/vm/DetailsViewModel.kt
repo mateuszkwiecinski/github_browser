@@ -5,7 +5,7 @@ import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
 internal class DetailsViewModel @Inject constructor(
-    name: String,
+    val name: String,
     getRepositoryDetails: GetRepositoryDetailsUseCase
 ) : BaseViewModel() {
 

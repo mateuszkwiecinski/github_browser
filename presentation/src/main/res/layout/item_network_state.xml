@@ -6,9 +6,9 @@
 
         <variable
             name="model"
-            type="LoadingState"/>
+            type="LoadingState" />
 
-        <import type="pl.mkwiecinski.domain.listing.models.LoadingState"/>
+        <import type="pl.mkwiecinski.domain.listing.models.LoadingState" />
     </data>
 
     <LinearLayout
@@ -21,24 +21,25 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:visibility="@{model == LoadingState.RUNNING}"
+            android:padding="20dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:visibility="@{model == LoadingState.RUNNING}" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:padding="20dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{model == LoadingState.FAILED}"
+            android:padding="16dp"
             android:text="@string/list_loading_error"
-            android:layout_height="wrap_content"/>
+            android:visibility="@{model == LoadingState.FAILED}" />
 
         <Button
             android:id="@+id/btnRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{model == LoadingState.FAILED}"
-            android:text="@string/retry"/>
+            android:text="@string/retry"
+            android:visibility="@{model == LoadingState.FAILED}" />
     </LinearLayout>
 </layout>

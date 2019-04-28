@@ -18,8 +18,10 @@ class QualityPlugin : Plugin<Project> {
     private fun Project.addDetekt() {
         pluginManager.apply("io.gitlab.arturbosch.detekt")
         extensions.getByType(DetektExtension::class.java).apply {
-            input = files("src/*/kotlin/*")
+            input = files("src")
             filters = ".*/resources/.*,.*/build/.*"
+            reports.html { enabled = false }
+            reports.xml { enabled = false }
         }
 
         tasks.named(QUALITY_TASK_NAME) {

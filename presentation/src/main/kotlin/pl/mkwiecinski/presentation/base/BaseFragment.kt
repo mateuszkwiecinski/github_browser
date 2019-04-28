@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import pl.mkwiecinski.presentation.BR
@@ -34,12 +34,13 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     }
 
     protected val navController: NavController
-        get() = Navigation.findNavController(binding.root)
+        get() = binding.root.findNavController()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.setVariable(BR.model, viewModel)
+        binding.lifecycleOwner = this
         init(savedInstanceState)
 
         return binding.root

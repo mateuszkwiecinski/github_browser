@@ -19,7 +19,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
   	id
   	name
   	url
-    openedIssues: issues(first: $previewCount, filterBy: {states: [CLOSED]}) {
+    openedIssues: issues(first: $previewCount, filterBy: {states: [OPEN]}) {
       totalCount
       nodes {
         id
@@ -28,7 +28,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
         url
       }
     }
-    closedIssues: issues(first: $previewCount, filterBy: {states: [OPEN]}) {
+    closedIssues: issues(first: $previewCount, filterBy: {states: [CLOSED]}) {
       totalCount
       nodes {
         id

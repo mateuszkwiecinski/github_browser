@@ -19,8 +19,8 @@ internal class ListViewModel @Inject constructor(
 
     init {
         val config = PagedList.Config.Builder().apply {
-            setInitialLoadSizeHint(10)
-            setPageSize(10)
+            setInitialLoadSizeHint(INITIAL_PAGE_SIZE)
+            setPageSize(DEFAULT_PAGE_SIZE)
             setEnablePlaceholders(true)
         }.build()
 
@@ -34,5 +34,10 @@ internal class ListViewModel @Inject constructor(
 
     fun refresh() {
         paging.refresh()
+    }
+
+    companion object {
+        private const val INITIAL_PAGE_SIZE = 10
+        private const val DEFAULT_PAGE_SIZE = 10
     }
 }

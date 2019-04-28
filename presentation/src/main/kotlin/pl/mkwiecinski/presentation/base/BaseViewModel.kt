@@ -26,6 +26,7 @@ internal abstract class BaseViewModel : ViewModel() {
         val liveData = MutableLiveData<T>()
 
         observeOn(AndroidSchedulers.mainThread())
+            .onErrorResumeNext(Observable.empty())
             .subscribe{
                 liveData.value = it
             }

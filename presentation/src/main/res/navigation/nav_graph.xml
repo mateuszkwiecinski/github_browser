@@ -19,6 +19,7 @@
 
     <fragment
         android:id="@+id/details"
+        android:label="@string/details_title"
         android:name="pl.mkwiecinski.presentation.details.ui.DetailsFragment"
         tools:layout="@layout/fragment_details">
 

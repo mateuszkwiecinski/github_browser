@@ -37,7 +37,7 @@ class GraphqlGateway @Inject constructor(
             }
     }
 
-    override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int): Single<PagedResult<RepositoryInfo>> =
+    override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
         client.query(RepositoriesQuery.builder().apply {
             owner(owner.name)
             count(limit)
@@ -56,7 +56,7 @@ class GraphqlGateway @Inject constructor(
         client.query(RepositoryDetailsQuery.builder().apply {
             owner(owner.name)
             name(name)
-            previewCount(10)
+            previewCount(DEFAULT_PREVIEW_COUNT)
         }.build())
             .rxEnqueue()
             .map { it.repository()?.toIssueInfo() }
@@ -79,4 +79,8 @@ class GraphqlGateway @Inject constructor(
 
     private fun MutableList<Error>.toException(): Throwable =
         CompositeException(map { ApolloException(it.message()) })
+
+    companion object {
+        private const val DEFAULT_PREVIEW_COUNT = 5
+    }
 }
