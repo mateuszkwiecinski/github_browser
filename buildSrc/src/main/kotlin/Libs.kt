@@ -1,5 +1,7 @@
 private const val daggerVersion = "2.22.1"
 private const val okHttpVersion = "3.14.1"
+private const val archTestVersion = "1.2.0-alpha04"
+private const val fragmentVersion = "1.1.0-alpha07"
 
 object Libs {
     val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KotlinVersion.CURRENT}"
@@ -13,6 +15,7 @@ object Libs {
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
 
     const val appCompat = "androidx.appcompat:appcompat:1.0.2"
+    const val fragment = "androidx.fragment:fragment-ktx:$fragmentVersion"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"
     const val materialDesign = "com.google.android.material:material:1.1.0-alpha05"
 
@@ -41,12 +44,20 @@ object TestLibs {
     const val mockito = "org.mockito:mockito-core:2.27.0"
     const val assertJ = "org.assertj:assertj-core:3.12.2"
     const val archCoreTesting = "androidx.arch.core:core-testing:2.1.0-alpha02"
-    const val archCoreKtx = "androidx.test:core-ktx:1.2.0-alpha04"
-    const val archRules = "androidx.test:rules:1.2.0-alpha04"
+    const val archCoreKtx = "androidx.test:core-ktx:$archTestVersion"
+    const val archRules = "androidx.test:rules:$archTestVersion"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 }
 
 object Kapt {
     const val daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
     const val daggerAndroidCompiler = "com.google.dagger:dagger-android-processor:$daggerVersion"
+}
+
+object AndroidTestLibs {
+    const val archNavigation = "androidx.fragment:fragment-testing:$fragmentVersion"
+    const val archCoreKtx = TestLibs.archCoreKtx
+    const val testRunner = "androidx.test:runner:$archTestVersion"
+    const val testExtJunit = "androidx.test.ext:junit-ktx:1.1.1-alpha04"
+    const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0-alpha04"
 }

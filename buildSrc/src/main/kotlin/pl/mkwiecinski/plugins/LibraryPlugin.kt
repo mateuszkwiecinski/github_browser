@@ -8,6 +8,7 @@ import pl.mkwiecinski.plugins.internal.applyDagger
 import pl.mkwiecinski.plugins.internal.applyDaggerAndroid
 import pl.mkwiecinski.plugins.internal.applyKotlinStdLib
 import pl.mkwiecinski.plugins.internal.configureAndroidExtension
+import pl.mkwiecinski.plugins.internal.configureAndroidTest
 import pl.mkwiecinski.plugins.internal.configureRepositories
 import pl.mkwiecinski.plugins.internal.configureUnitTest
 
@@ -29,6 +30,7 @@ class LibraryPlugin : Plugin<Project> {
         applyDaggerAndroid()
 
         configureUnitTest()
+        configureAndroidTest()
     }
 
     private fun Project.improveDatabindingLogs() {

@@ -2,6 +2,9 @@ apply plugin: 'library.android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+    defaultConfig {
+        testInstrumentationRunner "pl.mkwiecinski.presentation.list.TestApplicationRunner"
+    }
     dataBinding {
         enabled true
     }
@@ -22,7 +25,10 @@ dependencies {
     implementation Libs.rxAndroid
     implementation Libs.rxKotlin
     implementation Libs.pagingRxJava
+    implementation Libs.fragment
     testImplementation TestLibs.archCoreTesting
     testImplementation TestLibs.archCoreKtx
     testImplementation TestLibs.archRules
+
+    androidTestImplementation project(":data:mocked")
 }
