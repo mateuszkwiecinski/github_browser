@@ -1,12 +1,12 @@
-package pl.mkwiecinski.browser.di
+package pl.mkwiecinski.browser
 
 import dagger.Module
 import dagger.Provides
-import pl.mkwiecinski.browser.BuildConfig
+import pl.mkwiecinski.data.di.DataModule
 import pl.mkwiecinski.data.di.GithubConfig
 
-@Module
-internal class BuildConfigModule {
+@Module(includes = [DataModule::class])
+internal class FlavorSpecificModule {
 
     @Provides
     fun githubConfig() = GithubConfig(

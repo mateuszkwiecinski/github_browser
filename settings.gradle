@@ -1,4 +1,4 @@
 include ':app'
 include ':presentation'
 include ':domain'
-include ':data'
+include ':data:graphql', ':data:mocked'

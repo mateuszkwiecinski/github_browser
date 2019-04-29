@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.mkwiecinski.presentation">
 
-    <application>
+    <application
+        android:supportsRtl="false">
         <activity
             android:theme="@style/AppTheme"
             android:name=".MainActivity">

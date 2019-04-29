@@ -5,9 +5,6 @@ android {
         applicationId "pl.mateuszkwiecinski.browser"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode = 1
-        def token = findGithubToken()
-        buildConfigField "String", "GITHUB_TOKEN", "\"$token\""
-        buildConfigField "String", "GITHUB_API", "\"https://api.github.com/graphql\""
     }
     buildTypes {
         debug {
@@ -29,11 +26,24 @@ android {
             keyPassword 'android'
         }
     }
+    flavorDimensions "api"
+    productFlavors {
+        mocked {
+            dimension "api"
+        }
+        graphql {
+            dimension "api"
+            def token = findGithubToken()
+            buildConfigField "String", "GITHUB_TOKEN", "\"$token\""
+            buildConfigField "String", "GITHUB_API", "\"https://api.github.com/graphql\""
+        }
+    }
 }
 
 dependencies {
     implementation project(":presentation")
-    implementation project(":data")
+    graphqlImplementation project(":data:graphql")
+    mockedImplementation project(":data:mocked")
     implementation project(":domain")
 
     compileOnly Libs.okHttp
@@ -49,7 +59,7 @@ private String findGithubToken() {
         return env
     }
     def localProperties = rootProject.file('local.properties')
-    if(localProperties.exists()){
+    if (localProperties.exists()) {
         Properties properties = new Properties()
         properties.load(rootProject.file('local.properties').newDataInputStream())
 

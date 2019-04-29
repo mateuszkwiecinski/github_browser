@@ -1,0 +1,5 @@
+apply plugin: 'library.kotlin'
+
+dependencies {
+    implementation project(":domain")
+}

@@ -3,8 +3,8 @@ package pl.mkwiecinski.browser.di
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import pl.mkwiecinski.browser.FlavorSpecificModule
 import pl.mkwiecinski.browser.MainApplication
-import pl.mkwiecinski.data.di.DataModule
 import pl.mkwiecinski.domain.di.DomainModule
 import pl.mkwiecinski.presentation.di.PresentationModule
 import javax.inject.Singleton
@@ -14,9 +14,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         PresentationModule::class,
-        DataModule::class,
         DomainModule::class,
-        BuildConfigModule::class
+        FlavorSpecificModule::class
     ]
 )
 internal interface MainComponent : AndroidInjector<MainApplication> {

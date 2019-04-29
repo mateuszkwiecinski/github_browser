@@ -41,7 +41,7 @@ internal class SingleActiveDataSourceFactoryTest {
     fun `disposes inactive data source`() {
         val first = usecase.create()
 
-        val second = usecase.create()
+        usecase.create()
 
         assertThat(first).isEqualTo(firstSource)
         verify(firstSource).dispose()
@@ -64,7 +64,7 @@ internal class SingleActiveDataSourceFactoryTest {
         firstSource.stub {
             on { retry } doReturn { retryCalled = true }
         }
-        val first = usecase.create()
+        usecase.create()
 
         usecase.retry()
 
