@@ -1,19 +1,19 @@
 package pl.mkwiecinski.presentation.list.vm
 
 import androidx.paging.PagedList
-import pl.mkwiecinski.domain.listing.PagingUseCase
+import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
 internal class ListViewModel @Inject constructor(
-    getPaging: PagingUseCase
+    getPagedRepositories: GetPagedRepositoriesUseCase
 ) : BaseViewModel() {
 
     private val pagingConfig = PagedList.Config.Builder().apply {
         setInitialLoadSizeHint(INITIAL_PAGE_SIZE)
         setPageSize(DEFAULT_PAGE_SIZE)
     }.build()
-    private val listPaging = getPaging(pagingConfig)
+    private val listPaging = getPagedRepositories(pagingConfig)
 
     /**
      * For better UX, the network progress could be hidden in case when user swipes to refresh and additional progress is being shown.

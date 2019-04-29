@@ -10,6 +10,7 @@ object Libs {
 
     const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.8"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
 
     const val appCompat = "androidx.appcompat:appcompat:1.0.2"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"

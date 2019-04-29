@@ -7,8 +7,8 @@ import com.apollographql.apollo.exception.ApolloException
 import io.reactivex.Single
 import io.reactivex.exceptions.CompositeException
 
-internal fun <T> ApolloCall<T>.rxEnqueue(): Single<T> {
-    return Single.create<T> { emitter ->
+internal fun <T> ApolloCall<T>.rxEnqueue() =
+    Single.create<T> { emitter ->
         enqueue(object : ApolloCall.Callback<T>() {
             override fun onFailure(exception: ApolloException) {
                 emitter.onError(exception)
@@ -21,7 +21,6 @@ internal fun <T> ApolloCall<T>.rxEnqueue(): Single<T> {
         })
         emitter.setCancellable { cancel() }
     }
-}
 
 private fun MutableList<Error>.toException(): Throwable =
     CompositeException(map { ApolloException(it.message()) })

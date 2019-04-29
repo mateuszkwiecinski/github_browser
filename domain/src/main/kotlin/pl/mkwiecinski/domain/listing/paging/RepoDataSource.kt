@@ -3,6 +3,7 @@ package pl.mkwiecinski.domain.listing.paging
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import pl.mkwiecinski.domain.base.plusAssign
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
@@ -21,16 +22,20 @@ internal class RepoDataSource @Inject constructor(
     internal var retry: () -> Unit = { }
         private set
 
+    init {
+        addInvalidatedCallback(disposeBag::dispose)
+    }
+
     override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, RepositoryInfo>) {
         disposeBag += gateway.getFirstPage(repositoryOwner, params.requestedLoadSize)
             .doOnSubscribe { events.onNetworkCall() }
-            .subscribe(
-                {
+            .subscribeBy(
+                onSuccess = {
                     retry = {}
                     events.onLoadSuccessful()
                     callback.onResult(it.data, null, it.nextPageKey)
                 },
-                {
+                onError = {
                     retry = { loadInitial(params, callback) }
                     events.onLoadError()
                 }
@@ -38,23 +43,23 @@ internal class RepoDataSource @Inject constructor(
     }
 
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) {
-        val call =
-            gateway.getPageAfter(repositoryOwner, params.key, params.requestedLoadSize)
-                .doOnSubscribe { events.onNetworkCall() }
-        disposeBag += call.subscribe(
-            {
-                retry = {}
-                events.onLoadSuccessful()
-                callback.onResult(it.data, it.nextPageKey)
-            },
-            {
-                retry = { loadAfter(params, callback) }
-                events.onLoadError()
-            }
-        )
+        disposeBag += gateway.getPageAfter(repositoryOwner, params.key, params.requestedLoadSize)
+            .doOnSubscribe { events.onNetworkCall() }
+            .subscribeBy(
+                onSuccess = {
+                    retry = {}
+                    events.onLoadSuccessful()
+                    callback.onResult(it.data, it.nextPageKey)
+                },
+                onError = {
+                    retry = { loadAfter(params, callback) }
+                    events.onLoadError()
+                }
+            )
     }
 
-    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) = Unit
+    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) =
+        throw UnsupportedOperationException("DataSource does not support loadBefore")
 
     override fun dispose() = disposeBag.dispose()
 

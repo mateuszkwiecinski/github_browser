@@ -6,7 +6,7 @@ import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
 import javax.inject.Inject
 
-class PagingUseCase @Inject constructor(
+class GetPagedRepositoriesUseCase @Inject constructor(
     private val events: PagingEventsPersistence,
     private val factory: PagingSourceFactory
 ) {

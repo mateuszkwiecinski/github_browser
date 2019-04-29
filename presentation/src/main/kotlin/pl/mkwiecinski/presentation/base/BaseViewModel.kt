@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
+import pl.mkwiecinski.domain.base.plusAssign
 
 internal abstract class BaseViewModel : ViewModel() {
 
@@ -18,22 +18,16 @@ internal abstract class BaseViewModel : ViewModel() {
         disposeBag.clear()
     }
 
-    protected fun Disposable.disposeInBag() {
-        disposeBag.add(this)
-    }
-
-    protected fun <T> Observable<T>.toLiveData(): LiveData<T?> {
+    protected fun <T : Any> Observable<T>.toLiveData(): LiveData<T?> {
         val liveData = MutableLiveData<T>()
 
-        observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                liveData.value = it
-            }
-            .disposeInBag()
+        disposeBag += observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = {
+                    liveData.value = it
+                }
+            )
 
         return liveData
     }
-
-    protected fun <T> Single<T>.toLiveData() =
-        toObservable().toLiveData()
 }
