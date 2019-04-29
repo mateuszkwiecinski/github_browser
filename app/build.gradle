@@ -33,8 +33,7 @@ android {
         }
         graphql {
             dimension "api"
-            def token = findGithubToken()
-            buildConfigField "String", "GITHUB_TOKEN", "\"$token\""
+            buildConfigField "String", "GITHUB_TOKEN", "\"${findGithubToken()}\""
             buildConfigField "String", "GITHUB_API", "\"https://api.github.com/graphql\""
         }
     }
@@ -63,11 +62,14 @@ private String findGithubToken() {
         Properties properties = new Properties()
         properties.load(rootProject.file('local.properties').newDataInputStream())
 
-        return properties.getProperty('github.token')
+        def token = properties.getProperty('github.token')
+        if(token != null){
+            return token
+        }
     }
 
     throw new GradleException("Could not find github api token. " +
-        "Set a `github_token` environment variable," +
+        "Set a `github_token` environment variable, " +
         "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
         "or add `github.token` entry to your `local.properties` file")
 
