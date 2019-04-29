@@ -20,6 +20,7 @@ dependencies {
     implementation Libs.liveData
     implementation Libs.pagingRuntime
     implementation Libs.rxAndroid
+    implementation Libs.pagingRxJava
     testImplementation TestLibs.archCoreTesting
     testImplementation TestLibs.archCoreKtx
     testImplementation TestLibs.archRules

@@ -3,5 +3,4 @@ apply plugin: 'library.kotlin'
 dependencies {
     compile Libs.rxJava
     compile Libs.pagingCommon
-    implementation Libs.pagingRxJava
 }

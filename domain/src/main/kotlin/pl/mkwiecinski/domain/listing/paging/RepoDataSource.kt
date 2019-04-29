@@ -7,11 +7,12 @@ import pl.mkwiecinski.domain.base.plusAssign
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
+import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 import javax.inject.Inject
 
 internal class RepoDataSource @Inject constructor(
     private val gateway: ListingGateway,
-    private val events: InMemoryPagingEvents,
+    private val events: InMemoryPagingEventsPersistence,
     private val repositoryOwner: RepositoryOwner
 ) : PageKeyedDataSource<String, RepositoryInfo>(), Disposable {
 

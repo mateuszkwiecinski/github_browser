@@ -3,9 +3,11 @@ package pl.mkwiecinski.domain.di
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import pl.mkwiecinski.domain.listing.PagingUseCase
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
-import pl.mkwiecinski.domain.listing.paging.SingleActiveDataSourceFactory
+import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
+import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
+import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
+import pl.mkwiecinski.domain.listing.paging.SingleActivePagingSourceFactory
 
 @Module
 abstract class DomainModule {
@@ -19,5 +21,8 @@ abstract class DomainModule {
     }
 
     @Binds
-    internal abstract fun paging(implementation: SingleActiveDataSourceFactory): PagingUseCase
+    internal abstract fun paging(implementation: SingleActivePagingSourceFactory): PagingSourceFactory
+
+    @Binds
+    internal abstract fun events(implementation: InMemoryPagingEventsPersistence): PagingEventsPersistence
 }

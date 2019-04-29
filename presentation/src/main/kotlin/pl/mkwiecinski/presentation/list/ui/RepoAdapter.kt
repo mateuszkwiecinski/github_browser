@@ -18,7 +18,7 @@ internal class RepoAdapter(
 
     var networkState: LoadingState? = null
         set(value) {
-            val previousState = this.networkState
+            val previousState = field
             val hadExtraRow = hasExtraRow()
             field = value
             val hasExtraRow = hasExtraRow()

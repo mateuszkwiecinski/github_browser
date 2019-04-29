@@ -20,6 +20,7 @@ import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
+import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 
 @RunWith(MockitoJUnitRunner::class)
 internal class RepoDataSourceTest {
@@ -27,7 +28,7 @@ internal class RepoDataSourceTest {
     @Mock
     private lateinit var gateway: ListingGateway
     @Mock
-    private lateinit var events: InMemoryPagingEvents
+    private lateinit var events: InMemoryPagingEventsPersistence
     @Mock
     private lateinit var owner: RepositoryOwner
 

@@ -1,35 +1,47 @@
-package pl.mkwiecinski.domain.listing.paging
+package pl.mkwiecinski.domain.listing.persistences
 
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import pl.mkwiecinski.domain.listing.models.LoadingState
 import javax.inject.Inject
 import javax.inject.Singleton
 
+interface PagingEventsPersistence {
+
+    fun networkEvents(): Observable<LoadingState>
+    fun refreshEvents(): Observable<LoadingState>
+
+    fun onNetworkCall()
+    fun onRefresh()
+    fun onLoadSuccessful()
+    fun onLoadError()
+}
+
 @Singleton
-internal class InMemoryPagingEvents @Inject constructor() {
+internal class InMemoryPagingEventsPersistence @Inject constructor() : PagingEventsPersistence {
 
     private val networkEvents = BehaviorSubject.create<LoadingState>()
     private val refreshEvents = BehaviorSubject.create<LoadingState>()
 
-    fun networkEvents() =
+    override fun networkEvents() =
         networkEvents.observeOn(Schedulers.io())
 
-    fun refreshEvents() =
+    override fun refreshEvents() =
         refreshEvents.observeOn(Schedulers.io())
 
-    fun onNetworkCall() =
+    override fun onNetworkCall() =
         networkEvents.onNext(LoadingState.RUNNING)
 
-    fun onRefresh() =
+    override fun onRefresh() =
         refreshEvents.onNext(LoadingState.RUNNING)
 
-    fun onLoadSuccessful() {
+    override fun onLoadSuccessful() {
         networkEvents.onNext(LoadingState.SUCCESS)
         refreshEvents.onNext(LoadingState.SUCCESS)
     }
 
-    fun onLoadError() {
+    override fun onLoadError() {
         networkEvents.onNext(LoadingState.FAILED)
         refreshEvents.onNext(LoadingState.FAILED)
     }
