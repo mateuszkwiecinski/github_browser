@@ -1,6 +1,6 @@
 query Repositories($owner: String!, $count: Int!, $after: String) {
   repositoryOwner(login: $owner) {
-    repositories(first: $count, after: $after) {
+    repositories(first: $count, after: $after, orderBy: {direction: DESC, field: PUSHED_AT}) {
       nodes {
         id
         name
@@ -19,7 +19,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
   	id
   	name
   	url
-    openedIssues: issues(first: $previewCount, filterBy: {states: [OPEN]}) {
+    openedIssues: issues(first: $previewCount, filterBy: {states: [OPEN]}, orderBy:{field:UPDATED_AT, direction:DESC}) {
       totalCount
       nodes {
         id
@@ -28,7 +28,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
         url
       }
     }
-    closedIssues: issues(first: $previewCount, filterBy: {states: [CLOSED]}) {
+    closedIssues: issues(first: $previewCount, filterBy: {states: [CLOSED]}, orderBy:{field:UPDATED_AT, direction:DESC}) {
       totalCount
       nodes {
         id
@@ -37,7 +37,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
         url
       }
     }
-    openedPRs: pullRequests(first: $previewCount, states: [OPEN]) {
+    openedPRs: pullRequests(first: $previewCount, states: [OPEN], orderBy:{field:UPDATED_AT, direction:DESC}) {
       totalCount
       nodes {
         id
@@ -46,7 +46,7 @@ query RepositoryDetails($owner: String!, $name:String!, $previewCount: Int!) {
         url
       }
     }
-    closedPRs: pullRequests(first: $previewCount, states: [CLOSED, MERGED]) {
+    closedPRs: pullRequests(first: $previewCount, states: [CLOSED, MERGED], orderBy:{field:UPDATED_AT, direction:DESC}) {
       totalCount
       nodes {
         id

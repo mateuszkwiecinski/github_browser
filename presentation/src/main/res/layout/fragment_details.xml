@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:visibility="@{model.error != null}"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="@{model.error != null}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:enabled="@{!safeUnbox(model.isLoading)}"
-                android:text="@string/retry"
-                android:onClick="@{() -> model.retry()}" />
+                android:onClick="@{() -> model.retry()}"
+                android:text="@string/retry" />
         </LinearLayout>
 
         <ProgressBar
@@ -180,6 +180,10 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:layout_height="100dp"
                     tools:listitem="@layout/item_pull_request_info" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="70dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
