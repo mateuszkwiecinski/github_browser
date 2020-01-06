@@ -6,10 +6,6 @@ import TestLibs
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
-internal fun Project.applyKotlinStdLib() {
-    dependencies.add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KotlinVersion.CURRENT}")
-}
-
 internal fun Project.applyDagger() {
     extensions.configure(KaptExtension::class.java) {
         it.correctErrorTypes = true
