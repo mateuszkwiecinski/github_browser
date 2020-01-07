@@ -2,13 +2,14 @@ package pl.mkwiecinski.mocked
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
+@Suppress("MagicNumber")
 internal class MockedListingGateway @Inject constructor() : ListingGateway {
 
     private val count = (Math.random() * 1000).toInt()
@@ -26,7 +27,6 @@ internal class MockedListingGateway @Inject constructor() : ListingGateway {
 
     override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
         Single.fromCallable {
-
             val current = pageKey.toInt()
             PagedResult(all.subList(current, current + limit), (current + limit).toString())
         }

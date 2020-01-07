@@ -9,7 +9,7 @@ import pl.mkwiecinski.plugins.internal.configureUnitTest
 
 class KotlinPlugin : Plugin<Project> {
 
-    override fun apply(project: Project) = with(project) {
+    override fun apply(project: Project): Unit = with(project) {
         pluginManager.apply("kotlin")
         pluginManager.apply("kotlin-kapt")
         pluginManager.apply(QualityPlugin::class.java)

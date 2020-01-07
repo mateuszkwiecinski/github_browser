@@ -21,9 +21,11 @@ class QualityPlugin : Plugin<Project> {
         pluginManager.apply("io.gitlab.arturbosch.detekt")
         extensions.getByType(DetektExtension::class.java).apply {
             input = files("src")
-            filters = ".*/resources/.*,.*/build/.*"
-            reports.html { enabled = false }
-            reports.xml { enabled = false }
+            reports.apply {
+                html { enabled = false }
+                xml { enabled = false }
+                txt { enabled = false }
+            }
         }
 
         tasks.named(QUALITY_TASK_NAME) {
@@ -34,8 +36,6 @@ class QualityPlugin : Plugin<Project> {
     private fun Project.addKtlint() {
         pluginManager.apply("org.jmailen.kotlinter")
         extensions.configure(KotlinterExtension::class.java) {
-            it.indentSize = INDENTATION_SIZE
-            it.continuationIndentSize = INDENTATION_SIZE
             it.experimentalRules = true
             it.reporters = arrayOf("plain")
         }
@@ -45,7 +45,6 @@ class QualityPlugin : Plugin<Project> {
     }
 
     companion object {
-        private const val INDENTATION_SIZE = 4
         private const val QUALITY_TASK_NAME = "projectCodestyle"
     }
 }

@@ -3,11 +3,11 @@ package pl.mkwiecinski.browser.di
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 import pl.mkwiecinski.browser.FlavorSpecificModule
 import pl.mkwiecinski.browser.MainApplication
 import pl.mkwiecinski.domain.di.DomainModule
 import pl.mkwiecinski.presentation.di.PresentationModule
-import javax.inject.Singleton
 
 @Singleton
 @Component(

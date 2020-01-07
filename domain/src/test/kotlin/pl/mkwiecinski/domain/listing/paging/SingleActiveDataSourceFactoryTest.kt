@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.stub
 import com.nhaarman.mockitokotlin2.verify
+import javax.inject.Provider
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -12,7 +13,6 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
-import javax.inject.Provider
 
 @RunWith(MockitoJUnitRunner::class)
 internal class SingleActiveDataSourceFactoryTest {

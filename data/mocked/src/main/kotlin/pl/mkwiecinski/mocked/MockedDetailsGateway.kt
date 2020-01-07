@@ -2,15 +2,16 @@ package pl.mkwiecinski.mocked
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.util.UUID
+import javax.inject.Inject
 import pl.mkwiecinski.domain.details.entities.IssuePreview
 import pl.mkwiecinski.domain.details.entities.IssuesInfo
 import pl.mkwiecinski.domain.details.entities.PullRequestsInfo
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
-import java.util.UUID
-import javax.inject.Inject
 
+@Suppress("MagicNumber")
 internal class MockedDetailsGateway @Inject constructor() : DetailsGateway {
 
     override fun getRepositoryDetails(owner: RepositoryOwner, name: String) = Single.fromCallable {

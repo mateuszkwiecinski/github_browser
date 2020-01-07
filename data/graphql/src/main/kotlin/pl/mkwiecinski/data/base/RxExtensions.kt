@@ -7,7 +7,7 @@ import com.apollographql.apollo.exception.ApolloException
 import io.reactivex.Single
 import io.reactivex.exceptions.CompositeException
 
-internal fun <T> ApolloCall<T>.rxEnqueue() =
+internal fun <T> ApolloCall<T>.rxEnqueue(): Single<T> =
     Single.create<T> { emitter ->
         enqueue(object : ApolloCall.Callback<T>() {
             override fun onFailure(exception: ApolloException) {

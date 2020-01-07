@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
-import pl.mkwiecinski.presentation.BR
 import javax.inject.Inject
 import kotlin.reflect.KClass
+import pl.mkwiecinski.presentation.BR
 
 internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : ViewModel> : DaggerFragment() {
 
@@ -30,7 +30,7 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     protected val disposeBag = CompositeDisposable()
 
     protected val viewModel: TViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)[viewModelClass.java]
+        ViewModelProvider(this, viewModelFactory)[viewModelClass.java]
     }
 
     protected val navController: NavController

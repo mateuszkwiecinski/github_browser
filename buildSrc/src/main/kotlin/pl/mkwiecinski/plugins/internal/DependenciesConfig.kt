@@ -7,7 +7,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 internal fun Project.applyKotlinStdLib() {
-    dependencies.add("implementation", Libs.kotlinStdlib)
+    dependencies.add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KotlinVersion.CURRENT}")
 }
 
 internal fun Project.applyDagger() {
@@ -16,7 +16,6 @@ internal fun Project.applyDagger() {
         it.useBuildCache = true
         it.arguments {
             arg("dagger.formatGeneratedSource", "disabled")
-            arg("dagger.gradle.incremental")
         }
     }
     dependencies.add("implementation", Libs.dagger)

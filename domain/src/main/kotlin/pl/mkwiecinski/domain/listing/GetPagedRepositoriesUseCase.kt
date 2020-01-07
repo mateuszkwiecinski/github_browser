@@ -1,10 +1,10 @@
 package pl.mkwiecinski.domain.listing
 
 import androidx.paging.PagedList
-import pl.mkwiecinski.domain.listing.models.PagingModel
-import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
-import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
 import javax.inject.Inject
+import pl.mkwiecinski.domain.listing.models.PagingModel
+import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
+import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 
 class GetPagedRepositoriesUseCase @Inject constructor(
     private val events: PagingEventsPersistence,
