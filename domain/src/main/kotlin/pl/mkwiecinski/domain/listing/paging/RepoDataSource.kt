@@ -4,12 +4,12 @@ import androidx.paging.PageKeyedDataSource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import javax.inject.Inject
 import pl.mkwiecinski.domain.base.plusAssign
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
-import javax.inject.Inject
 
 internal class RepoDataSource @Inject constructor(
     private val gateway: ListingGateway,

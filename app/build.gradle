@@ -1,7 +1,10 @@
 apply plugin: 'app.android'
 
 android {
+    compileSdkVersion 29
     defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 29
         applicationId "pl.mateuszkwiecinski.browser"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode = 1
@@ -47,6 +50,7 @@ dependencies {
 
     compileOnly Libs.okHttp
     compileOnly Libs.apolloGraphql
+    compileOnly Libs.archNavigation
 }
 
 private String findGithubToken() {
@@ -63,7 +67,7 @@ private String findGithubToken() {
         properties.load(rootProject.file('local.properties').newDataInputStream())
 
         def token = properties.getProperty('github.token')
-        if(token != null){
+        if (token != null) {
             return token
         }
     }

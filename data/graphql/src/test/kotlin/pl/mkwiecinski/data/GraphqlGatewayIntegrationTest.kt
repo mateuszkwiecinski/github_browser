@@ -1,5 +1,6 @@
 package pl.mkwiecinski.data
 
+import java.io.File
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
@@ -8,7 +9,6 @@ import org.junit.Test
 import pl.mkwiecinski.data.di.ConnectionModule
 import pl.mkwiecinski.data.di.GithubConfig
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
-import java.io.File
 
 internal class GraphqlGatewayIntegrationTest {
 

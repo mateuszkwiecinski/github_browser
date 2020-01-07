@@ -3,8 +3,8 @@ package pl.mkwiecinski.presentation.base.paging
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
-import pl.mkwiecinski.domain.listing.paging.PagedListBuilder
 import javax.inject.Inject
+import pl.mkwiecinski.domain.listing.paging.PagedListBuilder
 
 internal class AndroidPagedListBuilder @Inject constructor() : PagedListBuilder {
 

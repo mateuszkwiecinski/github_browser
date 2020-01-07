@@ -3,6 +3,7 @@ package pl.mkwiecinski.plugins.internal
 import com.android.build.gradle.TestedExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 private const val COMPILE_SDK_VERSION = 28
 private const val MIN_SDK_VERSION = 26
@@ -23,6 +24,10 @@ internal fun Project.configureAndroidExtension() {
 
         compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
         compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType(KotlinCompile::class.java).all {
+        it.kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 

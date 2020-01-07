@@ -4,12 +4,12 @@ import androidx.paging.DataSource
 import androidx.paging.PagedList
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import pl.mkwiecinski.domain.base.plusAssign
-import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
-import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
+import pl.mkwiecinski.domain.base.plusAssign
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 
 interface PagingSourceFactory {
 

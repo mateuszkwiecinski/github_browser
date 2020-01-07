@@ -1,9 +1,9 @@
 package pl.mkwiecinski.data
 
+import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Response
 import pl.mkwiecinski.data.di.GithubConfig
-import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
     private val config: GithubConfig

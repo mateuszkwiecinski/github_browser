@@ -3,9 +3,9 @@ package pl.mkwiecinski.presentation.details.vm
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
-import javax.inject.Inject
 
 internal class DetailsViewModel @Inject constructor(
     val name: String,

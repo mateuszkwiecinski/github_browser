@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
+import java.lang.IllegalStateException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -17,7 +18,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
-import java.lang.IllegalStateException
 
 @RunWith(MockitoJUnitRunner::class)
 internal class DetailsViewModelTest {

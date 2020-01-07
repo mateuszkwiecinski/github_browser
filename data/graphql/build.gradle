@@ -1,6 +1,10 @@
 apply plugin: 'library.kotlin'
 apply plugin: 'com.apollographql.android'
 
+apollo {
+    generateKotlinModels = true
+}
+
 dependencies {
     implementation project(":domain")
     implementation Libs.apolloGraphql

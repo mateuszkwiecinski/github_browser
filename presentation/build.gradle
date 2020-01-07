@@ -2,9 +2,7 @@ apply plugin: 'library.android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    dataBinding {
-        enabled true
-    }
+    dataBinding.enabled true
 }
 
 dependencies {
@@ -22,6 +20,7 @@ dependencies {
     implementation Libs.rxAndroid
     implementation Libs.rxKotlin
     implementation Libs.pagingRxJava
+    implementation Libs.swipeRefreshLayout
     testImplementation TestLibs.archCoreTesting
     testImplementation TestLibs.archCoreKtx
     testImplementation TestLibs.archRules

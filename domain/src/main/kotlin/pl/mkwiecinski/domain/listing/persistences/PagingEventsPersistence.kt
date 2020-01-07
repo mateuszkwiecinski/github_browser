@@ -3,9 +3,9 @@ package pl.mkwiecinski.domain.listing.persistences
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import pl.mkwiecinski.domain.listing.models.LoadingState
 import javax.inject.Inject
 import javax.inject.Singleton
+import pl.mkwiecinski.domain.listing.models.LoadingState
 
 interface PagingEventsPersistence {
 
