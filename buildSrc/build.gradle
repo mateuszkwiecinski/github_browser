@@ -1,15 +1,12 @@
 buildscript {
-    ext {
-        kotlin_version = '1.3.61'
-    }
+
     repositories {
-        google()
         jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
+        gradlePluginPortal()
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61"
         classpath 'org.jmailen.gradle:kotlinter-gradle:2.2.0'
     }
 }
@@ -26,10 +23,6 @@ repositories {
     jcenter()
     gradlePluginPortal()
 }
-sourceSets {
-    main.java.srcDirs += "src/main/kotlin"
-    test.java.srcDirs += "src/test/kotlin"
-}
 
 tasks.named("lintKotlinMain") {
     dependsOn("formatKotlin")
@@ -39,7 +32,7 @@ dependencies {
     implementation "com.android.tools.build:gradle:3.5.3"
     implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.0-rc04"
     implementation "com.apollographql.apollo:apollo-gradle-plugin:1.2.2"
-    implementation "com.project.starter:plugins:0.2.0"
+    implementation "com.project.starter:plugins:0.3.0"
 }
 
 gradlePlugin {
