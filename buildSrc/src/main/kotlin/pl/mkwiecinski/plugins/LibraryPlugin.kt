@@ -10,8 +10,8 @@ import pl.mkwiecinski.plugins.internal.configureUnitTest
 class LibraryPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
-        pluginManager.apply("plugin-library.android")
-        pluginManager.apply("plugin-quality")
+        pluginManager.apply("com.starter.library.android")
+        pluginManager.apply("com.starter.quality")
         improveDatabindingLogs()
 
         applyDagger()
