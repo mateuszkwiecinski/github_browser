@@ -10,7 +10,8 @@ on:
 
 jobs:
   build:
-
+    env:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     
     steps:
