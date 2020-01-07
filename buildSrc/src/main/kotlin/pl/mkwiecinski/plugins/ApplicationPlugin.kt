@@ -15,7 +15,7 @@ class ApplicationPlugin : Plugin<Project> {
         pluginManager.apply("com.android.application")
         pluginManager.apply("kotlin-android")
         pluginManager.apply("kotlin-kapt")
-        pluginManager.apply("plugin-quality")
+        pluginManager.apply("com.project.starter.quality")
 
         repositories.google()
         repositories.jcenter()
