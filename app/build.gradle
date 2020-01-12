@@ -1,12 +1,8 @@
 apply plugin: 'app.android'
 
 android {
-    compileSdkVersion 29
     defaultConfig {
-        minSdkVersion 26
-        targetSdkVersion 29
         applicationId "pl.mateuszkwiecinski.browser"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode = 1
     }
     buildTypes {
@@ -18,9 +14,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled true
-    }
+    dataBinding.enabled true
     signingConfigs {
         debug {
             storeFile rootProject.file("keys/debug.keystore")

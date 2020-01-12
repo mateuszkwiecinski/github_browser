@@ -8,8 +8,6 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 internal fun Project.applyDagger() {
     extensions.configure(KaptExtension::class.java) {
-        it.correctErrorTypes = true
-        it.useBuildCache = true
         it.arguments {
             arg("dagger.formatGeneratedSource", "disabled")
         }

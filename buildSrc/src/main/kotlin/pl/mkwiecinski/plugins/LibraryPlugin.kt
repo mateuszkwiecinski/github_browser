@@ -11,7 +11,7 @@ class LibraryPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         pluginManager.apply("com.starter.library.android")
-        pluginManager.apply("com.starter.quality")
+
         improveDatabindingLogs()
 
         applyDagger()

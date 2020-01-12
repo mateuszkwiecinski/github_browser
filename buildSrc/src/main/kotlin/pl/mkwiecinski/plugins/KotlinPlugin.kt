@@ -9,7 +9,6 @@ class KotlinPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         pluginManager.apply("com.starter.library.kotlin")
-        pluginManager.apply("com.starter.quality")
 
         applyDagger()
 
