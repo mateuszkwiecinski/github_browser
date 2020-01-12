@@ -10,7 +10,6 @@ class ApplicationPlugin : Plugin<Project> {
 
     override fun apply(project: Project): Unit = with(project) {
         pluginManager.apply("com.starter.application.android")
-        pluginManager.apply("com.starter.quality")
 
         applyDagger()
         applyDaggerAndroid()
