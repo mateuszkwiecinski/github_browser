@@ -1,4 +1,4 @@
-private const val daggerVersion = "2.25.4"
+private const val daggerVersion = "2.26"
 private const val okHttpVersion = "4.3.0"
 
 object Libs {
