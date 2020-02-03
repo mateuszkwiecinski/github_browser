@@ -22,7 +22,6 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     protected abstract val viewModelClass: KClass<TViewModel>
 
     protected lateinit var binding: TBinding
-        private set
 
     @Inject
     lateinit var viewModelFactory: ViewModelsFactory

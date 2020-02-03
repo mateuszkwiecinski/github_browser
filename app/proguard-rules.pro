@@ -1,0 +1,11 @@
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+
+-dontwarn kotlinx.coroutines.**
+-dontnote kotlin.coroutines.**
+-dontnote com.google.android.**
+-dontnote kotlin.internal.Platform*
+-dontnote kotlin.jvm.internal.Reflection
+-dontnote android.databinding.DataBinderMapper
