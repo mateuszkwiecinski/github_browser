@@ -1,4 +1,4 @@
-package pl.mkwiecinski.mocked
+package pl.mkwiecinski.data.mocked
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

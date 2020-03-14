@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import pl.mkwiecinski.data.di.GithubConfig
 
-class AuthInterceptor @Inject constructor(
+internal class AuthInterceptor @Inject constructor(
     private val config: GithubConfig
 ) : Interceptor {
 

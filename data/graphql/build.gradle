@@ -5,6 +5,13 @@ apollo {
     generateKotlinModels = true
 }
 
+tasks.named("lintKotlinMain") {
+    source = source - fileTree("$buildDir/generated")
+}
+tasks.named("formatKotlinMain") {
+    source = source - fileTree("$buildDir/generated")
+}
+
 dependencies {
     implementation project(":domain")
     implementation Libs.apolloGraphql

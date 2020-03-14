@@ -22,11 +22,7 @@ internal abstract class BaseViewModel : ViewModel() {
         val liveData = MutableLiveData<T>()
 
         disposeBag += observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = {
-                    liveData.value = it
-                }
-            )
+            .subscribeBy(onNext = { liveData.value = it })
 
         return liveData
     }
