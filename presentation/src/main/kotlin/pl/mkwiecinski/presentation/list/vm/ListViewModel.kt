@@ -2,11 +2,11 @@ package pl.mkwiecinski.presentation.list.vm
 
 import androidx.paging.PagedList
 import javax.inject.Inject
-import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
+import pl.mkwiecinski.domain.listing.GetPagedRepositories
 import pl.mkwiecinski.presentation.base.BaseViewModel
 
 internal class ListViewModel @Inject constructor(
-    getPagedRepositories: GetPagedRepositoriesUseCase
+    getPagedRepositories: GetPagedRepositories
 ) : BaseViewModel() {
 
     private val pagingConfig = PagedList.Config.Builder().apply {

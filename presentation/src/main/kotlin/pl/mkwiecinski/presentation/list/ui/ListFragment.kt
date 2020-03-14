@@ -3,6 +3,7 @@ package pl.mkwiecinski.presentation.list.ui
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import pl.mkwiecinski.domain.listing.models.LoadingState
 import pl.mkwiecinski.presentation.R
@@ -22,19 +23,17 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setupWithNavController(navController)
+        binding.toolbar.setupWithNavController(findNavController())
     }
 
     private fun setupList() {
         val adapter = RepoAdapter(viewModel::retryFailed) {
-            navController.navigate(ListFragmentDirections.actionListToDetails(it.name))
+            findNavController().navigate(ListFragmentDirections.actionListToDetails(it.name))
         }
         binding.repoList.adapter = adapter
 
         viewModel.repositories.observe(this, adapter::submitList)
-        viewModel.networkState.observe(this) {
-            adapter.networkState = it
-        }
+        viewModel.networkState.observe(this) { adapter.networkState = it }
     }
 
     private fun setupSwipeRefresh() {

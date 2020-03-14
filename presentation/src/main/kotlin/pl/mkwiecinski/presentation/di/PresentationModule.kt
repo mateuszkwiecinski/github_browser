@@ -8,11 +8,11 @@ import pl.mkwiecinski.presentation.MainActivity
 import pl.mkwiecinski.presentation.base.paging.AndroidPagedListBuilder
 
 @Module
-abstract class PresentationModule {
+internal abstract class PresentationModule {
 
     @ContributesAndroidInjector(modules = [MainActivityInjectors::class])
-    internal abstract fun mainActivity(): MainActivity
+    abstract fun mainActivity(): MainActivity
 
     @Binds
-    internal abstract fun pagingListProvider(implementation: AndroidPagedListBuilder): PagedListBuilder
+    abstract fun pagingListProvider(implementation: AndroidPagedListBuilder): PagedListBuilder
 }

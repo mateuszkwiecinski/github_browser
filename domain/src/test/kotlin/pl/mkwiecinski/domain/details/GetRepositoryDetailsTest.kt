@@ -14,7 +14,7 @@ import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 
 @RunWith(MockitoJUnitRunner::class)
-internal class GetRepositoryDetailsUseCaseTest {
+internal class GetRepositoryDetailsTest {
 
     @Mock
     private lateinit var owner: RepositoryOwner
@@ -23,7 +23,7 @@ internal class GetRepositoryDetailsUseCaseTest {
     private lateinit var gateway: DetailsGateway
 
     @InjectMocks
-    private lateinit var useCase: GetRepositoryDetailsUseCase
+    private lateinit var useCase: GetRepositoryDetails
 
     @Test
     fun `calls gateway with proper parameters`() {

@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
-import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
+import pl.mkwiecinski.domain.details.GetRepositoryDetails
 import pl.mkwiecinski.presentation.base.BaseViewModel
 
 internal class DetailsViewModel @Inject constructor(
     val name: String,
-    getRepositoryDetails: GetRepositoryDetailsUseCase
+    getRepositoryDetails: GetRepositoryDetails
 ) : BaseViewModel() {
 
     val error = MutableLiveData<Throwable?>()

@@ -33,9 +33,6 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
         ViewModelProvider(this, viewModelFactory)[viewModelClass.java]
     }
 
-    protected val navController: NavController
-        get() = binding.root.findNavController()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)

@@ -16,7 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
+import pl.mkwiecinski.domain.details.GetRepositoryDetails
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 
 @RunWith(MockitoJUnitRunner::class)
@@ -29,7 +29,7 @@ internal class DetailsViewModelTest {
     val rxRule = RxImmediateRule()
 
     @Mock
-    private lateinit var usecase: GetRepositoryDetailsUseCase
+    private lateinit var usecase: GetRepositoryDetails
 
     private lateinit var viewModel: DetailsViewModel
 

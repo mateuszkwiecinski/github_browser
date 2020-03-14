@@ -16,7 +16,7 @@ import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
 import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 
 @RunWith(MockitoJUnitRunner::class)
-internal class GetPagedRepositoriesUseCaseTest {
+internal class GetPagedRepositoriesTest {
 
     @Mock
     private lateinit var eventsPersistence: PagingEventsPersistence
@@ -26,7 +26,7 @@ internal class GetPagedRepositoriesUseCaseTest {
     private lateinit var config: PagedList.Config
 
     @InjectMocks
-    private lateinit var usecase: GetPagedRepositoriesUseCase
+    private lateinit var usecase: GetPagedRepositories
 
     @Before
     fun setUp() {

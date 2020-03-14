@@ -1,19 +1,18 @@
 package pl.mkwiecinski.presentation.di
 
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import pl.mkwiecinski.domain.di.DomainComponent
+import pl.mkwiecinski.domain.details.GetRepositoryDetails
+import pl.mkwiecinski.domain.listing.GetPagedRepositories
 import pl.mkwiecinski.domain.listing.paging.PagedListBuilder
+import javax.inject.Provider
 
-@PresentationScope
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
         PresentationModule::class
-    ],
-    dependencies = [
-        DomainComponent::class
     ]
 )
 interface PresentationComponent {
@@ -27,6 +26,9 @@ interface PresentationComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(domain: DomainComponent): PresentationComponent
+        fun create(
+            @BindsInstance pagerRepositories: GetPagedRepositories,
+            @BindsInstance getRepositoryDetails: GetRepositoryDetails
+        ): PresentationComponent
     }
 }

@@ -1,19 +1,17 @@
 package pl.mkwiecinski.domain.di
 
-import dagger.BindsInstance
 import dagger.Component
-import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
-import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
-import pl.mkwiecinski.domain.listing.paging.PagedListBuilder
+import pl.mkwiecinski.domain.details.GetRepositoryDetails
+import pl.mkwiecinski.domain.listing.GetPagedRepositories
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [DomainModule::class], dependencies = [DomainDependencies::class])
 interface DomainComponent {
 
-    fun getPagedRepositories(): GetPagedRepositoriesUseCase
+    fun getPagedRepositories(): GetPagedRepositories
 
-    fun getDetails(): GetRepositoryDetailsUseCase
+    fun getDetails(): GetRepositoryDetails
 
     @Component.Factory
     interface Factory {
