@@ -15,7 +15,7 @@ import pl.mkwiecinski.domain.listing.models.PagedResult
 import pl.mkwiecinski.graphql.RepositoriesQuery
 import pl.mkwiecinski.graphql.RepositoryDetailsQuery
 
-class GraphqlGateway @Inject constructor(
+internal class GraphqlGateway @Inject constructor(
     private val client: ApolloClient
 ) : ListingGateway, DetailsGateway {
 

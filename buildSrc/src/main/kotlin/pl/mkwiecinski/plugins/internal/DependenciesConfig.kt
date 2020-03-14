@@ -4,14 +4,8 @@ import Kapt
 import Libs
 import TestLibs
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 internal fun Project.applyDagger() {
-    extensions.configure(KaptExtension::class.java) {
-        it.arguments {
-            arg("dagger.formatGeneratedSource", "disabled")
-        }
-    }
     dependencies.add("implementation", Libs.dagger)
     dependencies.add("kapt", Kapt.daggerCompiler)
 }

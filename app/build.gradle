@@ -42,8 +42,6 @@ dependencies {
     mockedImplementation project(":data:mocked")
     implementation project(":domain")
 
-    compileOnly Libs.okHttp
-    compileOnly Libs.apolloGraphql
     compileOnly Libs.archNavigation
 }
 
