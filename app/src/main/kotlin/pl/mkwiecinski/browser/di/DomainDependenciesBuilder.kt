@@ -3,9 +3,9 @@ package pl.mkwiecinski.browser.di
 import dagger.Component
 import pl.mkwiecinski.data.di.NetworkingComponent
 import pl.mkwiecinski.domain.di.DomainDependencies
-import pl.mkwiecinski.presentation.di.PresentationComponent
+import pl.mkwiecinski.presentation.di.PresentationOutComponent
 
-@Component(dependencies = [NetworkingComponent::class, PresentationComponent::class])
+@Component(dependencies = [NetworkingComponent::class, PresentationOutComponent::class])
 internal interface DomainDependenciesBuilder : DomainDependencies {
 
     @Component.Factory
@@ -13,7 +13,7 @@ internal interface DomainDependenciesBuilder : DomainDependencies {
 
         fun create(
             networking: NetworkingComponent,
-            presentation: PresentationComponent
+            presentation: PresentationOutComponent
         ): DomainDependenciesBuilder
     }
 }
