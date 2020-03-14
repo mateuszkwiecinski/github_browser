@@ -6,7 +6,7 @@ import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 
-class GetRepositoryDetailsUseCase @Inject constructor(
+class GetRepositoryDetailsUseCase @Inject internal constructor(
     private val gateway: DetailsGateway,
     private val owner: RepositoryOwner
 ) {
