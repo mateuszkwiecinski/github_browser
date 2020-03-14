@@ -7,18 +7,18 @@ import dagger.android.support.AndroidSupportInjectionModule
 import pl.mkwiecinski.browser.MainApplication
 import pl.mkwiecinski.data.di.NetworkingComponent
 import pl.mkwiecinski.domain.di.DomainModule
+import pl.mkwiecinski.presentation.di.PresentationComponent
 import pl.mkwiecinski.presentation.di.PresentationModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
-        AndroidSupportInjectionModule::class,
-        PresentationModule::class,
         DomainModule::class
     ],
     dependencies = [
-        NetworkingComponent::class
+        NetworkingComponent::class,
+        PresentationComponent::class
     ]
 )
 internal interface MainComponent : AndroidInjector<MainApplication> {
@@ -28,7 +28,8 @@ internal interface MainComponent : AndroidInjector<MainApplication> {
 
         fun create(
             @BindsInstance application: MainApplication,
-            networking: NetworkingComponent
+            networking: NetworkingComponent,
+            presentation: PresentationComponent
         ): MainComponent
     }
 }
