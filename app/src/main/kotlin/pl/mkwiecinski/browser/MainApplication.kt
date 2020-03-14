@@ -11,8 +11,7 @@ internal class MainApplication : DaggerApplication() {
 
     override fun applicationInjector(): AndroidInjector<MainApplication> {
         val networking = createNetworking()
-        val presentation = DaggerPresentationComponent.factory()
-            .create()
+        val presentation = presentation()
 
         val domainDependencies = DaggerDomainDependenciesBuilder.factory().create(
             networking = networking,
@@ -27,4 +26,8 @@ internal class MainApplication : DaggerApplication() {
             presentation = presentation
         )
     }
+
+    private fun presentation() =
+        DaggerPresentationComponent.factory()
+            .create(TODO(), TODO())
 }

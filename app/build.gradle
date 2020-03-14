@@ -38,11 +38,9 @@ android {
 
 dependencies {
     implementation project(":presentation")
+    implementation project(":domain")
     graphqlImplementation project(":data:graphql")
     mockedImplementation project(":data:mocked")
-    implementation project(":domain")
-
-    compileOnly Libs.archNavigation
 }
 
 private String findGithubToken() {

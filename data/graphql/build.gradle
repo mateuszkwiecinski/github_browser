@@ -13,7 +13,7 @@ tasks.named("formatKotlinMain") {
 }
 
 dependencies {
-    implementation project(":domain")
+    api project(":domain")
     implementation Libs.apolloGraphql
     implementation Libs.apolloCache
     implementation Libs.okHttp
