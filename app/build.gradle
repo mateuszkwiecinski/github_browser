@@ -50,7 +50,7 @@ private String findGithubToken() {
     if (hasProperty('github.token')) {
         return getProperty("github.token")
     }
-    def env = System.getenv('github_token')
+    def env = System.getenv('github_token') ?: System.getenv("GITHUB_TOKEN")
     if (env != null) {
         return env
     }
@@ -65,7 +65,7 @@ private String findGithubToken() {
         }
     }
 
-    throw new GradleException("Could not find github api token. " +
+    logger.error("Could not find github api token. " +
         "Set a `github_token` environment variable, " +
         "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
         "or add `github.token` entry to your `local.properties` file")

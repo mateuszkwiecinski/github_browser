@@ -15,12 +15,12 @@ internal fun <T> ApolloCall<T>.rxEnqueue(): Single<T> =
             }
 
             override fun onResponse(response: Response<T>) {
-                response.data()?.let(emitter::onSuccess)
-                    ?: emitter.onError(response.errors().toException())
+                response.data?.let(emitter::onSuccess)
+                    ?: emitter.onError(response.errors.orEmpty().toException())
             }
         })
         emitter.setCancellable { cancel() }
     }
 
-private fun MutableList<Error>.toException(): Throwable =
-    CompositeException(map { ApolloException(it.message()) })
+private fun List<Error>.toException(): Throwable =
+    CompositeException(map { ApolloException(it.message) })
