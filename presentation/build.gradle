@@ -2,7 +2,7 @@ apply plugin: 'library.android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    dataBinding.enabled true
+    buildFeatures.dataBinding true
 }
 
 dependencies {

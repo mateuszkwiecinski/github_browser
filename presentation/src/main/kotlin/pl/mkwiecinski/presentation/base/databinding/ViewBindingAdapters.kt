@@ -11,6 +11,7 @@ fun View.bindVisibility(isVisible: Boolean?) {
         false, null -> View.GONE
     }
 }
+
 @BindingAdapter("android:visibility")
 fun FloatingActionButton.bindVisibility(isVisible: Boolean?) {
     when (isVisible) {
