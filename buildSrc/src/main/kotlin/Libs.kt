@@ -1,10 +1,10 @@
-private const val daggerVersion = "2.27"
-private const val okHttpVersion = "4.4.0"
+private const val DAGGER_VERSION = "2.27"
+private const val OK_HTTP_VERSION = "4.4.0"
 
 object Libs {
-    const val dagger = "com.google.dagger:dagger:$daggerVersion"
-    const val daggerAndroid = "com.google.dagger:dagger-android:$daggerVersion"
-    const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
+    const val dagger = "com.google.dagger:dagger:$DAGGER_VERSION"
+    const val daggerAndroid = "com.google.dagger:dagger-android:$DAGGER_VERSION"
+    const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
 
     const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.19"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
@@ -33,7 +33,7 @@ object Libs {
     private const val apolloVersion = "1.3.3"
     const val apolloGraphql = "com.apollographql.apollo:apollo-runtime:$apolloVersion"
     const val apolloCache = "com.apollographql.apollo:apollo-http-cache:$apolloVersion"
-    const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    const val okHttp = "com.squareup.okhttp3:okhttp:$OK_HTTP_VERSION"
 }
 
 object TestLibs {
@@ -44,10 +44,10 @@ object TestLibs {
     const val archCoreTesting = "androidx.arch.core:core-testing:2.1.0"
     const val archCoreKtx = "androidx.test:core-ktx:1.3.0-alpha04"
     const val archRules = "androidx.test:rules:1.3.0-alpha04"
-    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$OK_HTTP_VERSION"
 }
 
 object Kapt {
-    const val daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
-    const val daggerAndroidCompiler = "com.google.dagger:dagger-android-processor:$daggerVersion"
+    const val daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    const val daggerAndroidCompiler = "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
 }
