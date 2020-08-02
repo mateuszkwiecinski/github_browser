@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.multibindings.IntoSet
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.asExecutor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import pl.mkwiecinski.data.AuthInterceptor
@@ -29,11 +31,20 @@ internal class ConnectionModule {
 
     @Provides
     @Reusable
-    fun apollo(client: OkHttpClient, config: GithubConfig): ApolloClient =
+    fun apollo(
+        client: OkHttpClient,
+        dispatcher: CoroutineDispatcher,
+        config: GithubConfig
+    ): ApolloClient =
         ApolloClient.builder().apply {
             serverUrl(config.url)
             okHttpClient(client)
-            normalizedCache(LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(CACHE_SIZE).build()))
+            dispatcher(dispatcher.asExecutor())
+            normalizedCache(
+                LruNormalizedCacheFactory(
+                    EvictionPolicy.builder().maxSizeBytes(CACHE_SIZE).build()
+                )
+            )
             addCustomTypeAdapter(CustomType.URI, UriToStringAdapter)
         }.build()
 

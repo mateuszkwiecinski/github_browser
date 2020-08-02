@@ -1,13 +1,14 @@
 package pl.mkwiecinski.data.mocked
 
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
+import javax.inject.Inject
+import kotlin.time.milliseconds
 
 @Suppress("MagicNumber")
 internal class MockedListingGateway @Inject constructor() : ListingGateway {
@@ -18,32 +19,25 @@ internal class MockedListingGateway @Inject constructor() : ListingGateway {
         RepositoryInfo("$it", "Repository name $it", "https://repository/$it")
     }
 
-    override fun getFirstPage(owner: RepositoryOwner, limit: Int) =
-        Single.fromCallable {
+    override suspend fun getFirstPage(owner: RepositoryOwner, limit: Int) =
+        withContext(Dispatchers.Default) {
+            randomize()
             PagedResult(all.subList(0, limit), limit.toString())
         }
-            .subscribeOn(Schedulers.io())
-            .randomize()
 
-    override fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
-        Single.fromCallable {
+    override suspend fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
+        withContext(Dispatchers.Default) {
             val current = pageKey.toInt()
+            randomize()
             PagedResult(all.subList(current, current + limit), (current + limit).toString())
         }
-            .subscribeOn(Schedulers.io())
-            .randomize()
 
-    private fun <T> Single<T>.randomize(): Single<T> {
-        val delay = MINIMUM_DELAY + Math.random() * DELAY_RANGE
+    private suspend fun randomize() = withContext(Dispatchers.Default) {
+        delay((MINIMUM_DELAY + Math.random() * DELAY_RANGE).milliseconds)
 
-        return delay(delay.toLong(), TimeUnit.MILLISECONDS)
-            .flatMap {
-                if (Math.random() > FAILURE_PROBABILITY) {
-                    Single.just(it)
-                } else {
-                    Single.error(IllegalStateException("Random exception"))
-                }
-            }
+        if (Math.random() < FAILURE_PROBABILITY) {
+            throw IllegalStateException("Random exception")
+        }
     }
 
     companion object {

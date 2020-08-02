@@ -1,5 +1,6 @@
 package pl.mkwiecinski.presentation.list.vm
 
+import androidx.lifecycle.asLiveData
 import androidx.paging.PagedList
 import javax.inject.Inject
 import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
@@ -19,10 +20,10 @@ internal class ListViewModel @Inject constructor(
      * For better UX, the network progress could be hidden in case when user swipes to refresh and additional progress is being shown.
      * At this moment there are 2 progresses visible at the same time. I decided to leave it that way due to lack of time.
      */
-    val refreshState = listPaging.refreshState.toLiveData()
-    val networkState = listPaging.networkState.toLiveData()
+    val refreshState = listPaging.refreshState.asLiveData()
+    val networkState = listPaging.networkState.asLiveData()
 
-    val repositories = listPaging.pagedList.toLiveData()
+    val repositories = listPaging.pagedList.asLiveData()
 
     fun retryFailed() {
         listPaging.retry()

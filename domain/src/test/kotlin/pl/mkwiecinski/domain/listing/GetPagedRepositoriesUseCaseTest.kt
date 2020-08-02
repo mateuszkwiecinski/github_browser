@@ -5,7 +5,8 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.stub
 import com.nhaarman.mockitokotlin2.verify
-import io.reactivex.Observable
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,8 +21,10 @@ internal class GetPagedRepositoriesUseCaseTest {
 
     @Mock
     private lateinit var eventsPersistence: PagingEventsPersistence
+
     @Mock
     private lateinit var factory: PagingSourceFactory
+
     @Mock
     private lateinit var config: PagedList.Config
 
@@ -31,11 +34,11 @@ internal class GetPagedRepositoriesUseCaseTest {
     @Before
     fun setUp() {
         eventsPersistence.stub {
-            on { networkEvents() } doReturn Observable.never()
-            on { refreshEvents() } doReturn Observable.never()
+            on { networkEvents() } doReturn callbackFlow { awaitClose() }
+            on { refreshEvents() } doReturn callbackFlow { awaitClose() }
         }
         factory.stub {
-            on { getPagingList(any()) } doReturn Observable.never()
+            on { getPagingList(any()) } doReturn callbackFlow { awaitClose() }
         }
     }
 

@@ -8,20 +8,23 @@ android {
 dependencies {
     implementation project(":domain")
 
-    implementation Libs.appCompat
-    implementation Libs.constraintLayout
-    implementation Libs.materialDesign
-    implementation Libs.archNavigation
-    implementation Libs.archNavigationFragment
-    implementation Libs.archExtensions
-    implementation Libs.archViewModel
-    implementation Libs.liveData
-    implementation Libs.pagingRuntime
-    implementation Libs.rxAndroid
-    implementation Libs.rxKotlin
-    implementation Libs.pagingRxJava
-    implementation Libs.swipeRefreshLayout
-    testImplementation TestLibs.archCoreTesting
-    testImplementation TestLibs.archCoreKtx
-    testImplementation TestLibs.archRules
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
+    implementation "com.google.android.material:material:1.2.0-rc01"
+
+    def navVersion = "2.3.0"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+
+    def lifecycleVersion = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "androidx.test:core-ktx:1.3.0-rc02"
+    testImplementation "androidx.test:rules:1.3.0-rc02"
 }

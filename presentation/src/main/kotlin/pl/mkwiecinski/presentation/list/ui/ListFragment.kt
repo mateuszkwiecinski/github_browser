@@ -31,14 +31,14 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
         }
         binding.repoList.adapter = adapter
 
-        viewModel.repositories.observe(this, adapter::submitList)
-        viewModel.networkState.observe(this) {
+        viewModel.repositories.observe(viewLifecycleOwner, adapter::submitList)
+        viewModel.networkState.observe(viewLifecycleOwner) {
             adapter.networkState = it
         }
     }
 
     private fun setupSwipeRefresh() {
-        viewModel.refreshState.observe(this) {
+        viewModel.refreshState.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = it == LoadingState.RUNNING
         }
     }

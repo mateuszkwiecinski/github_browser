@@ -1,6 +1,5 @@
 package pl.mkwiecinski.domain.details
 
-import io.reactivex.Single
 import javax.inject.Inject
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
@@ -11,6 +10,6 @@ class GetRepositoryDetailsUseCase @Inject constructor(
     private val owner: RepositoryOwner
 ) {
 
-    operator fun invoke(name: String): Single<RepositoryDetails> =
+    suspend operator fun invoke(name: String): RepositoryDetails =
         gateway.getRepositoryDetails(owner, name)
 }
