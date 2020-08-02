@@ -15,7 +15,7 @@ tasks.named("lintKotlinMain") {
 }
 
 dependencies {
-    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03"
+    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
     implementation "com.apollographql.apollo:apollo-gradle-plugin:1.3.3"
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin"
     implementation "com.project.starter:plugins:0.14.0"
