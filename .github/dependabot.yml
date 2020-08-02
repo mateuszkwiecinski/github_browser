@@ -1,5 +1,6 @@
 version: 2
-default_assignees: ["mateuszkwiecinski"]
+assignees:
+    - "mateuszkwiecinski"
 updates:
     - package-ecosystem: "gradle"
       directory: "/"
