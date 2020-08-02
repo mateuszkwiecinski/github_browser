@@ -23,8 +23,12 @@ class LibraryPlugin : Plugin<Project> {
     private fun Project.improveDatabindingLogs() {
         extensions.configure(KaptExtension::class.java) {
             it.javacOptions {
-                option("-Xmaxerrs", 1000)
+                option("-Xmaxerrs", MAX_KAPT_ERRORS)
             }
         }
+    }
+
+    companion object {
+        private const val MAX_KAPT_ERRORS = 1000
     }
 }
