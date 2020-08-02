@@ -1,14 +1,17 @@
 version: 2
 updates:
     - package-ecosystem: "gradle"
+      default_assignees: ["mateuszkwiecinski"]
       directory: "/"
       schedule:
           interval: "daily"
     - package-ecosystem: "gradle"
+      default_assignees: ["mateuszkwiecinski"]
       directory: "buildSrc"
       schedule:
           interval: "daily"
     - package-ecosystem: "github-actions"
+      default_assignees: ["mateuszkwiecinski"]
       directory: "/"
       schedule:
           interval: "daily"
