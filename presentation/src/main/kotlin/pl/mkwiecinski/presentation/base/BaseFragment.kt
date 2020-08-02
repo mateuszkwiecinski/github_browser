@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import kotlin.reflect.KClass
 import pl.mkwiecinski.presentation.BR
@@ -26,8 +25,6 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
 
     @Inject
     lateinit var viewModelFactory: ViewModelsFactory
-
-    protected val disposeBag = CompositeDisposable()
 
     protected val viewModel: TViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[viewModelClass.java]
@@ -47,9 +44,4 @@ internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : Vi
     }
 
     abstract fun init(savedInstanceState: Bundle?)
-
-    override fun onDestroy() {
-        disposeBag.dispose()
-        super.onDestroy()
-    }
 }

@@ -21,4 +21,5 @@ internal fun Project.configureUnitTest() {
     dependencies.add("testImplementation", TestLibs.mockitoKotlin)
     dependencies.add("testImplementation", TestLibs.mockito)
     dependencies.add("testImplementation", TestLibs.assertJ)
+    dependencies.add("testImplementation", TestLibs.coroutinesTest)
 }

@@ -1,67 +1,86 @@
 package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.PageKeyedDataSource
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
-import javax.inject.Inject
-import pl.mkwiecinski.domain.base.plusAssign
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
+import java.io.Closeable
+import javax.inject.Inject
 
 internal class RepoDataSource @Inject constructor(
     private val gateway: ListingGateway,
     private val events: InMemoryPagingEventsPersistence,
-    private val repositoryOwner: RepositoryOwner
-) : PageKeyedDataSource<String, RepositoryInfo>(), Disposable {
+    private val repositoryOwner: RepositoryOwner,
+    private val dispatcher: CoroutineDispatcher
+) : PageKeyedDataSource<String, RepositoryInfo>(), Closeable {
 
-    private val disposeBag = CompositeDisposable()
-
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(dispatcher + job)
     internal var retry: () -> Unit = { }
         private set
 
     init {
-        addInvalidatedCallback(disposeBag::dispose)
+        addInvalidatedCallback { job.cancelChildren() }
     }
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, RepositoryInfo>) {
-        disposeBag += gateway.getFirstPage(repositoryOwner, params.requestedLoadSize)
-            .doOnSubscribe { events.onNetworkCall() }
-            .subscribeBy(
-                onSuccess = {
+    override fun loadInitial(
+        params: LoadInitialParams<String>,
+        callback: LoadInitialCallback<String, RepositoryInfo>
+    ) {
+        scope.launch {
+            events.onNetworkCall()
+            runCatching { gateway.getFirstPage(repositoryOwner, params.requestedLoadSize) }
+                .onSuccess {
                     retry = {}
                     events.onLoadSuccessful()
                     callback.onResult(it.data, null, it.nextPageKey)
-                },
-                onError = {
+                }
+                .onFailure {
                     retry = { loadInitial(params, callback) }
                     events.onLoadError()
                 }
-            )
+        }
     }
 
-    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) {
-        disposeBag += gateway.getPageAfter(repositoryOwner, params.key, params.requestedLoadSize)
-            .doOnSubscribe { events.onNetworkCall() }
-            .subscribeBy(
-                onSuccess = {
+    override fun loadAfter(
+        params: LoadParams<String>,
+        callback: LoadCallback<String, RepositoryInfo>
+    ) {
+        scope.launch {
+            events.onNetworkCall()
+            runCatching {
+                gateway.getPageAfter(
+                    repositoryOwner,
+                    params.key,
+                    params.requestedLoadSize
+                )
+            }
+                .onSuccess {
                     retry = {}
                     events.onLoadSuccessful()
                     callback.onResult(it.data, it.nextPageKey)
-                },
-                onError = {
+                }
+                .onFailure {
                     retry = { loadAfter(params, callback) }
                     events.onLoadError()
                 }
-            )
+        }
     }
 
-    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, RepositoryInfo>) =
+    override fun loadBefore(
+        params: LoadParams<String>,
+        callback: LoadCallback<String, RepositoryInfo>
+    ) =
         throw UnsupportedOperationException("DataSource does not support loadBefore")
 
-    override fun dispose() = disposeBag.dispose()
-
-    override fun isDisposed() = disposeBag.isDisposed
+    override fun close() {
+        scope.cancel()
+    }
 }

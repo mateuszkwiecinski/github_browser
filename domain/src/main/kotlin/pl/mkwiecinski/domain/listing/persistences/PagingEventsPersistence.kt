@@ -1,16 +1,17 @@
 package pl.mkwiecinski.domain.listing.persistences
 
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import pl.mkwiecinski.domain.listing.models.LoadingState
 import javax.inject.Inject
 import javax.inject.Singleton
-import pl.mkwiecinski.domain.listing.models.LoadingState
 
 interface PagingEventsPersistence {
 
-    fun networkEvents(): Observable<LoadingState>
-    fun refreshEvents(): Observable<LoadingState>
+    fun networkEvents(): Flow<LoadingState>
+    fun refreshEvents(): Flow<LoadingState>
 
     fun onNetworkCall()
     fun onRefresh()
@@ -19,30 +20,33 @@ interface PagingEventsPersistence {
 }
 
 @Singleton
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class InMemoryPagingEventsPersistence @Inject constructor() : PagingEventsPersistence {
 
-    private val networkEvents = BehaviorSubject.create<LoadingState>()
-    private val refreshEvents = BehaviorSubject.create<LoadingState>()
+    private val networkEvents = MutableStateFlow(LoadingState.SUCCESS)
+    private val refreshEvents = MutableStateFlow(LoadingState.SUCCESS)
 
-    override fun networkEvents() =
-        networkEvents.observeOn(Schedulers.io())
+    override fun networkEvents(): StateFlow<LoadingState> =
+        networkEvents
 
-    override fun refreshEvents() =
-        refreshEvents.observeOn(Schedulers.io())
+    override fun refreshEvents(): StateFlow<LoadingState> =
+        refreshEvents
 
-    override fun onNetworkCall() =
-        networkEvents.onNext(LoadingState.RUNNING)
+    override fun onNetworkCall() {
+        networkEvents.value = LoadingState.RUNNING
+    }
 
-    override fun onRefresh() =
-        refreshEvents.onNext(LoadingState.RUNNING)
+    override fun onRefresh() {
+        refreshEvents.value = LoadingState.RUNNING
+    }
 
     override fun onLoadSuccessful() {
-        networkEvents.onNext(LoadingState.SUCCESS)
-        refreshEvents.onNext(LoadingState.SUCCESS)
+        networkEvents.value = LoadingState.SUCCESS
+        refreshEvents.value = LoadingState.SUCCESS
     }
 
     override fun onLoadError() {
-        networkEvents.onNext(LoadingState.FAILED)
-        refreshEvents.onNext(LoadingState.FAILED)
+        networkEvents.value = LoadingState.FAILED
+        refreshEvents.value = LoadingState.FAILED
     }
 }

@@ -3,6 +3,7 @@ package pl.mkwiecinski.domain.di
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Dispatchers
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
 import pl.mkwiecinski.domain.listing.paging.SingleActivePagingSourceFactory
@@ -18,11 +19,14 @@ abstract class DomainModule {
         @JvmStatic
         @Provides
         fun hardcodedUser() = RepositoryOwner(name = "toptal")
+
+        @Provides
+        fun dispatcher() = Dispatchers.Default
     }
 
     @Binds
-    internal abstract fun paging(implementation: SingleActivePagingSourceFactory): PagingSourceFactory
+    internal abstract fun SingleActivePagingSourceFactory.paging(): PagingSourceFactory
 
     @Binds
-    internal abstract fun events(implementation: InMemoryPagingEventsPersistence): PagingEventsPersistence
+    internal abstract fun InMemoryPagingEventsPersistence.events(): PagingEventsPersistence
 }

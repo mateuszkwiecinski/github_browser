@@ -1,7 +1,8 @@
 package pl.mkwiecinski.data.mocked
 
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 import pl.mkwiecinski.domain.details.entities.IssuePreview
@@ -14,22 +15,23 @@ import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 @Suppress("MagicNumber")
 internal class MockedDetailsGateway @Inject constructor() : DetailsGateway {
 
-    override fun getRepositoryDetails(owner: RepositoryOwner, name: String) = Single.fromCallable {
-        Thread.sleep(1000)
-        val issues = IssuesInfo(
-            openedTotalCount = 50,
-            openedPreview = listOf(issue(1), issue(4)),
-            closedTotalCount = 2,
-            closedPreview = listOf(issue(2), issue(3))
-        )
-        RepositoryDetails(
-            id = UUID.randomUUID().toString(),
-            name = UUID.randomUUID().toString(),
-            url = "https://example.com",
-            issues = issues,
-            pullRequests = PullRequestsInfo(0, emptyList(), 0, emptyList())
-        )
-    }.subscribeOn(Schedulers.io())
+    override suspend fun getRepositoryDetails(owner: RepositoryOwner, name: String) =
+        withContext(Dispatchers.Default) {
+            delay(1000)
+            val issues = IssuesInfo(
+                openedTotalCount = 50,
+                openedPreview = listOf(issue(1), issue(4)),
+                closedTotalCount = 2,
+                closedPreview = listOf(issue(2), issue(3))
+            )
+            RepositoryDetails(
+                id = UUID.randomUUID().toString(),
+                name = UUID.randomUUID().toString(),
+                url = "https://example.com",
+                issues = issues,
+                pullRequests = PullRequestsInfo(0, emptyList(), 0, emptyList())
+            )
+        }
 
     private fun issue(number: Int) = IssuePreview(
         id = number.toString(),

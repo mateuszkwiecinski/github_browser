@@ -43,7 +43,7 @@ dependencies {
     mockedImplementation project(":data:mocked")
     implementation project(":domain")
 
-    compileOnly Libs.archNavigation
+    compileOnly "androidx.navigation:navigation-ui-ktx:2.3.0"
 }
 
 private String findGithubToken() {

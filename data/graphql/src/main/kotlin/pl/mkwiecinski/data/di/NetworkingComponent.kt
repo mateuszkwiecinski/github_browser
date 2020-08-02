@@ -2,6 +2,7 @@ package pl.mkwiecinski.data.di
 
 import dagger.BindsInstance
 import dagger.Component
+import kotlinx.coroutines.CoroutineDispatcher
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 
@@ -15,6 +16,9 @@ interface NetworkingComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance config: GithubConfig): NetworkingComponent
+        fun create(
+            @BindsInstance dispatcher: CoroutineDispatcher,
+            @BindsInstance config: GithubConfig
+        ): NetworkingComponent
     }
 }

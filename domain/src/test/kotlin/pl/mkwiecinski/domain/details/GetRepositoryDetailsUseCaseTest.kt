@@ -4,7 +4,8 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.stub
 import com.nhaarman.mockitokotlin2.verify
-import io.reactivex.Single
+import kotlinx.coroutines.test.runBlockingTest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -26,17 +27,15 @@ internal class GetRepositoryDetailsUseCaseTest {
     private lateinit var useCase: GetRepositoryDetailsUseCase
 
     @Test
-    fun `calls gateway with proper parameters`() {
+    fun `calls gateway with proper parameters`() = runBlockingTest {
         val details = details("random_id")
         gateway.stub {
-            on { getRepositoryDetails(any(), any()) } doReturn Single.just(details)
+            onBlocking { getRepositoryDetails(any(), any()) } doReturn details
         }
 
-        val result = useCase("repoName").test()
+        val result = useCase("repoName")
 
-        result.await()
-            .assertNoErrors()
-            .assertValue { it == details }
+        assertThat(result).isEqualTo(details)
         verify(gateway).getRepositoryDetails(owner, "repoName")
     }
 }

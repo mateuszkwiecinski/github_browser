@@ -1,13 +1,13 @@
 package pl.mkwiecinski.domain.listing.models
 
 import androidx.paging.PagedList
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 
 class PagingModel(
-    val pagedList: Observable<PagedList<RepositoryInfo>>,
+    val pagedList: Flow<PagedList<RepositoryInfo>>,
     val retry: () -> Unit,
-    val networkState: Observable<LoadingState>,
+    val networkState: Flow<LoadingState>,
     val refresh: () -> Unit,
-    val refreshState: Observable<LoadingState>
+    val refreshState: Flow<LoadingState>
 )

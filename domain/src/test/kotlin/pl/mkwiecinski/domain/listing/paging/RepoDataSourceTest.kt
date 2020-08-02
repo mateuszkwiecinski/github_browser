@@ -2,50 +2,64 @@ package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.PageKeyedDataSource
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.stub
 import com.nhaarman.mockitokotlin2.verify
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.internal.invocation.InterceptedInvocation
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.stubbing.OngoingStubbing
 import pl.mkwiecinski.domain.details.info
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
 import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
 
 @RunWith(MockitoJUnitRunner::class)
 internal class RepoDataSourceTest {
 
     @Mock
     private lateinit var gateway: ListingGateway
+
     @Mock
     private lateinit var events: InMemoryPagingEventsPersistence
+
     @Mock
     private lateinit var owner: RepositoryOwner
 
-    @InjectMocks
     private lateinit var dataSource: RepoDataSource
 
     lateinit var data: List<RepositoryInfo>
 
     @Before
     fun setUp() {
+        dataSource = RepoDataSource(
+            gateway = gateway,
+            events = events,
+            repositoryOwner = owner,
+            dispatcher = Dispatchers.Unconfined
+        )
         data = listOf(info("1"), info("2"), info("3"))
     }
 
     @Test
     fun `loads initial data`() {
         gateway.stub {
-            on { getFirstPage(any(), any()) } doReturn Single.just(PagedResult(data, "nextPage"))
+            onBlocking { getFirstPage(any(), any()) } doReturn PagedResult(data, "nextPage")
         }
         val callback = mock<InitialCallback>()
 
@@ -58,7 +72,7 @@ internal class RepoDataSourceTest {
     @Test
     fun `sets proper state if loading initial data failed`() {
         gateway.stub {
-            on { getFirstPage(any(), any()) } doReturn Single.error(IllegalStateException())
+            onBlocking { getFirstPage(any(), any()) } doThrow IllegalStateException()
         }
         val callback = mock<InitialCallback>()
 
@@ -70,8 +84,20 @@ internal class RepoDataSourceTest {
 
     @Test
     fun `retries initial call if loading initial failed`() {
+        var responseNumber = 0
         gateway.stub {
-            on { getFirstPage(any(), any()) }.doReturn(Single.error(IllegalStateException()), Single.just(PagedResult(data, "nextPage")))
+            onBlocking {
+                getFirstPage(
+                    any(),
+                    any()
+                )
+            }.doAnswer {
+                if (responseNumber++ == 0) {
+                    throw IllegalStateException()
+                } else {
+                    PagedResult(data, "nextPage")
+                }
+            }
         }
         val callback = mock<InitialCallback>()
         dataSource.loadInitial(initial(), callback)
@@ -85,13 +111,16 @@ internal class RepoDataSourceTest {
     @Test
     fun `disposes initial data call when whole source is being disposed`() {
         var disposeCalled = false
-        val call = Single.never<PagedResult<RepositoryInfo>>().doOnDispose { disposeCalled = true }
         gateway.stub {
-            on { getFirstPage(any(), any()) } doReturn call
+            onBlocking { getFirstPage(any(), any()) } willAnswer {
+                suspendCancellableCoroutine {
+                    it.invokeOnCancellation { disposeCalled = true }
+                }
+            }
         }
         dataSource.loadInitial(initial(), mock())
 
-        dataSource.dispose()
+        dataSource.close()
 
         assertThat(disposeCalled).isTrue()
     }
@@ -99,7 +128,7 @@ internal class RepoDataSourceTest {
     @Test
     fun `loads after data`() {
         gateway.stub {
-            on { getPageAfter(any(), any(), any()) } doReturn Single.just(PagedResult(data, "nextPage"))
+            onBlocking { getPageAfter(any(), any(), any()) } doReturn PagedResult(data, "nextPage")
         }
         val callback = mock<AfterCallback>()
 
@@ -112,7 +141,7 @@ internal class RepoDataSourceTest {
     @Test
     fun `sets proper state if loading after data failed`() {
         gateway.stub {
-            on { getPageAfter(any(), any(), any()) } doReturn Single.error(IllegalStateException())
+            onBlocking { getPageAfter(any(), any(), any()) } doThrow IllegalStateException()
         }
         val callback = mock<AfterCallback>()
 
@@ -125,24 +154,31 @@ internal class RepoDataSourceTest {
     @Test
     fun `disposes after data call when whole source is being disposed`() {
         var disposeCalled = false
-        val call = Single.never<PagedResult<RepositoryInfo>>().doOnDispose { disposeCalled = true }
         gateway.stub {
-            on { getPageAfter(any(), any(), any()) } doReturn call
+            onBlocking { getPageAfter(any(), any(), any()) } willAnswer {
+                suspendCancellableCoroutine {
+                    it.invokeOnCancellation { disposeCalled = true }
+                }
+            }
         }
         dataSource.loadAfter(after("currentPage"), mock())
 
-        dataSource.dispose()
+        dataSource.close()
 
         assertThat(disposeCalled).isTrue()
     }
 
     @Test
     fun `retries after call if after call failed`() {
+        var responseNumber = 0
         gateway.stub {
-            on { getPageAfter(any(), any(), any()) }.doReturn(
-                Single.error(IllegalStateException()),
-                Single.just(PagedResult(data, "nextPage"))
-            )
+            onBlocking { getPageAfter(any(), any(), any()) }.doAnswer {
+                if (responseNumber++ == 0) {
+                    throw IllegalStateException()
+                } else {
+                    PagedResult(data, "nextPage")
+                }
+            }
         }
         val callback = mock<AfterCallback>()
         dataSource.loadAfter(after("currentPage"), callback)
@@ -162,3 +198,15 @@ internal class RepoDataSourceTest {
 
 private typealias InitialCallback = PageKeyedDataSource.LoadInitialCallback<String, RepositoryInfo>
 private typealias AfterCallback = PageKeyedDataSource.LoadCallback<String, RepositoryInfo>
+
+@Suppress("UNCHECKED_CAST")
+infix fun <T> OngoingStubbing<T>.willAnswer(answer: suspend (InvocationOnMock) -> T?): OngoingStubbing<T> {
+    return thenAnswer {
+        // all suspend functions/lambdas has Continuation as the last argument.
+        // InvocationOnMock does not see last argument
+        val rawInvocation = it as InterceptedInvocation
+        val continuation = rawInvocation.rawArguments.last() as Continuation<T?>
+
+        answer.startCoroutineUninterceptedOrReturn(it, continuation)
+    }
+}

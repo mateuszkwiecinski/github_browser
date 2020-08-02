@@ -11,8 +11,8 @@ import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 internal abstract class MockedModule {
 
     @Binds
-    abstract fun listing(implementation: MockedListingGateway): ListingGateway
+    abstract fun MockedListingGateway.listing(): ListingGateway
 
     @Binds
-    abstract fun details(implementation: MockedDetailsGateway): DetailsGateway
+    abstract fun MockedDetailsGateway.details(): DetailsGateway
 }

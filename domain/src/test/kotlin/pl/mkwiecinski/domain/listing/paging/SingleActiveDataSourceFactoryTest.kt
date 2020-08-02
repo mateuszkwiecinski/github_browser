@@ -45,8 +45,8 @@ internal class SingleActiveDataSourceFactoryTest {
         factory.create()
 
         assertThat(first).isEqualTo(firstSource)
-        verify(firstSource).dispose()
-        verify(secondSource, never()).dispose()
+        verify(firstSource).close()
+        verify(secondSource, never()).close()
     }
 
     @Test

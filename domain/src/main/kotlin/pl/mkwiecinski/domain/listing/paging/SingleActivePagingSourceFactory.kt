@@ -2,18 +2,16 @@ package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.DataSource
 import androidx.paging.PagedList
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.Flow
+import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
+import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
-import pl.mkwiecinski.domain.base.plusAssign
-import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
-import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
 
 interface PagingSourceFactory {
 
-    fun getPagingList(config: PagedList.Config): Observable<PagedList<RepositoryInfo>>
+    fun getPagingList(config: PagedList.Config): Flow<PagedList<RepositoryInfo>>
 
     fun refresh()
 
@@ -27,13 +25,11 @@ internal class SingleActivePagingSourceFactory @Inject constructor(
     private val pagedListBuilder: PagedListBuilder
 ) : DataSource.Factory<String, RepositoryInfo>(), PagingSourceFactory {
 
-    private val disposeBag = CompositeDisposable()
     private var currentSource: RepoDataSource? = null
 
     override fun create(): DataSource<String, RepositoryInfo> {
-        disposeBag.clear()
+        currentSource?.close()
         return dataSourceProvider.get().also {
-            disposeBag += it
             currentSource = it
         }
     }

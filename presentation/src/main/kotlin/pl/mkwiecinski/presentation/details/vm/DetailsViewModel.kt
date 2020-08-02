@@ -1,11 +1,14 @@
 package pl.mkwiecinski.presentation.details.vm
 
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.BehaviorSubject
-import javax.inject.Inject
+import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.mapLatest
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
+import javax.inject.Inject
 
 internal class DetailsViewModel @Inject constructor(
     val name: String,
@@ -13,23 +16,20 @@ internal class DetailsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val error = MutableLiveData<Throwable?>()
-    private val loadSubject = BehaviorSubject.createDefault(Unit)
+    private val loadChannel = ConflatedBroadcastChannel(Unit)
     val isLoading = MutableLiveData<Boolean>(false)
 
-    val details =
-        loadSubject.switchMapMaybe {
-            getRepositoryDetails(name)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { isLoading.value = true }
-                .doFinally { isLoading.value = false }
-                .doOnError { error.value = it }
-                .doOnSuccess { error.value = null }
-                .toMaybe()
-                .onErrorComplete()
-        }
-            .toLiveData()
+    val details = loadChannel.asFlow().mapLatest {
+        isLoading.value = true
+        val result = runCatching { getRepositoryDetails(name) }
+            .onSuccess { error.value = null }
+            .onFailure { error.value = it }
+        isLoading.value = false
+        result.getOrNull()
+    }
+        .asLiveData()
 
     fun retry() {
-        loadSubject.onNext(Unit)
+        loadChannel.sendBlocking(Unit)
     }
 }
