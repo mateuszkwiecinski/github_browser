@@ -7,7 +7,6 @@ import pl.mkwiecinski.domain.details.entities.PullRequestPreview
 import pl.mkwiecinski.presentation.base.FooterAdapter
 import pl.mkwiecinski.presentation.databinding.ItemDetailFooterBinding
 import pl.mkwiecinski.presentation.databinding.ItemPullRequestInfoBinding
-import pl.mkwiecinski.presentation.details.ui.PullRequestAdapter.PullRequestViewHolder
 
 internal class PullRequestAdapter : FooterAdapter<Int, PullRequestPreview>(PullRequestDiff) {
 

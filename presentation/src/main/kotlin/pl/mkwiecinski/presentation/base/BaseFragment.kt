@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
+import pl.mkwiecinski.presentation.BR
 import javax.inject.Inject
 import kotlin.reflect.KClass
-import pl.mkwiecinski.presentation.BR
 
 internal abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : ViewModel> : DaggerFragment() {
 

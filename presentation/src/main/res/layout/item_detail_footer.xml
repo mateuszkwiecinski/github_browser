@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="count"
-            type="Integer" />
+            type="Integer"
+            />
     </data>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@{@string/details_preview_footer(count)}"
-        tools:text="@string/details_preview_footer" />
+        tools:text="@string/details_preview_footer"
+        />
 </layout>

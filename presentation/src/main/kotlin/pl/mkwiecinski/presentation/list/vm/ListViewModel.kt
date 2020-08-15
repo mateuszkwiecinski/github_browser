@@ -2,9 +2,9 @@ package pl.mkwiecinski.presentation.list.vm
 
 import androidx.lifecycle.asLiveData
 import androidx.paging.PagedList
-import javax.inject.Inject
 import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
+import javax.inject.Inject
 
 internal class ListViewModel @Inject constructor(
     getPagedRepositories: GetPagedRepositoriesUseCase
