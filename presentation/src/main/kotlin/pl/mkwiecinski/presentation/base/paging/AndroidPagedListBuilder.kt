@@ -2,10 +2,10 @@ package pl.mkwiecinski.presentation.base.paging
 
 import androidx.lifecycle.asFlow
 import androidx.paging.DataSource
-import androidx.paging.PagedList
 import androidx.paging.LivePagedListBuilder
-import javax.inject.Inject
+import androidx.paging.PagedList
 import pl.mkwiecinski.domain.listing.paging.PagedListBuilder
+import javax.inject.Inject
 
 internal class AndroidPagedListBuilder @Inject constructor() : PagedListBuilder {
 
