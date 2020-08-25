@@ -11,7 +11,7 @@ object TestLibs {
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     const val mockito = "org.mockito:mockito-core:3.4.6"
     const val assertJ = "org.assertj:assertj-core:3.16.1"
-    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.8"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9"
 }
 
 object Kapt {

@@ -1,6 +1,5 @@
 package pl.mkwiecinski.domain.listing.persistences
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +19,6 @@ interface PagingEventsPersistence {
 }
 
 @Singleton
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class InMemoryPagingEventsPersistence @Inject constructor() : PagingEventsPersistence {
 
     private val networkEvents = MutableStateFlow(LoadingState.SUCCESS)
