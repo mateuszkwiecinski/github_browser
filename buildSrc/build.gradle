@@ -1,7 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
-    id "org.jmailen.kotlinter" version "2.4.1"
-    id 'org.jetbrains.kotlin.jvm' version'1.3.72'
+    id "org.jmailen.kotlinter" version "3.0.0"
+    id 'org.jetbrains.kotlin.jvm' version'1.4.0'
 }
 
 repositories {
@@ -10,15 +10,11 @@ repositories {
     gradlePluginPortal()
 }
 
-tasks.named("lintKotlinMain") {
-    dependsOn("formatKotlin")
-}
-
 dependencies {
     implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
     implementation "com.apollographql.apollo:apollo-gradle-plugin:2.3.1"
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin"
-    implementation "com.project.starter:plugins:0.15.0"
+    implementation "com.project.starter:plugins:0.17.1"
 }
 
 gradlePlugin {
