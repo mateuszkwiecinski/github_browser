@@ -5,8 +5,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.stub
 import com.nhaarman.mockitokotlin2.verify
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.emptyFlow
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,11 +33,11 @@ internal class GetPagedRepositoriesUseCaseTest {
     @Before
     fun setUp() {
         eventsPersistence.stub {
-            on { networkEvents() } doReturn callbackFlow { awaitClose() }
-            on { refreshEvents() } doReturn callbackFlow { awaitClose() }
+            on { networkEvents() } doReturn emptyFlow()
+            on { refreshEvents() } doReturn emptyFlow()
         }
         factory.stub {
-            on { getPagingList(any()) } doReturn callbackFlow { awaitClose() }
+            on { getPagingList(any()) } doReturn emptyFlow()
         }
     }
 
