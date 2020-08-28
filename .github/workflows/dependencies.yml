@@ -28,3 +28,6 @@ jobs:
         configuration: graphqlReleaseRuntimeClasspath
     - run: echo diff ${{ steps.dependency-diff.outputs.text-diff }} 
       shell: bash
+    - run: echo diff ${{ steps.dependency-diff.outputs.asdalkjdhaskdjh }} 
+      shell: bash
+      
