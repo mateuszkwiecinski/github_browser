@@ -26,5 +26,5 @@ jobs:
       uses: mateuszkwiecinski/dependency-tree-diff-action@master
       with:
         configuration: graphqlReleaseRuntimeClasspath
-        - run: echo diff ${{ steps.dependency-diff.outputs.text-diff }} 
+      - run: echo diff ${{ steps.dependency-diff.outputs.text-diff }} 
       shell: bash
