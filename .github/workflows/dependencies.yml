@@ -35,7 +35,9 @@ jobs:
       with:
         body: |
           Dependency diff: 
+            ```
             ${{ steps.dependency-diff.outputs.text-diff  }}
+            ```
         edit-mode: replace
         comment-id: ${{ steps.find_comment.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
