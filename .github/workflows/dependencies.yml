@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  generate-diff:
     env:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
