@@ -26,8 +26,19 @@ jobs:
       uses: mateuszkwiecinski/dependency-tree-diff-action@master
       with:
         configuration: graphqlReleaseRuntimeClasspath
-    - run: echo diff ${{ steps.dependency-diff.outputs.text-diff }} 
-      shell: bash
-    - run: echo diff ${{ steps.dependency-diff.outputs.asdalkjdhaskdjh }} 
-      shell: bash
-      
+    - uses: peter-evans/find-comment@v1
+      id: find_comment
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body-includes: Dependency diff
+    - uses: peter-evans/create-or-update-comment@v1
+      with:
+        body: |
+          Dependency diff: 
+            ```diff
+            ${{ steps.dependency-diff.outputs.text-diff  }}
+            ```
+        edit-mode: replace
+        comment-id: ${{ steps.find_comment.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        token: ${{ secrets.GITHUB_TOKEN }}
