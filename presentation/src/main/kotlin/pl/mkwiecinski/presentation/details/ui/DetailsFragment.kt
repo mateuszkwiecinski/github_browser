@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.map
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import pl.mkwiecinski.presentation.R

@@ -1,0 +1,75 @@
+name: Diffuse
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+      - trunk
+      - develop
+      - maine
+      - mane
+
+jobs:
+  run-diffuse:
+    env:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Cache .gradle
+        uses: burrunan/gradle-cache-action@v1
+
+      - name: Assemble
+        run: ./gradlew assembleGraphqlDebug
+
+      - uses: actions/cache@v2
+        name: Download base
+        with:
+          path: diffuse-source-file-debug
+          key: diffuse-${{ github.event.pull_request.base.sha }}
+          restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
+
+      - id: diffuse
+        uses: usefulness/diffuse-action@master
+        with:
+          debug: true
+          old-file-path: diffuse-source-file-debug
+          new-file-path: app/build/outputs/apk/graphql/debug/app-graphql-debug.apk
+
+      # - id: diffuse-release
+      #   uses: usefulness/diffuse-action@master
+      #   with:
+      #     debug: true
+      #     old-file-path: diffuse-source-file-release
+      #     old-mapping-path: diffuse-mapping-file-release
+      #     new-file-path: app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk
+      #     new-mapping-path: app/build/outputs/mapping/graphqlRelease/mapping.txt
+
+      - uses: peter-evans/find-comment@v1
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: Diffuse output
+
+      - uses: peter-evans/create-or-update-comment@v1
+        if: ${{ steps.diffuse.outputs.text-diff != null || steps.find_comment.outputs.comment-id != null }}
+        with:
+          body: |
+            Diffuse output:
+              ```
+              ${{ steps.diffuse.outputs.summary }}
+              ```
+          edit-mode: replace
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
