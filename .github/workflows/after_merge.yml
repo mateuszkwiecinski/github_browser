@@ -31,19 +31,19 @@ jobs:
         run: ./gradlew assembleGraphqlDebug
 
       - uses: actions/cache@v2
-          name: Upload base (release)
-          with:
-            path: diffuse-source-file-release
-            key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/release/**.apk') }}
+        name: Upload base (release)
+        with:
+          path: diffuse-source-file-release
+          key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/release/**.apk') }}
 
-      - run: cp app/build/outputs/apk/graphql/debig/app-graphql-release-unsigned.apk diffuse-source-file-release
+      - run: cp app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk diffuse-source-file-release
         shell: bash
 
       - uses: actions/cache@v2
-          name: Upload base (debug)
-          with:
-            path: diffuse-source-file-debug
-            key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/debug/**.apk') }}
+        name: Upload base (debug)
+        with:
+          path: diffuse-source-file-debug
+          key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/debug/**.apk') }}
 
-      - run: cp app/build/outputs/apk/graphql/debig/app-graphql-debug.apk diffuse-source-file-debug
+      - run: cp app/build/outputs/apk/graphql/debug/app-graphql-debug.apk diffuse-source-file-debug
         shell: bash
