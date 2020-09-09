@@ -33,5 +33,5 @@ jobs:
           path: diffuse-source-file
           key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/release/**.apk') }}
 
-      - run: cp app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk source-file
+      - run: cp app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk diffuse-source-file
         shell: bash
