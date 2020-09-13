@@ -2,7 +2,6 @@ package pl.mkwiecinski.presentation.list.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.observe
 import androidx.navigation.ui.setupWithNavController
 import pl.mkwiecinski.domain.listing.models.LoadingState
 import pl.mkwiecinski.presentation.R
