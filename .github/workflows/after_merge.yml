@@ -1,3 +1,5 @@
+name: After merge build
+
 on:
   push:
     branches:
@@ -10,6 +12,8 @@ on:
 
 jobs:
   build:
+    env:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,7 +31,7 @@ jobs:
       - name: Assemble
         run: ./gradlew assembleGraphqlRelease assembleMockedRelease
 
-      - name: Assemble
+      - name: Assemble debug
         run: ./gradlew assembleGraphqlDebug
 
       - uses: actions/cache@v2
