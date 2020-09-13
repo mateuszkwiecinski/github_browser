@@ -33,10 +33,15 @@ jobs:
       - uses: actions/cache@v2
         name: Upload base (release)
         with:
-          path: diffuse-source-file-release
+          path: |
+            diffuse-source-file-release
+            diffuse-mapping-file-release
           key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/release/**.apk') }}
 
       - run: cp app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk diffuse-source-file-release
+        shell: bash
+
+      - run: cp app/build/outputs/mapping/graphqlRelease/mapping.txt diffuse-mapping-file-release
         shell: bash
 
       - uses: actions/cache@v2
