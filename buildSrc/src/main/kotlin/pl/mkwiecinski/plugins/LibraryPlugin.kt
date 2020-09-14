@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import pl.mkwiecinski.plugins.internal.applyDagger
 import pl.mkwiecinski.plugins.internal.applyDaggerAndroid
+import pl.mkwiecinski.plugins.internal.configureCompilerFlags
 import pl.mkwiecinski.plugins.internal.configureUnitTest
 
 class LibraryPlugin : Plugin<Project> {
@@ -18,6 +19,7 @@ class LibraryPlugin : Plugin<Project> {
         applyDaggerAndroid()
 
         configureUnitTest()
+        configureCompilerFlags()
     }
 
     private fun Project.improveDatabindingLogs() {

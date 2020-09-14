@@ -13,7 +13,8 @@ import pl.mkwiecinski.presentation.databinding.ItemRepoInfoBinding
 
 internal class RepoAdapter(
     private val onRetry: () -> Unit,
-    private val onItemSelected: (RepositoryInfo) -> Unit
+    private val onItemSelected: (RepositoryInfo) -> Unit,
+    private val onItemLongClicked: () -> Unit,
 ) : PagedListAdapter<RepositoryInfo, RepoAdapter.BindableViewHolder>(RepoDiff) {
 
     var networkState: LoadingState? = null
@@ -57,6 +58,10 @@ internal class RepoAdapter(
                 holder.binding.model = getItem(position)
                 holder.binding.root.setOnClickListener {
                     getItem(holder.adapterPosition)?.let(onItemSelected)
+                }
+                holder.binding.root.setOnLongClickListener {
+                    onItemLongClicked()
+                    true
                 }
             }
             is BindableViewHolder.NetworkState -> {

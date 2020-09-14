@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/mainList"
-    android:id="@+id/nav_graph">
+    >
 
     <fragment
         android:id="@+id/mainList"
-        android:label="@string/list_title"
         android:name="pl.mkwiecinski.presentation.list.ui.ListFragment"
-        tools:layout="@layout/fragment_list">
+        android:label="@string/list_title"
+        tools:layout="@layout/fragment_list"
+        >
 
         <action
             android:id="@+id/action_list_to_details"
-            app:destination="@id/details" />
+            app:destination="@id/details"
+            />
+
+        <action
+            android:id="@+id/action_list_to_keyboard"
+            app:destination="@id/keyboard"
+            />
     </fragment>
 
     <fragment
         android:id="@+id/details"
-        android:label="@string/details_title"
         android:name="pl.mkwiecinski.presentation.details.ui.DetailsFragment"
-        tools:layout="@layout/fragment_details">
+        android:label="@string/details_title"
+        tools:layout="@layout/fragment_details"
+        >
 
         <argument
             android:name="name"
-            app:argType="string" />
+            app:argType="string"
+            />
     </fragment>
 
+    <fragment
+        android:id="@+id/keyboard"
+        android:name="pl.mkwiecinski.presentation.details.ui.DetailsFragment"
+        android:label="Keyboard"
+        />
 </navigation>

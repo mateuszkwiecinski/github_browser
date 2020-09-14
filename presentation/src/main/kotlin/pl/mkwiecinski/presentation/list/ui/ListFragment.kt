@@ -25,15 +25,15 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
     }
 
     private fun setupList() {
-        val adapter = RepoAdapter(viewModel::retryFailed) {
-            navController.navigate(ListFragmentDirections.actionListToDetails(it.name))
-        }
+        val adapter = RepoAdapter(
+            onRetry = viewModel::retryFailed,
+            onItemSelected = { navController.navigate(ListFragmentDirections.actionListToDetails(it.name)) },
+            onItemLongClicked = { navController.navigate(ListFragmentDirections.actionListToKeyboard()) }
+        )
         binding.repoList.adapter = adapter
 
         viewModel.repositories.observe(viewLifecycleOwner, adapter::submitList)
-        viewModel.networkState.observe(viewLifecycleOwner) {
-            adapter.networkState = it
-        }
+        viewModel.networkState.observe(viewLifecycleOwner) { adapter.networkState = it }
     }
 
     private fun setupSwipeRefresh() {
