@@ -2,12 +2,3 @@ include ':app'
 include ':presentation'
 include ':domain'
 include ':data:graphql', ':data:mocked'
-
-
-def isCiServer = System.getenv().containsKey("CI")
-
-buildCache {
-   local {
-       enabled = !isCiServer
-   }
-}

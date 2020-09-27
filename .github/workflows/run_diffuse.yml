@@ -29,9 +29,6 @@ jobs:
       - name: Cache .gradle
         uses: burrunan/gradle-cache-action@v1
 
-      - name: Assemble
-        run: ./gradlew assembleGraphqlDebug
-
       - uses: actions/cache@v2
         name: Download base
         with:
@@ -39,6 +36,9 @@ jobs:
           key: diffuse-${{ github.event.pull_request.base.sha }}
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
 
+      - name: Assemble
+        run: ./gradlew assembleGraphqlDebug
+        
       - id: diffuse
         uses: usefulness/diffuse-action@master
         with:
@@ -66,10 +66,53 @@ jobs:
         with:
           body: |
             Diffuse output:
-              ```
-              ${{ steps.diffuse.outputs.summary }}
-              ```
+            ```
+            ${{ steps.diffuse.outputs.summary }}
+            ```
+
+            <details>
+              <summary>APK</summary>
+              
+            ```
+              ${{ steps.diffuse.outputs.apk }}
+            ```
+
+            </details>
+
+            <details>
+              <summary>MANIFEST</summary>
+              
+            ```
+            ${{ steps.diffuse.outputs.manifest }}
+            ```
+
+            </details>
+
+            <details>
+              <summary>DEX</summary>
+              
+            ```text
+            ${{ steps.diffuse.outputs.dex }}
+            ```
+
+            </details>
+
+            <details>
+              <summary>ARSC</summary>
+              
+            ```
+            ${{ steps.diffuse.outputs.arsc }}
+            ```
+
+            </details>
+
+            File path: `${{ steps.diffuse.outputs.file-diff }}`
           edit-mode: replace
           comment-id: ${{ steps.find_comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: diffuse-output
+          path: ${{ steps.diffuse.outputs.file-diff }}
