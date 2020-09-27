@@ -12,16 +12,14 @@ import pl.mkwiecinski.presentation.details.vm.DetailsViewModel
 @Module
 internal abstract class DetailsModule {
 
-    @Module
-    companion object {
-
-        @Provides
-        @JvmStatic
-        fun repoName(fragment: DetailsFragment): String = fragment.args.name
-    }
-
     @Binds
     @IntoMap
     @ViewModelKey(DetailsViewModel::class)
     abstract fun vm(viewModel: DetailsViewModel): ViewModel
+
+    companion object {
+
+        @Provides
+        fun repoName(fragment: DetailsFragment): String = fragment.args.name
+    }
 }

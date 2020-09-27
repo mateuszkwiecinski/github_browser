@@ -3,11 +3,10 @@ package pl.mkwiecinski.data
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.ApolloQueryCall
 import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.coroutines.toDeferred
+import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 import pl.mkwiecinski.data.mappings.toIssueInfo
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
@@ -17,6 +16,7 @@ import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
 import pl.mkwiecinski.graphql.RepositoriesQuery
 import pl.mkwiecinski.graphql.RepositoryDetailsQuery
+import javax.inject.Inject
 
 internal class GraphqlGateway @Inject constructor(
     private val client: ApolloClient,
@@ -33,7 +33,7 @@ internal class GraphqlGateway @Inject constructor(
                 count = limit,
                 after = Input.absent()
             )
-        ).await()
+        ).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
             repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
@@ -53,7 +53,7 @@ internal class GraphqlGateway @Inject constructor(
                 count = limit,
                 after = Input.optional(pageKey)
             )
-        ).await()
+        ).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
             repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
@@ -72,17 +72,17 @@ internal class GraphqlGateway @Inject constructor(
                 name = name,
                 previewCount = DEFAULT_PREVIEW_COUNT
             )
-        ).await()
+        ).getDataOrThrow()
 
         result.repository.let(::requireNotNull).toIssueInfo()
     }
 
+    private suspend fun <T> ApolloQueryCall<T>.getDataOrThrow() =
+        await().let {
+            it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
+        }
+
     companion object {
         private const val DEFAULT_PREVIEW_COUNT = 5
     }
-
-    private suspend fun <T> ApolloQueryCall<T>.await() =
-        toDeferred().await().let {
-            it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
-        }
 }
