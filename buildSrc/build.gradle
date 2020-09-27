@@ -1,7 +1,7 @@
 plugins {
-    id 'java-gradle-plugin'
+    id "java-gradle-plugin"
     id "org.jmailen.kotlinter" version "3.2.0"
-    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+    id "org.jetbrains.kotlin.jvm' version "1.4.10"
 }
 
 repositories {
@@ -20,16 +20,16 @@ dependencies {
 gradlePlugin {
     plugins {
         androidLibPlugin {
-            id = 'library.android'
-            implementationClass = 'pl.mkwiecinski.plugins.LibraryPlugin'
+            id = "library.android"
+            implementationClass = "pl.mkwiecinski.plugins.LibraryPlugin"
         }
         kotlinLibPlugin {
-            id = 'library.kotlin'
-            implementationClass = 'pl.mkwiecinski.plugins.KotlinPlugin'
+            id = "library.kotlin"
+            implementationClass = "pl.mkwiecinski.plugins.KotlinPlugin"
         }
         applicationPlugin {
-            id = 'app.android'
-            implementationClass = 'pl.mkwiecinski.plugins.ApplicationPlugin'
+            id = "app.android"
+            implementationClass = "pl.mkwiecinski.plugins.ApplicationPlugin"
         }
     }
 }
