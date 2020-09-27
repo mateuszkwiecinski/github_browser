@@ -13,6 +13,12 @@ import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 @Module
 abstract class DomainModule {
 
+    @Binds
+    internal abstract fun SingleActivePagingSourceFactory.paging(): PagingSourceFactory
+
+    @Binds
+    internal abstract fun InMemoryPagingEventsPersistence.events(): PagingEventsPersistence
+
     @Module
     companion object Hardcoded {
 
@@ -23,10 +29,4 @@ abstract class DomainModule {
         @Provides
         fun dispatcher() = Dispatchers.Default
     }
-
-    @Binds
-    internal abstract fun SingleActivePagingSourceFactory.paging(): PagingSourceFactory
-
-    @Binds
-    internal abstract fun InMemoryPagingEventsPersistence.events(): PagingEventsPersistence
 }
