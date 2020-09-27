@@ -80,4 +80,5 @@ private String findGithubToken() {
             "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
             "or add `github.token` entry to your `local.properties` file")
 
+    return null
 }
