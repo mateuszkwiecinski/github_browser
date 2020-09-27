@@ -62,51 +62,14 @@ jobs:
           body-includes: Diffuse output
 
       - uses: peter-evans/create-or-update-comment@v1
-        if: ${{ steps.diffuse.outputs.text-diff != null || steps.find_comment.outputs.comment-id != null }}
+        if: ${{ steps.diffuse.outputs.diff-raw != null || steps.find_comment.outputs.comment-id != null }}
         with:
           body: |
             Diffuse output:
-            ```
-            ${{ steps.diffuse.outputs.summary }}
-            ```
 
-            <details>
-              <summary>APK</summary>
-              
-            ```
-              ${{ steps.diffuse.outputs.apk }}
-            ```
+            ${{ steps.diffuse.outputs.diff-gh-comment }}
 
-            </details>
-
-            <details>
-              <summary>MANIFEST</summary>
-              
-            ```
-            ${{ steps.diffuse.outputs.manifest }}
-            ```
-
-            </details>
-
-            <details>
-              <summary>DEX</summary>
-              
-            ```text
-            ${{ steps.diffuse.outputs.dex }}
-            ```
-
-            </details>
-
-            <details>
-              <summary>ARSC</summary>
-              
-            ```
-            ${{ steps.diffuse.outputs.arsc }}
-            ```
-
-            </details>
-
-            File path: `${{ steps.diffuse.outputs.file-diff }}`
+            File path: `${{ steps.diffuse.outputs.diff-file }}`
           edit-mode: replace
           comment-id: ${{ steps.find_comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -115,4 +78,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: diffuse-output
-          path: ${{ steps.diffuse.outputs.file-diff }}
+          path: ${{ steps.diffuse.outputs.diff-file }}
