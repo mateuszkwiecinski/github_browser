@@ -1,4 +1,10 @@
-apply plugin: 'app.android'
+buildscript {
+    repositories.google()
+}
+plugins {
+    id "com.starter.easylauncher" version("3.5.0")
+    id "app.android"
+}
 
 android {
     defaultConfig {
@@ -37,6 +43,10 @@ android {
     }
 }
 
+easylauncher {
+    defaultFlavorNaming true
+}
+
 dependencies {
     implementation project(":presentation")
     graphqlImplementation project(":data:graphql")
@@ -66,8 +76,8 @@ private String findGithubToken() {
     }
 
     logger.error("Could not find github api token. " +
-        "Set a `github_token` environment variable, " +
-        "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
-        "or add `github.token` entry to your `local.properties` file")
+            "Set a `github_token` environment variable, " +
+            "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
+            "or add `github.token` entry to your `local.properties` file")
 
 }
