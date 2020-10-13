@@ -62,7 +62,7 @@ jobs:
           body-includes: Diffuse output
 
       - uses: peter-evans/create-or-update-comment@v1
-        if: ${{ steps.diffuse.outputs.diff-raw != null || steps.find_comment.outputs.comment-id != null }}
+        if: ${{ steps.diffuse.outputs.diff-gh-comment != null || steps.find_comment.outputs.comment-id != null }}
         with:
           body: |
             Diffuse output:
