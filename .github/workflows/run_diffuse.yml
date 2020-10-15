@@ -38,7 +38,7 @@ jobs:
 
       - name: Assemble
         run: ./gradlew assembleGraphqlDebug
-        
+
       - id: diffuse
         uses: usefulness/diffuse-action@master
         with:
