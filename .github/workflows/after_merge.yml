@@ -28,7 +28,7 @@ jobs:
           java-version: 1.8
 
       - name: Cache .gradle
-        uses: burrunan/gradle-cache-action@v1
+        uses: burrunan/gradle-cache-action@v1.6
 
       - name: Assemble
         run: ./gradlew assembleGraphqlRelease assembleMockedRelease
