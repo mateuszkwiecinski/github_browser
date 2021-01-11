@@ -15,7 +15,7 @@ tasks.named("formatKotlinMain") {
 dependencies {
     implementation project(":domain")
 
-    def apolloVersion = "2.4.6"
+    def apolloVersion = "2.5.2"
     implementation "com.apollographql.apollo:apollo-runtime:$apolloVersion"
     implementation "com.apollographql.apollo:apollo-http-cache:$apolloVersion"
     implementation "com.apollographql.apollo:apollo-coroutines-support:$apolloVersion"
