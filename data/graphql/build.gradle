@@ -20,7 +20,7 @@ dependencies {
     implementation "com.apollographql.apollo:apollo-http-cache:$apolloVersion"
     implementation "com.apollographql.apollo:apollo-coroutines-support:$apolloVersion"
 
-    def okHttpVersion = "4.9.0"
+    def okHttpVersion = "4.9.1"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 }
