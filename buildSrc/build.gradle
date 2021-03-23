@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.4"
-    implementation "com.apollographql.apollo:apollo-gradle-plugin:2.5.3"
+    implementation "com.apollographql.apollo:apollo-gradle-plugin:2.5.5"
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin"
     implementation "com.project.starter:plugins:0.21.1"
 }
