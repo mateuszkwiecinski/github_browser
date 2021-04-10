@@ -1,0 +1,14 @@
+[versions]
+navigation = "2.3.5"
+lifecycle = "2.3.1"
+
+[libraries]
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+
+[bundles]
+lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
+navigation = ["navigation-ui", "navigation-fragment"]
