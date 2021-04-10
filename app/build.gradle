@@ -1,8 +1,5 @@
-buildscript {
-    repositories.google()
-}
 plugins {
-    id "com.starter.easylauncher" version("3.6.0")
+    id "com.starter.easylauncher"
     id "app.android"
 }
 
@@ -53,7 +50,7 @@ dependencies {
     mockedImplementation project(":data:mocked")
     implementation project(":domain")
 
-    compileOnly "androidx.navigation:navigation-ui-ktx:2.3.1"
+    compileOnly "androidx.navigation:navigation-ui-ktx:2.3.5"
 }
 
 private String findGithubToken() {

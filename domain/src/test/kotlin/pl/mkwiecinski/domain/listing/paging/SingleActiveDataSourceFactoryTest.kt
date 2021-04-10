@@ -19,12 +19,16 @@ internal class SingleActiveDataSourceFactoryTest {
 
     @Mock
     private lateinit var pagingEvents: InMemoryPagingEventsPersistence
+
     @Mock
     private lateinit var dataSourceProvider: Provider<RepoDataSource>
+
     @Mock
     private lateinit var firstSource: RepoDataSource
+
     @Mock
     private lateinit var secondSource: RepoDataSource
+
     @Mock
     private lateinit var pagedListBuilder: PagedListBuilder
 
