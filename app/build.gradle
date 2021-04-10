@@ -45,12 +45,12 @@ easylauncher {
 }
 
 dependencies {
-    implementation project(":presentation")
-    graphqlImplementation project(":data:graphql")
-    mockedImplementation project(":data:mocked")
-    implementation project(":domain")
+    implementation projects.presentation
+    graphqlImplementation projects.data.graphql
+    mockedImplementation projects.data.mocked
+    implementation projects.domain
 
-    compileOnly "androidx.navigation:navigation-ui-ktx:2.3.5"
+    compileOnly libs.navigation.ui
 }
 
 private String findGithubToken() {

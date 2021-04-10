@@ -13,15 +13,10 @@ tasks.named("formatKotlinMain") {
 }
 
 dependencies {
-    implementation project(":domain")
+    implementation projects.domain
 
-    def apolloVersion = "2.5.5"
-    implementation "com.apollographql.apollo:apollo-runtime:$apolloVersion"
-    implementation "com.apollographql.apollo:apollo-http-cache:$apolloVersion"
-    implementation "com.apollographql.apollo:apollo-coroutines-support:$apolloVersion"
-
-    def okHttpVersion = "4.9.1"
-    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    implementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    implementation libs.bundles.apollo
+    implementation libs.okhttp.okhttp
+    testImplementation libs.okhttp.mockwebserver
 }
 
