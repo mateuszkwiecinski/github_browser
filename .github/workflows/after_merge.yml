@@ -30,6 +30,8 @@ jobs:
 
       - name: Cache .gradle
         uses: burrunan/gradle-cache-action@v1
+        with:
+          - gradle-distribution-sha-256-sum-warning: false
 
       - name: Assemble
         run: ./gradlew assembleGraphqlRelease assembleMockedRelease
