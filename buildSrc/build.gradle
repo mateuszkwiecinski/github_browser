@@ -6,7 +6,6 @@ plugins {
 
 repositories {
     google()
-    jcenter()
     gradlePluginPortal()
 }
 
@@ -14,7 +13,7 @@ dependencies {
     implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
     implementation "com.apollographql.apollo:apollo-gradle-plugin:2.5.5"
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin"
-    implementation "com.project.starter:plugins:0.21.1"
+    implementation "com.project.starter:plugins:0.23.0"
 }
 
 gradlePlugin {

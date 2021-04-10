@@ -47,7 +47,7 @@ internal class RepoAdapter(
                 ItemRepoInfoBinding.inflate(inflater, parent, false).let(BindableViewHolder::Repo)
             R.layout.item_network_state ->
                 ItemNetworkStateBinding.inflate(inflater, parent, false).let(BindableViewHolder::NetworkState)
-            else -> throw IllegalArgumentException()
+            else -> error("Unsupported type")
         }
     }
 

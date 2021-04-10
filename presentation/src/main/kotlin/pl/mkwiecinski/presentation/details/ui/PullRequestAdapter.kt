@@ -19,7 +19,7 @@ internal class PullRequestAdapter : FooterAdapter<Int, PullRequestPreview>(PullR
             FOOTER_TYPE -> FooterViewHolder(
                 ItemDetailFooterBinding.inflate(inflater, parent, false)
             )
-            else -> throw IllegalArgumentException()
+            else -> error("Unsupported type")
         }
     }
 
