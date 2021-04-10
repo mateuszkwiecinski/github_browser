@@ -6,11 +6,17 @@ import TestLibs
 import org.gradle.api.Project
 
 internal fun Project.applyDagger() {
+    if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
+        pluginManager.apply("org.jetbrains.kotlin.kapt")
+    }
     dependencies.add("implementation", Libs.dagger)
     dependencies.add("kapt", Kapt.daggerCompiler)
 }
 
 internal fun Project.applyDaggerAndroid() {
+    if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
+        pluginManager.apply("org.jetbrains.kotlin.kapt")
+    }
     dependencies.add("implementation", Libs.daggerAndroid)
     dependencies.add("implementation", Libs.daggerAndroidSupport)
     dependencies.add("kapt", Kapt.daggerAndroidCompiler)

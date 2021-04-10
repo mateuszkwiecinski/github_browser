@@ -19,7 +19,7 @@ internal class IssueAdapter : FooterAdapter<Int, IssuePreview>(IssueDiff) {
             FOOTER_TYPE -> FooterViewHolder(
                 ItemDetailFooterBinding.inflate(inflater, parent, false)
             )
-            else -> throw IllegalArgumentException()
+            else -> error("Unsupported type")
         }
     }
 
