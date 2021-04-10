@@ -4,18 +4,17 @@ on:
   pull_request:
 
 jobs:
-  jobs:
-    cancel-previous-workflows:
-      name: Cancel previous workflow runs
-      runs-on: ubuntu-latest
-      steps:
-        - uses: styfle/cancel-workflow-action@0.8.0
-          with:
-            access_token: ${{ github.token }}
+  cancel-previous-workflows:
+    name: Cancel previous workflow runs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
 
   build:
     env:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      github_token: ${{ secrets.token }}
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +31,7 @@ jobs:
       - name: Cache .gradle
         uses: burrunan/gradle-cache-action@v1
         with:
-          - gradle-distribution-sha-256-sum-warning: false
+          gradle-distribution-sha-256-sum-warning: false
 
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v1
