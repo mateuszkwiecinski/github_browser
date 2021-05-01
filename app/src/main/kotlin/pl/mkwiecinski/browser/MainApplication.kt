@@ -11,7 +11,7 @@ internal class MainApplication : DaggerApplication() {
 
         return DaggerMainComponent.factory().create(
             application = this,
-            networking = networking
+            networking = networking,
         )
     }
 }
