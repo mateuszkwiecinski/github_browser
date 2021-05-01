@@ -1,10 +1,6 @@
 package pl.mkwiecinski.presentation.details.vm
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.stub
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -23,6 +19,10 @@ import org.mockito.Mock
 import org.mockito.internal.invocation.InterceptedInvocation
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.any
+import org.mockito.kotlin.stub
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 import org.mockito.stubbing.OngoingStubbing
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails

@@ -1,5 +1,7 @@
-apply plugin: 'library.kotlin'
-apply plugin: 'com.apollographql.apollo'
+plugins {
+    id("library.kotlin")
+    id("com.apollographql.apollo")
+}
 
 apollo {
     generateKotlinModels = true
@@ -13,10 +15,10 @@ tasks.named("formatKotlinMain") {
 }
 
 dependencies {
-    implementation projects.domain
+    implementation(projects.domain)
 
-    implementation libs.bundles.apollo
-    implementation libs.okhttp.okhttp
-    testImplementation libs.okhttp.mockwebserver
+    implementation(libs.bundles.apollo)
+    implementation(libs.okhttp.okhttp)
+    testImplementation(libs.okhttp.mockwebserver)
 }
 

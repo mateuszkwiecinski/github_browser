@@ -1,5 +1,7 @@
-apply plugin: 'library.kotlin'
+plugins {
+    id("library.kotlin")
+}
 
 dependencies {
-    implementation projects.domain
+    implementation(projects.domain)
 }

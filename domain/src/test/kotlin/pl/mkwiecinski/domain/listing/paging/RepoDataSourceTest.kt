@@ -1,14 +1,6 @@
 package pl.mkwiecinski.domain.listing.paging
 
 import androidx.paging.PageKeyedDataSource
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.stub
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.assertj.core.api.Assertions.assertThat
@@ -19,6 +11,14 @@ import org.mockito.Mock
 import org.mockito.internal.invocation.InterceptedInvocation
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doAnswer
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doThrow
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.stub
+import org.mockito.kotlin.verify
 import org.mockito.stubbing.OngoingStubbing
 import pl.mkwiecinski.domain.details.info
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo

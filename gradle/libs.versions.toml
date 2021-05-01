@@ -3,8 +3,9 @@ navigation = "2.3.5"
 lifecycle = "2.3.1"
 coroutines = "1.4.3"
 paging = "2.1.2"
-apollo = "2.5.5"
+apollo = "2.5.6"
 okhttp = "4.9.1"
+starter = "0.26.3"
 
 [libraries]
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
@@ -12,14 +13,18 @@ lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", v
 
 navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-gradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 paging-common = { module = "androidx.paging:paging-common-ktx", version.ref = "paging" }
 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
 apollo-cache = { module = "com.apollographql.apollo:apollo-http-cache", version.ref = "apollo" }
 apollo-coroutines = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apollo" }
-okhttp-okhttp = {module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-okhttp-mockwebserver = {module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+apollo-gradle = { module = "com.apollographql.apollo:apollo-gradle-plugin", version.ref = "apollo" }
+okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+
+starter-android = { module = "com.project.starter:android", version.ref = "starter" }
 
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]

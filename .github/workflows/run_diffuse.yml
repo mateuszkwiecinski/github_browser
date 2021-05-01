@@ -42,21 +42,21 @@ jobs:
       - name: Assemble
         run: ./gradlew assembleGraphqlDebug
 
-      - id: diffuse
+      #      - id: diffuse
+      #        uses: usefulness/diffuse-action@master
+      #        with:
+      #          debug: true
+      #          old-file-path: diffuse-source-file-debug
+      #          new-file-path: app/build/outputs/apk/graphql/debug/app-graphql-debug.apk
+
+      - id: diffuse-release
         uses: usefulness/diffuse-action@master
         with:
           debug: true
-          old-file-path: diffuse-source-file-debug
-          new-file-path: app/build/outputs/apk/graphql/debug/app-graphql-debug.apk
-
-      # - id: diffuse-release
-      #   uses: usefulness/diffuse-action@master
-      #   with:
-      #     debug: true
-      #     old-file-path: diffuse-source-file-release
-      #     old-mapping-path: diffuse-mapping-file-release
-      #     new-file-path: app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk
-      #     new-mapping-path: app/build/outputs/mapping/graphqlRelease/mapping.txt
+          old-file-path: diffuse-source-file-release
+          old-mapping-path: diffuse-mapping-file-release
+          new-file-path: app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk
+          new-mapping-path: app/build/outputs/mapping/graphqlRelease/mapping.txt
 
       - uses: peter-evans/find-comment@v1
         id: find_comment
