@@ -1,9 +1,5 @@
 package pl.mkwiecinski.domain.details
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.stub
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -11,6 +7,10 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.stub
+import org.mockito.kotlin.verify
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 

@@ -1,10 +1,6 @@
 package pl.mkwiecinski.domain.listing
 
 import androidx.paging.PagedList
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.stub
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.flow.emptyFlow
 import org.junit.Before
 import org.junit.Test
@@ -12,6 +8,10 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.stub
+import org.mockito.kotlin.verify
 import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
 import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 

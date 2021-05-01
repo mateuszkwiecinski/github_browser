@@ -1,6 +1,8 @@
-apply plugin: 'library.kotlin'
+plugins {
+    id("library.kotlin")
+}
 
 dependencies {
-    api libs.coroutines.core
-    api libs.paging.common
+    api(libs.coroutines.core)
+    api(libs.paging.common)
 }

@@ -8,7 +8,8 @@ import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
 import javax.inject.Inject
-import kotlin.time.milliseconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @Suppress("MagicNumber")
 internal class MockedListingGateway @Inject constructor() : ListingGateway {
@@ -33,7 +34,7 @@ internal class MockedListingGateway @Inject constructor() : ListingGateway {
         }
 
     private suspend fun randomize() = withContext(Dispatchers.Default) {
-        delay((MINIMUM_DELAY + Math.random() * DELAY_RANGE).milliseconds)
+        delay((MINIMUM_DELAY + Math.random() * DELAY_RANGE).toDuration(DurationUnit.MILLISECONDS))
 
         if (Math.random() < FAILURE_PROBABILITY) {
             throw IllegalStateException("Random exception")

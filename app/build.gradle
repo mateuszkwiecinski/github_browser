@@ -45,12 +45,12 @@ easylauncher {
 }
 
 dependencies {
-    implementation projects.presentation
-    graphqlImplementation projects.data.graphql
-    mockedImplementation projects.data.mocked
-    implementation projects.domain
+    implementation(projects.presentation)
+    graphqlImplementation(projects.data.graphql)
+    mockedImplementation(projects.data.mocked)
+    implementation(projects.domain)
 
-    compileOnly libs.navigation.ui
+    compileOnly(libs.navigation.ui)
 }
 
 private String findGithubToken() {
