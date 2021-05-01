@@ -35,12 +35,14 @@ jobs:
       - uses: actions/cache@v2
         name: Download base
         with:
-          path: diffuse-source-file-debug
+          path: |
+            diffuse-source-file-release
+            diffuse-mapping-file-release
           key: diffuse-${{ github.event.pull_request.base.sha }}
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
 
       - name: Assemble
-        run: ./gradlew assembleGraphqlDebug
+        run: ./gradlew assembleGraphqlRelease
 
       #      - id: diffuse
       #        uses: usefulness/diffuse-action@master
@@ -49,7 +51,7 @@ jobs:
       #          old-file-path: diffuse-source-file-debug
       #          new-file-path: app/build/outputs/apk/graphql/debug/app-graphql-debug.apk
 
-      - id: diffuse-release
+      - id: diffuse
         uses: usefulness/diffuse-action@master
         with:
           debug: true
