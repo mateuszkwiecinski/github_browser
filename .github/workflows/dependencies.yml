@@ -19,11 +19,12 @@ jobs:
     - uses: actions/setup-java@v2
       with:
         distribution: 'adopt'
-        java-version: 11
+        java-version: 16
 
     - name: Cache .gradle
       uses: burrunan/gradle-cache-action@v1
       with:
+        job-id: generate-diff-jdk16
         gradle-distribution-sha-256-sum-warning: false
 
     - id: dependency-diff
