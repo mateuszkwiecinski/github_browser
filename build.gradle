@@ -11,16 +11,3 @@ commonConfig {
         minSdkVersion 26
     }
 }
-
-allprojects {
-    pluginManager.withPlugin("kotlin") { plugin ->
-        def kotlinVersion = plugins.getPlugin("kotlin").kotlinPluginVersion
-        configurations.configureEach {
-            resolutionStrategy.eachDependency {
-                if (requested.group == 'org.jetbrains.kotlin' && requested.name.startsWith("kotlin")) {
-                    useVersion kotlinVersion
-                }
-            }
-        }
-    }
-}
