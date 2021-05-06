@@ -5,6 +5,10 @@ plugins {
 
 android {
     buildFeatures.dataBinding true
+
+    lintOptions {
+        lintConfig = rootProject.file("lint.xml")
+    }
 }
 
 dependencies {
