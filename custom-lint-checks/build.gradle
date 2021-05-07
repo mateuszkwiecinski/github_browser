@@ -8,8 +8,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.android.tools.lint:lint-api:27.2.0")
-    compileOnly("com.android.tools.lint:lint-checks:27.2.0")
+    compileOnly("com.android.tools.lint:lint-api:30.0.0-alpha15")
+    compileOnly("com.android.tools.lint:lint-checks:30.0.0-alpha15")
 }
 
 tasks.withType(Jar).configureEach {

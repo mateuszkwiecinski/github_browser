@@ -14,7 +14,7 @@ dependencies {
     implementation(libs.navigation.gradle)
     implementation(libs.apollo.gradle)
     implementation(libs.starter.android)
-    implementation("com.android.tools.build:gradle:4.2.0")
+    implementation("com.android.tools.build:gradle:7.0.0-alpha15")
 }
 
 kotlin {
