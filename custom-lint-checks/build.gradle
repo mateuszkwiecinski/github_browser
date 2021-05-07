@@ -1,0 +1,19 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly("com.android.tools.lint:lint-api:27.2.0")
+    compileOnly("com.android.tools.lint:lint-checks:27.2.0")
+}
+
+tasks.withType(Jar).configureEach {
+    manifest {
+        attributes["Lint-Registry"] = "com.example.SampleIssueRegistry"
+    }
+}
