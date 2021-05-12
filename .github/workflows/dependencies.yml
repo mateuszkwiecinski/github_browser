@@ -33,7 +33,7 @@ jobs:
       with:
         configuration: graphqlReleaseRuntimeClasspath
 
-    - uses: peter-evans/find-comment@v1
+    - uses: peter-evans/find-comment@v1.2.0
       id: find_comment
       with:
         issue-number: ${{ github.event.pull_request.number }}
