@@ -40,7 +40,7 @@ jobs:
       - name: Assemble debug
         run: ./gradlew assembleGraphqlDebug
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.5
         name: Upload base (release)
         with:
           path: |
@@ -54,7 +54,7 @@ jobs:
       - run: cp app/build/outputs/mapping/graphqlRelease/mapping.txt diffuse-mapping-file-release
         shell: bash
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.5
         name: Upload base (debug)
         with:
           path: diffuse-source-file-debug
