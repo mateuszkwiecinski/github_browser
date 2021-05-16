@@ -1,13 +1,18 @@
 [versions]
 navigation = "2.3.5"
 lifecycle = "2.3.1"
-coroutines = "1.4.3"
+coroutines = "1.5.0"
 paging = "2.1.2"
 apollo = "2.5.6"
 okhttp = "4.9.1"
 starter = "0.27.2"
+appcompat = "1.2.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat"}
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout"}
+
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 
@@ -16,6 +21,7 @@ navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", 
 navigation-gradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 paging-common = { module = "androidx.paging:paging-common-ktx", version.ref = "paging" }
 apollo-runtime = { module = "com.apollographql.apollo:apollo-runtime", version.ref = "apollo" }
 apollo-cache = { module = "com.apollographql.apollo:apollo-http-cache", version.ref = "apollo" }

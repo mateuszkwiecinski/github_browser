@@ -8,26 +8,22 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.internal.invocation.InterceptedInvocation
-import org.mockito.invocation.InvocationOnMock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doSuspendableAnswer
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.verify
-import org.mockito.stubbing.OngoingStubbing
 import pl.mkwiecinski.domain.details.info
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 import pl.mkwiecinski.domain.listing.models.PagedResult
 import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
 
 @RunWith(MockitoJUnitRunner::class)
 internal class RepoDataSourceTest {
@@ -112,7 +108,7 @@ internal class RepoDataSourceTest {
     fun `disposes initial data call when whole source is being disposed`() {
         var disposeCalled = false
         gateway.stub {
-            onBlocking { getFirstPage(any(), any()) } willAnswer {
+            onBlocking { getFirstPage(any(), any()) } doSuspendableAnswer {
                 suspendCancellableCoroutine {
                     it.invokeOnCancellation { disposeCalled = true }
                 }
@@ -155,7 +151,7 @@ internal class RepoDataSourceTest {
     fun `disposes after data call when whole source is being disposed`() {
         var disposeCalled = false
         gateway.stub {
-            onBlocking { getPageAfter(any(), any(), any()) } willAnswer {
+            onBlocking { getPageAfter(any(), any(), any()) } doSuspendableAnswer {
                 suspendCancellableCoroutine {
                     it.invokeOnCancellation { disposeCalled = true }
                 }
@@ -198,15 +194,3 @@ internal class RepoDataSourceTest {
 
 private typealias InitialCallback = PageKeyedDataSource.LoadInitialCallback<String, RepositoryInfo>
 private typealias AfterCallback = PageKeyedDataSource.LoadCallback<String, RepositoryInfo>
-
-@Suppress("UNCHECKED_CAST")
-infix fun <T> OngoingStubbing<T>.willAnswer(answer: suspend (InvocationOnMock) -> T?): OngoingStubbing<T> {
-    return thenAnswer {
-        // all suspend functions/lambdas has Continuation as the last argument.
-        // InvocationOnMock does not see last argument
-        val rawInvocation = it as InterceptedInvocation
-        val continuation = rawInvocation.rawArguments.last() as Continuation<T?>
-
-        answer.startCoroutineUninterceptedOrReturn(it, continuation)
-    }
-}
