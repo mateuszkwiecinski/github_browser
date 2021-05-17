@@ -2,9 +2,7 @@ package pl.mkwiecinski.presentation.details.vm
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -16,20 +14,15 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.internal.invocation.InterceptedInvocation
-import org.mockito.invocation.InvocationOnMock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doSuspendableAnswer
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import org.mockito.stubbing.OngoingStubbing
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
 import pl.mkwiecinski.domain.details.entities.RepositoryDetails
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
 
-@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 internal class DetailsViewModelTest {
 
@@ -41,13 +34,13 @@ internal class DetailsViewModelTest {
 
     private lateinit var viewModel: DetailsViewModel
 
-    private val emitter = BroadcastChannel<RepositoryDetails>(capacity = 1)
+    private val emitter = MutableSharedFlow<Result<RepositoryDetails>>()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(Dispatchers.Unconfined)
         usecase.stub {
-            onBlocking { invoke(any()) } willAnswer { emitter.asFlow().first() }
+            onBlocking { invoke(any()) } doSuspendableAnswer { emitter.first().getOrThrow() }
         }
         viewModel = DetailsViewModel("repositoryName", usecase)
         viewModel.details.observeForever { }
@@ -62,7 +55,7 @@ internal class DetailsViewModelTest {
     fun `shows progress on first load`() = runBlockingTest {
         assertThat(viewModel.isLoading.value).isTrue()
 
-        emitter.send(details("1"))
+        emitter.emit(Result.success(details("1")))
 
         assertThat(viewModel.isLoading.value).isFalse()
         verify(usecase).invoke(any())
@@ -70,11 +63,11 @@ internal class DetailsViewModelTest {
 
     @Test
     fun `shows progress on subsequent load`() = runBlockingTest {
-        emitter.send(details("1")) // first load
+        emitter.emit(Result.success(details("1"))) // first load
 
         viewModel.retry()
         assertThat(viewModel.isLoading.value).isTrue()
-        emitter.send(details("1"))
+        emitter.emit(Result.success(details("1")))
 
         assertThat(viewModel.isLoading.value).isFalse()
         verify(usecase, times(2)).invoke(any())
@@ -84,7 +77,7 @@ internal class DetailsViewModelTest {
     fun `shows error on first load`() = runBlockingTest {
         assertThat(viewModel.error.value).isNull()
 
-        emitter.close(IllegalStateException())
+        emitter.emit(Result.failure(IllegalStateException()))
 
         assertThat(viewModel.error.value).isInstanceOf(IllegalStateException::class.java)
         verify(usecase).invoke(any())
@@ -92,25 +85,13 @@ internal class DetailsViewModelTest {
 
     @Test
     fun `shows error on subsequent load`() = runBlockingTest {
-        emitter.send(details("1")) // first load
+        emitter.emit(Result.success(details("1"))) // first load
 
         viewModel.retry()
         assertThat(viewModel.error.value).isNull()
-        emitter.close(IllegalStateException())
+        emitter.emit(Result.failure(IllegalStateException()))
 
         assertThat(viewModel.error.value).isInstanceOf(IllegalStateException::class.java)
         verify(usecase, times(2)).invoke(any())
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-infix fun <T> OngoingStubbing<T>.willAnswer(answer: suspend (InvocationOnMock) -> T?): OngoingStubbing<T> {
-    return thenAnswer {
-        // all suspend functions/lambdas has Continuation as the last argument.
-        // InvocationOnMock does not see last argument
-        val rawInvocation = it as InterceptedInvocation
-        val continuation = rawInvocation.rawArguments.last() as Continuation<T?>
-
-        answer.startCoroutineUninterceptedOrReturn(it, continuation)
     }
 }
