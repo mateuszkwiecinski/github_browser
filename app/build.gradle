@@ -1,6 +1,6 @@
 plugins {
-    id "com.starter.easylauncher"
-    id "app.android"
+    id("com.starter.easylauncher") version("4.0.0")
+    id("app.android")
 }
 
 android {
@@ -9,10 +9,10 @@ android {
         versionCode = 1
     }
     buildTypes {
-        debug {
+        named("debug") {
             signingConfig signingConfigs.debug
         }
-        release {
+        named('release') {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -27,12 +27,12 @@ android {
             keyPassword 'android'
         }
     }
-    flavorDimensions "api"
+    flavorDimensions("api")
     productFlavors {
-        mocked {
+        register("mocked") {
             dimension "api"
         }
-        graphql {
+        register("graphql") {
             dimension "api"
             buildConfigField "String", "GITHUB_TOKEN", "\"${findGithubToken()}\""
             buildConfigField "String", "GITHUB_API", "\"https://api.github.com/graphql\""
@@ -41,7 +41,7 @@ android {
 }
 
 easylauncher {
-    defaultFlavorNaming true
+    defaultFlavorNaming(true)
 }
 
 dependencies {
@@ -51,6 +51,17 @@ dependencies {
     implementation(projects.domain)
 
     compileOnly(libs.navigation.ui)
+}
+
+/**
+ * Workaround for: https://issuetracker.google.com/issues/187096666
+ */
+tasks.withType(com.android.build.gradle.tasks.ExtractDeepLinksTask).configureEach {
+    def easylauncherTaskName = name.replace("extractDeepLinks", "easylauncher")
+    // Workaround for: https://github.com/gradle/gradle/issues/8057
+    if (tasks.getNames().contains(easylauncherTaskName)) {
+        dependsOn(easylauncherTaskName)
+    }
 }
 
 private String findGithubToken() {
