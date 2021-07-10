@@ -1,7 +1,7 @@
 package pl.mkwiecinski.plugins.internal
 
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureCompilerFlags() {
@@ -16,7 +16,7 @@ internal fun Project.configureCompilerFlags() {
 }
 
 internal fun Project.setupCommonKotlinVersion() {
-    val kotlinVersion = plugins.asSequence().filterIsInstance<KotlinBasePluginWrapper>().first().kotlinPluginVersion
+    val kotlinVersion = project.getKotlinPluginVersion()
 
     configurations.configureEach { configuration ->
         configuration.resolutionStrategy.eachDependency {
