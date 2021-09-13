@@ -31,7 +31,7 @@ jobs:
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Assemble
+      - name: Codestyle
         uses: gradle/gradle-build-action@v1
         with:
           arguments: projectCodestyle
@@ -43,7 +43,7 @@ jobs:
           arguments: assembleGraphqlRelease assembleMockedRelease
           dependencies-cache-enabled: true
 
-      - name: Assemble
+      - name: Test
         uses: gradle/gradle-build-action@v1
         with:
           arguments: test

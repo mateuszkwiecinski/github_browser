@@ -37,6 +37,7 @@ internal class SingleActiveDataSourceFactoryTest {
 
     @Before
     fun setUp() {
+        pagedListBuilder
         dataSourceProvider.stub {
             on { get() }.doReturn(firstSource, secondSource)
         }

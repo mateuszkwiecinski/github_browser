@@ -1,7 +1,7 @@
 plugins {
     id("com.starter.config")
     id("com.starter.versioning")
-    id("com.osacky.doctor") version("0.7.0")
+    id("com.osacky.doctor") version("0.7.1")
 }
 
 commonConfig {
