@@ -28,23 +28,29 @@ jobs:
           distribution: 'adopt'
           java-version: 11
 
-      - name: Cache .gradle
-        uses: burrunan/gradle-cache-action@v1
-        with:
-          job-id: default-jdk11
-          gradle-distribution-sha-256-sum-warning: false
-
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Code style check
-        run: ./gradlew projectCodestyle --stacktrace
+      - name: Assemble
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: projectCodestyle
+          dependencies-cache-enabled: true
 
       - name: Assemble
-        run: ./gradlew assembleGraphqlRelease assembleMockedRelease
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: assembleGraphqlRelease assembleMockedRelease
+          dependencies-cache-enabled: true
 
-      - name: Unit tests
-        run: ./gradlew test
+      - name: Assemble
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: test
+          dependencies-cache-enabled: true
 
       - name: Android Lint
-        run: ./gradlew lint
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: lint
+          dependencies-cache-enabled: true

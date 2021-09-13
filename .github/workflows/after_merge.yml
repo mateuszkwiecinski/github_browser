@@ -28,17 +28,17 @@ jobs:
           distribution: 'adopt'
           java-version: 11
 
-      - name: Cache .gradle
-        uses: burrunan/gradle-cache-action@v1
-        with:
-          job-id: default-jdk11
-          gradle-distribution-sha-256-sum-warning: false
-
       - name: Assemble
-        run: ./gradlew assembleGraphqlRelease assembleMockedRelease
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: assembleGraphqlRelease assembleMockedRelease
+          dependencies-cache-enabled: true
 
       - name: Assemble debug
-        run: ./gradlew assembleGraphqlDebug
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: assembleGraphqlDebug
+          dependencies-cache-enabled: true
 
       - uses: actions/cache@v2
         name: Upload base (release)

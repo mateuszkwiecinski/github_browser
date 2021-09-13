@@ -27,12 +27,6 @@ jobs:
           distribution: 'adopt'
           java-version: 11
 
-      - name: Cache .gradle
-        uses: burrunan/gradle-cache-action@v1
-        with:
-          job-id: run-diffuse-jdk11
-          gradle-distribution-sha-256-sum-warning: false
-
       - uses: actions/cache@v2
         name: Download base
         with:
@@ -43,7 +37,10 @@ jobs:
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
 
       - name: Assemble
-        run: ./gradlew assembleGraphqlRelease
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: assembleGraphqlRelease
+          dependencies-cache-enabled: true
 
       #      - id: diffuse
       #        uses: usefulness/diffuse-action@master
