@@ -29,13 +29,13 @@ jobs:
           java-version: 11
 
       - name: Assemble
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: assembleGraphqlRelease assembleMockedRelease
           dependencies-cache-enabled: true
 
       - name: Assemble debug
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: assembleGraphqlDebug
           dependencies-cache-enabled: true

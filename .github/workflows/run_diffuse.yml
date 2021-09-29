@@ -37,7 +37,7 @@ jobs:
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
 
       - name: Assemble
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: assembleGraphqlRelease
           dependencies-cache-enabled: true
