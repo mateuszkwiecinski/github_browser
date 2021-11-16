@@ -1,6 +1,7 @@
 plugins {
     id("com.starter.easylauncher") version("4.1.1")
     id("app.android")
+//    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -49,6 +50,8 @@ dependencies {
     graphqlImplementation(projects.data.graphql)
     mockedImplementation(projects.data.mocked)
     implementation(projects.domain)
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation 'com.google.firebase:firebase-perf-ktx'
 
     compileOnly(libs.navigation.ui)
 }

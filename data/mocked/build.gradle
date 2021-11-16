@@ -2,6 +2,9 @@ plugins {
     id("library.kotlin")
 }
 
+
+
 dependencies {
     implementation(projects.domain)
+    implementation("com.squareup.moshi:moshi:1.13.0-SNAPSHOT")
 }

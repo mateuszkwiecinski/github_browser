@@ -11,3 +11,14 @@ commonConfig {
         minSdkVersion 26
     }
 }
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+            mavenContent { snapshotsOnly() }
+        }
+    }
+}

@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.navigation.gradle)
     implementation(libs.apollo.gradle)
     implementation(libs.starter.android)
+    implementation("com.google.firebase:perf-plugin:1.4.0")
 }
 
 tasks.withType(KotlinCompile).configureEach {
