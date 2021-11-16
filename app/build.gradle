@@ -53,17 +53,6 @@ dependencies {
     compileOnly(libs.navigation.ui)
 }
 
-/**
- * Workaround for: https://issuetracker.google.com/issues/187096666
- */
-tasks.withType(com.android.build.gradle.tasks.ExtractDeepLinksTask).configureEach {
-    def easylauncherTaskName = name.replace("extractDeepLinks", "easylauncher")
-    // Workaround for: https://github.com/gradle/gradle/issues/8057
-    if (tasks.getNames().contains(easylauncherTaskName)) {
-        dependsOn(easylauncherTaskName)
-    }
-}
-
 private String findGithubToken() {
     if (hasProperty('github.token')) {
         return getProperty("github.token")
