@@ -32,25 +32,21 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
 
       - name: Codestyle
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: projectCodestyle
-          dependencies-cache-enabled: true
 
       - name: Assemble
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: assembleGraphqlRelease assembleMockedRelease
-          dependencies-cache-enabled: true
 
       - name: Test
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: test
-          dependencies-cache-enabled: true
 
       - name: Android Lint
-        uses: gradle/gradle-build-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: lint
-          dependencies-cache-enabled: true
