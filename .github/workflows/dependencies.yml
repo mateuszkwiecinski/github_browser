@@ -18,14 +18,13 @@ jobs:
 
     - uses: actions/setup-java@v2
       with:
-        distribution: 'adopt'
-        java-version: 16
+        distribution: 'temurin'
+        java-version: 17
 
     - name: Cache .gradle
-      uses: burrunan/gradle-cache-action@v1
+      uses: gradle/gradle-build-action@v2
       with:
-        job-id: generate-diff-jdk16
-        gradle-distribution-sha-256-sum-warning: false
+        arguments: app:dependencies
 
     - id: dependency-diff
       name: Generate dependency diff
