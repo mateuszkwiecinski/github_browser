@@ -2,8 +2,6 @@ package pl.mkwiecinski.data.adapters
 
 import com.apollographql.apollo3.api.Adapter
 import com.apollographql.apollo3.api.CustomScalarAdapters
-import com.apollographql.apollo3.api.CustomTypeAdapter
-import com.apollographql.apollo3.api.CustomTypeValue
 import com.apollographql.apollo3.api.json.JsonReader
 import com.apollographql.apollo3.api.json.JsonWriter
 

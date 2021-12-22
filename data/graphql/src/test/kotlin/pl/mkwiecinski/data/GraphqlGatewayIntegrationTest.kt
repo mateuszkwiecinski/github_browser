@@ -1,5 +1,6 @@
 package pl.mkwiecinski.data
 
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -65,7 +66,8 @@ internal class GraphqlGatewayIntegrationTest {
     fun `gets repository details`() {
         runBlocking(testCoroutineDispatcher) {
             server.enqueue(mockJson("details.json"))
-            val result = details.getRepositoryDetails(owner, "dummyName")
+            details.refresh(owner, "dummyName")
+            val result = details.getRepositoryDetails(owner, "dummyName").first().let(::checkNotNull)
 
             assertThat(result.id).isEqualTo("MDEwOlJlcG9zaXRvcnkxMDYyODk3")
         }

@@ -4,11 +4,15 @@ import com.apollographql.apollo3.ApolloCall
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.api.Optional
+import com.apollographql.apollo3.cache.normalized.FetchPolicy
+import com.apollographql.apollo3.cache.normalized.fetchPolicy
+import com.apollographql.apollo3.cache.normalized.refetchPolicy
+import com.apollographql.apollo3.cache.normalized.watch
 import com.apollographql.apollo3.exception.ApolloException
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pl.mkwiecinski.data.mappings.toIssueInfo
-import pl.mkwiecinski.domain.details.entities.RepositoryDetails
 import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
@@ -62,20 +66,29 @@ internal class GraphqlGateway @Inject constructor(
         PagedResult(data, nexPageKey)
     }
 
-    override suspend fun getRepositoryDetails(
+    override fun getRepositoryDetails(
         owner: RepositoryOwner,
         name: String,
-    ): RepositoryDetails = withContext(dispatcher) {
-        val result = client.query(
-            RepositoryDetailsQuery(
-                owner = owner.name,
-                name = name,
-                previewCount = DEFAULT_PREVIEW_COUNT,
-            ),
-        ).getDataOrThrow()
+    ) = client.query(repositoryDetailsQuery(owner, name))
+        .fetchPolicy(FetchPolicy.CacheOnly)
+        .refetchPolicy(FetchPolicy.CacheOnly)
+        .watch()
+        .map { it.data?.repository?.toIssueInfo() }
 
-        result.repository.let(::requireNotNull).toIssueInfo()
+    override suspend fun refresh(owner: RepositoryOwner, name: String) {
+        client.query(repositoryDetailsQuery(owner, name))
+            .fetchPolicy(FetchPolicy.NetworkOnly)
+            .getDataOrThrow()
     }
+
+    private fun repositoryDetailsQuery(
+        owner: RepositoryOwner,
+        name: String,
+    ) = RepositoryDetailsQuery(
+        owner = owner.name,
+        name = name,
+        previewCount = DEFAULT_PREVIEW_COUNT,
+    )
 
     private suspend fun <T : Operation.Data> ApolloCall<T>.getDataOrThrow() =
         execute().let {
