@@ -1,7 +1,7 @@
 [versions]
 navigation = "2.3.5"
 lifecycle = "2.4.0"
-coroutines = "1.5.2"
+coroutines = "1.6.0"
 paging = "2.1.2"
 apollo = "2.5.11"
 okhttp = "4.9.3"
