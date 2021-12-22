@@ -88,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{model.name}"
+                    android:text="@{model.details.name}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     tools:text="Title"
                     />

@@ -1,10 +1,11 @@
 plugins {
     id("library.kotlin")
-    id("com.apollographql.apollo")
+    id("com.apollographql.apollo3")
 }
 
 apollo {
-    generateKotlinModels = true
+    packageName.set("pl.mkwiecinski.graphql")
+    customScalarsMapping = ["URI": "String"]
 }
 
 tasks.named("lintKotlinMain") {

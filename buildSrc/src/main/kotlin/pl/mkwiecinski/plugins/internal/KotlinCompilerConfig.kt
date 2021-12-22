@@ -1,6 +1,8 @@
 package pl.mkwiecinski.plugins.internal
 
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -12,6 +14,9 @@ internal fun Project.configureCompilerFlags() {
                 "-Xopt-in=kotlin.RequiresOptIn" +
                 "-Xopt-in=kotlin.time.ExperimentalTime"
         }
+    }
+    extensions.getByType(JavaPluginExtension::class.java).toolchain {
+        it.languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 

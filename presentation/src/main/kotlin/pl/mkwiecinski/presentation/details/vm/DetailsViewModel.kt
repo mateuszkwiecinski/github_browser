@@ -2,35 +2,33 @@ package pl.mkwiecinski.presentation.details.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.onStart
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
+import pl.mkwiecinski.domain.details.LoadDetailsUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
 internal class DetailsViewModel @Inject constructor(
-    val name: String,
-    getRepositoryDetails: GetRepositoryDetailsUseCase
+    getRepositoryDetails: GetRepositoryDetailsUseCase,
+    private val refresh: LoadDetailsUseCase,
 ) : BaseViewModel() {
 
     val error = MutableLiveData<Throwable?>()
-    private val loadRequests = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val isLoading = MutableLiveData(false)
+    val details = getRepositoryDetails().asLiveData()
 
-    val details = loadRequests
-        .onStart { emit(Unit) }
-        .mapLatest {
+    init {
+        retry()
+    }
+
+    fun retry() {
+        viewModelScope.launch {
             isLoading.value = true
-            val result = runCatching { getRepositoryDetails(name) }
+            runCatching { refresh() }
                 .onSuccess { error.value = null }
                 .onFailure { error.value = it }
             isLoading.value = false
-            result.getOrNull()
         }
-        .asLiveData()
-
-    fun retry() {
-        loadRequests.tryEmit(Unit)
     }
 }
