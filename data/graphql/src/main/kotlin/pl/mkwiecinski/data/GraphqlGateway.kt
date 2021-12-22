@@ -1,10 +1,10 @@
 package pl.mkwiecinski.data
 
-import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.ApolloQueryCall
-import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.coroutines.await
-import com.apollographql.apollo.exception.ApolloException
+import com.apollographql.apollo3.ApolloCall
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.Operation
+import com.apollographql.apollo3.api.Optional
+import com.apollographql.apollo3.exception.ApolloException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import pl.mkwiecinski.data.mappings.toIssueInfo
@@ -20,19 +20,19 @@ import javax.inject.Inject
 
 internal class GraphqlGateway @Inject constructor(
     private val client: ApolloClient,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
 ) : ListingGateway, DetailsGateway {
 
     override suspend fun getFirstPage(
         owner: RepositoryOwner,
-        limit: Int
+        limit: Int,
     ): PagedResult<RepositoryInfo> = withContext(dispatcher) {
         val result = client.query(
             RepositoriesQuery(
                 owner = owner.name,
                 count = limit,
-                after = Input.absent()
-            )
+                after = Optional.Absent,
+            ),
         ).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
@@ -45,14 +45,14 @@ internal class GraphqlGateway @Inject constructor(
     override suspend fun getPageAfter(
         owner: RepositoryOwner,
         pageKey: String,
-        limit: Int
+        limit: Int,
     ): PagedResult<RepositoryInfo> = withContext(dispatcher) {
         val result = client.query(
             RepositoriesQuery(
                 owner = owner.name,
                 count = limit,
-                after = Input.optional(pageKey)
-            )
+                after = Optional.presentIfNotNull(pageKey),
+            ),
         ).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
@@ -64,21 +64,21 @@ internal class GraphqlGateway @Inject constructor(
 
     override suspend fun getRepositoryDetails(
         owner: RepositoryOwner,
-        name: String
+        name: String,
     ): RepositoryDetails = withContext(dispatcher) {
         val result = client.query(
             RepositoryDetailsQuery(
                 owner = owner.name,
                 name = name,
-                previewCount = DEFAULT_PREVIEW_COUNT
-            )
+                previewCount = DEFAULT_PREVIEW_COUNT,
+            ),
         ).getDataOrThrow()
 
         result.repository.let(::requireNotNull).toIssueInfo()
     }
 
-    private suspend fun <T> ApolloQueryCall<T>.getDataOrThrow() =
-        await().let {
+    private suspend fun <T : Operation.Data> ApolloCall<T>.getDataOrThrow() =
+        execute().let {
             it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
         }
 

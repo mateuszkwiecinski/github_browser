@@ -1,8 +1,10 @@
 [{*.kt,*.kts}]
-charset=utf-8
-end_of_line=lf
-insert_final_newline=true
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
 max_line_length = 140
-indent_style=space
-indent_size=4
+indent_style = space
+indent_size = 4
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
 

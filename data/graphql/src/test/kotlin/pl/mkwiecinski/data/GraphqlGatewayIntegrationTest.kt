@@ -1,7 +1,7 @@
 package pl.mkwiecinski.data
 
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
@@ -22,7 +22,7 @@ internal class GraphqlGatewayIntegrationTest {
     private lateinit var listing: ListingGateway
 
     private val server = MockWebServer()
-    private val testCoroutineDispatcher = TestCoroutineDispatcher()
+    private val testCoroutineDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setUp() {

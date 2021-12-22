@@ -1,11 +1,22 @@
 package pl.mkwiecinski.data.adapters
 
-import com.apollographql.apollo.api.CustomTypeAdapter
-import com.apollographql.apollo.api.CustomTypeValue
+import com.apollographql.apollo3.api.Adapter
+import com.apollographql.apollo3.api.CustomScalarAdapters
+import com.apollographql.apollo3.api.CustomTypeAdapter
+import com.apollographql.apollo3.api.CustomTypeValue
+import com.apollographql.apollo3.api.json.JsonReader
+import com.apollographql.apollo3.api.json.JsonWriter
 
-internal object UriToStringAdapter : CustomTypeAdapter<String> {
+internal object UriToStringAdapter : Adapter<String?> {
 
-    override fun decode(value: CustomTypeValue<*>) = value.value.toString()
+    override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters) =
+        reader.nextString()
 
-    override fun encode(value: String) = CustomTypeValue.fromRawValue(value)
+    override fun toJson(writer: JsonWriter, customScalarAdapters: CustomScalarAdapters, value: String?) {
+        if (value == null) {
+            writer.nullValue()
+        } else {
+            writer.value(value)
+        }
+    }
 }

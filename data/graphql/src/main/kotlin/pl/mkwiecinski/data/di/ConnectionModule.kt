@@ -1,19 +1,19 @@
 package pl.mkwiecinski.data.di
 
-import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy
-import com.apollographql.apollo.cache.normalized.lru.LruNormalizedCacheFactory
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.cache.normalized.api.MemoryCacheFactory
+import com.apollographql.apollo3.cache.normalized.normalizedCache
+import com.apollographql.apollo3.network.okHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.multibindings.IntoSet
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.asExecutor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import pl.mkwiecinski.data.AuthInterceptor
 import pl.mkwiecinski.data.adapters.UriToStringAdapter
-import pl.mkwiecinski.graphql.type.CustomType
+import pl.mkwiecinski.graphql.type.URI
 
 @Module
 internal class ConnectionModule {
@@ -26,7 +26,7 @@ internal class ConnectionModule {
     @Provides
     fun okHttp(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient =
         OkHttpClient.Builder().apply {
-            interceptors.forEach { addInterceptor(it) }
+            interceptors.forEach(::addInterceptor)
         }.build()
 
     @Provides
@@ -39,16 +39,12 @@ internal class ConnectionModule {
         ApolloClient.builder().apply {
             serverUrl(config.url)
             okHttpClient(client)
-            dispatcher(dispatcher.asExecutor())
-            normalizedCache(
-                LruNormalizedCacheFactory(
-                    EvictionPolicy.builder().maxSizeBytes(CACHE_SIZE).build()
-                )
-            )
-            addCustomTypeAdapter(CustomType.URI, UriToStringAdapter)
+            requestedDispatcher(dispatcher)
+            normalizedCache(MemoryCacheFactory(maxSizeBytes = CACHE_SIZE))
+            addCustomScalarAdapter(URI.type, UriToStringAdapter)
         }.build()
 
     companion object {
-        private const val CACHE_SIZE = 1024 * 1024L
+        private const val CACHE_SIZE = 1024 * 1024
     }
 }
