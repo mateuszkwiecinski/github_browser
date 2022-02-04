@@ -12,7 +12,7 @@ internal fun Project.configureCompilerFlags() {
             freeCompilerArgs = freeCompilerArgs +
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
                 "-Xopt-in=kotlin.RequiresOptIn" +
-                "-Xopt-in=kotlin.time.ExperimentalTime"
+                "-Xjvm-default=enable"
         }
     }
     extensions.getByType(JavaPluginExtension::class.java).toolchain {
