@@ -60,7 +60,6 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 
-
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
 navigation = ["navigation-ui", "navigation-fragment"]

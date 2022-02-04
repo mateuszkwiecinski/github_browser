@@ -1,6 +1,5 @@
 package pl.mkwiecinski.plugins.internal
 
-import com.android.tools.r8.internal.it
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 
@@ -17,7 +16,6 @@ internal fun Project.applyDaggerAndroid() {
     if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
         pluginManager.apply("org.jetbrains.kotlin.kapt")
     }
-
     dependencies.add("implementation", versionCatalog.findDependency("dagger-android").get())
     dependencies.add("implementation", versionCatalog.findDependency("dagger-android-support").get())
     dependencies.add("kapt", versionCatalog.findDependency("dagger-compiler-android").get())
