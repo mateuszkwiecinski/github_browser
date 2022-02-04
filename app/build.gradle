@@ -1,18 +1,18 @@
 plugins {
-    id("com.starter.easylauncher") version("4.2.0")
+    id("com.starter.easylauncher") version("5.0.0")
     id("app.android")
 }
 
 android {
     defaultConfig {
         applicationId "pl.mateuszkwiecinski.browser"
-        versionCode = 1
     }
     buildTypes {
         named("debug") {
             signingConfig signingConfigs.debug
         }
         named('release') {
+            matchingFallbacks += ["debug"]
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
