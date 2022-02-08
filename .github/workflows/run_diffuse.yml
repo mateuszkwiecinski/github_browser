@@ -52,7 +52,6 @@ jobs:
         uses: usefulness/diffuse-action@master
         with:
           debug: true
-          fork-version: "0.3.0"
           old-file-path: diffuse-source-file-release
           old-mapping-path: diffuse-mapping-file-release
           new-file-path: app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk
