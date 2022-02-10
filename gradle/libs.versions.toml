@@ -1,5 +1,5 @@
 [versions]
-navigation = "2.5.0-alpha01"
+navigation = "2.5.0-alpha02"
 lifecycle = "2.4.1"
 coroutines = "1.6.0"
 paging = "2.1.2"
