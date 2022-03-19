@@ -2,8 +2,11 @@ package pl.mkwiecinski.presentation.list.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.setupWithNavController
-import pl.mkwiecinski.domain.listing.models.LoadingState
+import androidx.paging.LoadState
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.base.BaseFragment
 import pl.mkwiecinski.presentation.databinding.FragmentListBinding
@@ -15,30 +18,30 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
     override val viewModelClass = ListViewModel::class
 
     override fun init(savedInstanceState: Bundle?) {
-        setupList()
-        setupSwipeRefresh()
+        val adapter = RepoAdapter(
+            onItemSelected = { navController.navigate(ListFragmentDirections.actionListToDetails(it.name)) },
+        )
+        val concatAdapter = adapter.withLoadStateFooter(ExampleLoadStateAdapter(adapter::retry))
+        binding.repoList.adapter = concatAdapter
+
+        lifecycleScope.launch {
+            viewModel.listPaging.collectLatest(adapter::submitData)
+        }
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest {
+                binding.swipeRefresh.isRefreshing = when (it.refresh) {
+                    is LoadState.NotLoading,
+                    is LoadState.Error,
+                    -> false
+                    LoadState.Loading -> true
+                }
+            }
+        }
+        binding.swipeRefresh.setOnRefreshListener { adapter.refresh() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setupWithNavController(navController)
-    }
-
-    private fun setupList() {
-        val adapter = RepoAdapter(viewModel::retryFailed) {
-            navController.navigate(ListFragmentDirections.actionListToDetails(it.name))
-        }
-        binding.repoList.adapter = adapter
-
-        viewModel.repositories.observe(viewLifecycleOwner, adapter::submitList)
-        viewModel.networkState.observe(viewLifecycleOwner) {
-            adapter.networkState = it
-        }
-    }
-
-    private fun setupSwipeRefresh() {
-        viewModel.refreshState.observe(viewLifecycleOwner) {
-            binding.swipeRefresh.isRefreshing = it == LoadingState.RUNNING
-        }
     }
 }

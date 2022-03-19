@@ -1,5 +1,6 @@
 package pl.mkwiecinski.plugins
 
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
@@ -17,6 +18,9 @@ class LibraryPlugin : Plugin<Project> {
         setupCommonKotlinVersion()
         applyDagger()
         applyDaggerAndroid()
+        extensions.getByType(LibraryExtension::class.java).apply {
+            namespace = "pl.mkwiecinski${path.replace(":", ".").replace("-", "_")}"
+        }
 
         improveDatabindingLogs()
 

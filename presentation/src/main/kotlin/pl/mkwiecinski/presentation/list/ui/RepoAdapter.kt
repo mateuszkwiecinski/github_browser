@@ -2,81 +2,51 @@ package pl.mkwiecinski.presentation.list.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
-import androidx.paging.PagedListAdapter
+import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.domain.listing.models.LoadingState
-import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.databinding.ItemNetworkStateBinding
 import pl.mkwiecinski.presentation.databinding.ItemRepoInfoBinding
 
 internal class RepoAdapter(
-    private val onRetry: () -> Unit,
-    private val onItemSelected: (RepositoryInfo) -> Unit
-) : PagedListAdapter<RepositoryInfo, RepoAdapter.BindableViewHolder>(RepoDiff) {
+    private val onItemSelected: (RepositoryInfo) -> Unit,
+) : PagingDataAdapter<RepositoryInfo, RepoAdapter.RepoViewHolderViewHolder>(RepoDiff) {
 
-    var networkState: LoadingState? = null
-        set(value) {
-            val previousState = field
-            val hadExtraRow = hasExtraRow()
-            field = value
-            val hasExtraRow = hasExtraRow()
-            if (hadExtraRow != hasExtraRow) {
-                if (hadExtraRow) {
-                    notifyItemRemoved(super.getItemCount())
-                } else {
-                    notifyItemInserted(super.getItemCount())
-                }
-            } else if (hasExtraRow && previousState != value) {
-                notifyItemChanged(itemCount - 1)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ItemRepoInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            .let(::RepoViewHolderViewHolder)
 
-    override fun getItemViewType(position: Int) =
-        if (hasExtraRow() && position == itemCount - 1) {
-            R.layout.item_network_state
-        } else {
-            R.layout.item_repo_info
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindableViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return when (viewType) {
-            R.layout.item_repo_info ->
-                ItemRepoInfoBinding.inflate(inflater, parent, false).let(BindableViewHolder::Repo)
-            R.layout.item_network_state ->
-                ItemNetworkStateBinding.inflate(inflater, parent, false).let(BindableViewHolder::NetworkState)
-            else -> error("Unsupported type")
-        }
-    }
-
-    override fun onBindViewHolder(holder: BindableViewHolder, position: Int) {
-        when (holder) {
-            is BindableViewHolder.Repo -> {
-                holder.binding.model = getItem(position)
-                holder.binding.root.setOnClickListener {
-                    getItem(holder.adapterPosition)?.let(onItemSelected)
-                }
-            }
-            is BindableViewHolder.NetworkState -> {
-                holder.binding.model = networkState
-                holder.binding.btnRetry.setOnClickListener {
-                    onRetry()
-                }
-            }
-        }
+    override fun onBindViewHolder(holder: RepoViewHolderViewHolder, position: Int) {
+        holder.binding.model = getItem(position)
+        holder.binding.root.setOnClickListener { getItem(holder.bindingAdapterPosition)?.let(onItemSelected) }
         holder.binding.executePendingBindings()
     }
 
-    override fun getItemCount(): Int {
-        return super.getItemCount() + if (hasExtraRow()) 1 else 0
-    }
+    class RepoViewHolderViewHolder(val binding: ItemRepoInfoBinding) : RecyclerView.ViewHolder(binding.root)
+}
 
-    private fun hasExtraRow() = networkState != null && networkState != LoadingState.SUCCESS
+class LoadStateViewHolder(val binding: ItemNetworkStateBinding) : RecyclerView.ViewHolder(binding.root)
 
-    sealed class BindableViewHolder(open val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        data class Repo(override val binding: ItemRepoInfoBinding) : BindableViewHolder(binding)
-        data class NetworkState(override val binding: ItemNetworkStateBinding) : BindableViewHolder(binding)
+class ExampleLoadStateAdapter(
+    private val onRetry: () -> Unit,
+) : LoadStateAdapter<LoadStateViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
+        ItemNetworkStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            .let(::LoadStateViewHolder)
+
+    override fun onBindViewHolder(
+        holder: LoadStateViewHolder,
+        loadState: LoadState,
+    ) {
+        holder.binding.model = when (loadState) {
+            is LoadState.NotLoading -> null
+            LoadState.Loading -> LoadingState.RUNNING
+            is LoadState.Error -> LoadingState.FAILED
+        }
+        holder.binding.btnRetry.setOnClickListener { onRetry() }
     }
 }

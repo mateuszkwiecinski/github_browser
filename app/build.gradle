@@ -1,5 +1,5 @@
 plugins {
-    id("com.starter.easylauncher") version("5.0.0")
+    id("com.starter.easylauncher") version("5.0.1")
     id("app.android")
 }
 
@@ -7,6 +7,7 @@ android {
     defaultConfig {
         applicationId "pl.mateuszkwiecinski.browser"
     }
+    namespace "pl.mkwiecinski.browser"
     buildTypes {
         named("debug") {
             signingConfig signingConfigs.debug
@@ -27,7 +28,7 @@ android {
             keyPassword 'android'
         }
     }
-    flavorDimensions("api")
+    flavorDimensions += "api"
     productFlavors {
         register("mocked") {
             dimension "api"
