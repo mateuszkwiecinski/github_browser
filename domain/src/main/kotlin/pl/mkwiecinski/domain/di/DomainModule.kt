@@ -1,32 +1,16 @@
 package pl.mkwiecinski.domain.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
-import pl.mkwiecinski.domain.listing.paging.PagingSourceFactory
-import pl.mkwiecinski.domain.listing.paging.SingleActivePagingSourceFactory
-import pl.mkwiecinski.domain.listing.persistences.InMemoryPagingEventsPersistence
-import pl.mkwiecinski.domain.listing.persistences.PagingEventsPersistence
 
 @Module
-abstract class DomainModule {
+class DomainModule {
 
-    @Binds
-    internal abstract fun SingleActivePagingSourceFactory.paging(): PagingSourceFactory
+    @Provides
+    fun hardcodedUser() = RepositoryOwner(name = "toptal")
 
-    @Binds
-    internal abstract fun InMemoryPagingEventsPersistence.events(): PagingEventsPersistence
-
-    @Module
-    companion object Hardcoded {
-
-        @JvmStatic
-        @Provides
-        fun hardcodedUser() = RepositoryOwner(name = "toptal")
-
-        @Provides
-        fun dispatcher() = Dispatchers.Default
-    }
+    @Provides
+    fun dispatcher() = Dispatchers.Default
 }

@@ -5,7 +5,9 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.cache.normalized.FetchPolicy
+import com.apollographql.apollo3.cache.normalized.NetworkOnlyInterceptor
 import com.apollographql.apollo3.cache.normalized.fetchPolicy
+import com.apollographql.apollo3.cache.normalized.fetchPolicyInterceptor
 import com.apollographql.apollo3.cache.normalized.refetchPolicy
 import com.apollographql.apollo3.cache.normalized.watch
 import com.apollographql.apollo3.exception.ApolloException
@@ -37,7 +39,7 @@ internal class GraphqlGateway @Inject constructor(
                 count = limit,
                 after = Optional.Absent,
             ),
-        ).getDataOrThrow()
+        ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
             repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
@@ -57,7 +59,7 @@ internal class GraphqlGateway @Inject constructor(
                 count = limit,
                 after = Optional.presentIfNotNull(pageKey),
             ),
-        ).getDataOrThrow()
+        ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
         val data =
             repositories?.nodes?.mapNotNull { it?.toIssueInfo() }

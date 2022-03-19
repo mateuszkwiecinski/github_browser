@@ -8,17 +8,17 @@ internal fun Project.applyDagger() {
     if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
         pluginManager.apply("org.jetbrains.kotlin.kapt")
     }
-    dependencies.add("implementation", versionCatalog.findDependency("dagger-core").get())
-    dependencies.add("kapt", versionCatalog.findDependency("dagger-compiler").get())
+    dependencies.add("implementation", versionCatalog.findLibrary("dagger-core").get())
+    dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler").get())
 }
 
 internal fun Project.applyDaggerAndroid() {
     if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
         pluginManager.apply("org.jetbrains.kotlin.kapt")
     }
-    dependencies.add("implementation", versionCatalog.findDependency("dagger-android").get())
-    dependencies.add("implementation", versionCatalog.findDependency("dagger-android-support").get())
-    dependencies.add("kapt", versionCatalog.findDependency("dagger-compiler-android").get())
+    dependencies.add("implementation", versionCatalog.findLibrary("dagger-android").get())
+    dependencies.add("implementation", versionCatalog.findLibrary("dagger-android-support").get())
+    dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler-android").get())
 }
 
 val Project.versionCatalog
@@ -32,7 +32,7 @@ internal fun Project.configureUnitTest() {
         "junit-core",
         "coroutines-testing",
     )
-        .map(versionCatalog::findDependency)
+        .map(versionCatalog::findLibrary)
         .forEach {
             dependencies.add("testImplementation", it.get())
         }

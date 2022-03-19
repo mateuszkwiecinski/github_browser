@@ -19,9 +19,7 @@ class LibraryPlugin : Plugin<Project> {
         applyDagger()
         applyDaggerAndroid()
         extensions.getByType(LibraryExtension::class.java).apply {
-            defaultConfig {
-                namespace = "pl.mkwiecinski${path.replace(":", ".").replace("-", "_")}"
-            }
+            namespace = "pl.mkwiecinski${path.replace(":", ".").replace("-", "_")}"
         }
 
         improveDatabindingLogs()
