@@ -28,15 +28,11 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Assemble
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assembleGraphqlRelease assembleMockedRelease
+      - uses: gradle/gradle-build-action@v2
 
-      - name: Assemble debug
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assembleGraphqlDebug
+      - run: ./gradlew assembleGraphqlRelease assembleMockedRelease
+
+      - run: ./gradlew assembleGraphqlDebug
 
       - uses: actions/cache@v2
         name: Upload base (release)

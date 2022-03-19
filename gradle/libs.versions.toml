@@ -43,7 +43,6 @@ apollo-gradle = { module = "com.apollographql.apollo3:apollo-gradle-plugin", ver
 okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 
-
 androidtest-core = { module = "androidx.test:core-ktx", version.ref = "androidtest" }
 androidtest-rules = { module = "androidx.test:rules", version.ref = "androidtest" }
 androidtest-coretesting = { module = "androidx.arch.core:core-testing", version.ref = "androidArchCore" }
