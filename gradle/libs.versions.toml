@@ -1,7 +1,7 @@
 [versions]
 navigation = "2.5.0-alpha03"
 lifecycle = "2.4.1"
-coroutines = "1.6.0"
+coroutines = "1.6.1"
 paging = "3.1.1"
 pagingCompose = "1.0.0-alpha14"
 apollo = "3.2.0"
