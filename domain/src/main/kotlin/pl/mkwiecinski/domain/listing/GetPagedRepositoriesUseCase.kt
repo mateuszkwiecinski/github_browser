@@ -16,7 +16,7 @@ class GetPagedRepositoriesUseCase @Inject constructor(
 
     operator fun invoke() =
         Pager(
-            config = PagingConfig(pageSize = 20),
+            config = PagingConfig(pageSize = 25),
             pagingSourceFactory = pagingSourceFactory::get,
         ).flow
 }
