@@ -8,7 +8,7 @@
     <string name="pull_requests">Pull requests</string>
     <string name="opened_pull_requests_count">%d Opened</string>
     <string name="closed_pull_requests_count">%d Merged or Closed</string>
-    <string name="details_title">Details</string>
+    <string name="details_title">Hello world! okokokokok </string>
     <string name="issue_number_format">#%d</string>
     <string name="pull_request_number_format">#%d</string>
     <string name="details_preview_footer">view %d more…</string>
