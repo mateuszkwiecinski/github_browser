@@ -5,18 +5,18 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.mkwiecinski.domain.details.GetRepositoryDetailsUseCase
-import pl.mkwiecinski.domain.details.LoadDetailsUseCase
+import pl.mkwiecinski.domain.details.HelloHello
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
 internal class DetailsViewModel @Inject constructor(
+    private val refresh: HelloHello,
     getRepositoryDetails: GetRepositoryDetailsUseCase,
-    private val refresh: LoadDetailsUseCase,
 ) : BaseViewModel() {
 
     val error = MutableLiveData<Throwable?>()
-    val isLoading = MutableLiveData(false)
     val details = getRepositoryDetails().asLiveData()
+    val isLoading = MutableLiveData(false)
 
     init {
         retry()
@@ -25,9 +25,7 @@ internal class DetailsViewModel @Inject constructor(
     fun retry() {
         viewModelScope.launch {
             isLoading.value = true
-            runCatching { refresh() }
-                .onSuccess { error.value = null }
-                .onFailure { error.value = it }
+            error.value = runCatching { refresh() }.exceptionOrNull()
             isLoading.value = false
         }
     }

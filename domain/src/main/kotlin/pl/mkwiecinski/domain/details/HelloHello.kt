@@ -4,7 +4,7 @@ import pl.mkwiecinski.domain.details.gateways.DetailsGateway
 import pl.mkwiecinski.domain.listing.entities.RepositoryOwner
 import javax.inject.Inject
 
-class LoadDetailsUseCase @Inject constructor(
+class HelloHello @Inject constructor(
     private val gateway: DetailsGateway,
     private val owner: RepositoryOwner,
     private val name: String,
