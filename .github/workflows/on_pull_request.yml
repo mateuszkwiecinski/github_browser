@@ -40,3 +40,10 @@ jobs:
       - run: ./gradlew test
 
       - run: ./gradlew lint
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            app/build/**/*.apk
+            app/build/**/mapping.txt
