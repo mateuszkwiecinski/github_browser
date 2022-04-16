@@ -13,6 +13,7 @@ android {
             signingConfig signingConfigs.debug
         }
         named('release') {
+            signingConfig signingConfigs.debug
             matchingFallbacks += ["debug"]
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
