@@ -10,9 +10,9 @@ internal fun Project.configureCompilerFlags() {
     tasks.withType(KotlinCompile::class.java).configureEach {
         it.kotlinOptions {
             freeCompilerArgs = freeCompilerArgs +
-                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
-                "-Xopt-in=kotlin.RequiresOptIn" +
-                "-Xjvm-default=enable"
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
+                "-opt-in=kotlin.RequiresOptIn" +
+                "-Xjvm-default=all"
         }
     }
     extensions.getByType(JavaPluginExtension::class.java).toolchain {
