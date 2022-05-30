@@ -15,7 +15,7 @@ androidtest = "1.4.0"
 androidArchCore = "2.1.0"
 dagger = "2.42"
 junit = "4.13.2"
-mockito = "4.5.1"
+mockito = "4.6.0"
 mockitoKotlin = "4.0.0"
 assertJ = "3.22.0"
 
