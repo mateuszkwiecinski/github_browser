@@ -27,6 +27,11 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
+      - name: Assemble
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: assembleGraphqlRelease
+
       - uses: actions/cache@v3
         name: Download base
         with:
@@ -35,18 +40,6 @@ jobs:
             diffuse-mapping-file-release
           key: diffuse-${{ github.event.pull_request.base.sha }}
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
-
-      - name: Assemble
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assembleGraphqlRelease
-
-      #      - id: diffuse
-      #        uses: usefulness/diffuse-action@master
-      #        with:
-      #          debug: true
-      #          old-file-path: diffuse-source-file-debug
-      #          new-file-path: app/build/outputs/apk/graphql/debug/app-graphql-debug.apk
 
       - id: diffuse
         uses: usefulness/diffuse-action@master
