@@ -37,9 +37,9 @@ jobs:
 
       - run: ./gradlew assembleGraphqlRelease assembleMockedRelease
 
-      - run: ./gradlew test
+      - run: ./gradlew projectTest
 
-      - run: ./gradlew lint
+      - run: ./gradlew projectLint
 
       - uses: actions/upload-artifact@v3
         with:

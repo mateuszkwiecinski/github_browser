@@ -26,8 +26,6 @@ val Project.versionCatalog
 
 internal fun Project.configureUnitTest() {
     listOf(
-        "mockito-core",
-        "mockito-kotlin",
         "assertj-core",
         "junit-core",
         "coroutines-testing",

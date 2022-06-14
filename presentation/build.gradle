@@ -5,6 +5,9 @@ plugins {
 
 android {
     buildFeatures.dataBinding true
+    lint {
+        disable("UnknownNullness")
+    }
 }
 
 dependencies {

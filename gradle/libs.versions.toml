@@ -1,4 +1,9 @@
 [versions]
+gradle-starter = "0.46.0"
+gradle-easylauncher = "5.1.1"
+gradle-gradledoctor = "0.8.1"
+gradle-kotlinter = "3.10.0"
+mavencentral-kotlin = "1.7.0"
 navigation = "2.5.0-rc01"
 lifecycle = "2.4.1"
 coroutines = "1.6.2"
@@ -15,8 +20,6 @@ androidtest = "1.4.0"
 androidArchCore = "2.1.0"
 dagger = "2.42"
 junit = "4.13.2"
-mockito = "4.6.1"
-mockitoKotlin = "4.0.0"
 assertJ = "3.23.1"
 
 [libraries]
@@ -58,9 +61,13 @@ dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = 
 dagger-compiler-android = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger" }
 
 junit-core = { module = "junit:junit", version.ref = "junit" }
-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
+
+[plugins]
+osacky-gradledoctor = { id = "com.osacky.doctor", version.ref = "gradle-gradledoctor" }
+starter-easylauncher = { id = "com.starter.easylauncher", version.ref = "gradle-easylauncher" }
+jmailen-kotlinter = { id = "org.jmailen.kotlinter", version.ref = "gradle-kotlinter" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "mavencentral-kotlin" }
 
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
