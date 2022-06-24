@@ -2,7 +2,7 @@
 gradle-starter = "0.46.0"
 gradle-easylauncher = "5.1.2"
 gradle-gradledoctor = "0.8.1"
-gradle-kotlinter = "3.10.0"
+gradle-kotlinter = "3.11.0"
 mavencentral-kotlin = "1.7.0"
 navigation = "2.5.0-rc02"
 lifecycle = "2.4.1"
