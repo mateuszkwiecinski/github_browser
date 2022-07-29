@@ -18,7 +18,7 @@ constraintLayout = "2.1.4"
 material = "1.6.1"
 androidtest = "1.4.0"
 androidArchCore = "2.1.0"
-dagger = "2.43"
+dagger = "2.43.1"
 junit = "4.13.2"
 assertJ = "3.23.1"
 
