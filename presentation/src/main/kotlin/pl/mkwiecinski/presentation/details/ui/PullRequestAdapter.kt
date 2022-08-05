@@ -14,10 +14,10 @@ internal class PullRequestAdapter : FooterAdapter<Int, PullRequestPreview>(PullR
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             ITEM_TYPE -> PullRequestViewHolder(
-                ItemPullRequestInfoBinding.inflate(inflater, parent, false)
+                ItemPullRequestInfoBinding.inflate(inflater, parent, false),
             )
             FOOTER_TYPE -> FooterViewHolder(
-                ItemDetailFooterBinding.inflate(inflater, parent, false)
+                ItemDetailFooterBinding.inflate(inflater, parent, false),
             )
             else -> error("Unsupported type")
         }

@@ -6,7 +6,7 @@ import okhttp3.Response
 import pl.mkwiecinski.data.di.GithubConfig
 
 internal class AuthInterceptor @Inject constructor(
-    private val config: GithubConfig
+    private val config: GithubConfig,
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

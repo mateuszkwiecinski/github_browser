@@ -8,7 +8,7 @@ import javax.inject.Provider
 import kotlin.reflect.KClass
 
 class ViewModelsFactory @Inject constructor(
-    private val viewModels: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+    private val viewModels: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
