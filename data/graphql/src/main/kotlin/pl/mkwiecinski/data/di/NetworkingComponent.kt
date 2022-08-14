@@ -18,7 +18,7 @@ interface NetworkingComponent {
 
         fun create(
             @BindsInstance dispatcher: CoroutineDispatcher,
-            @BindsInstance config: GithubConfig
+            @BindsInstance config: GithubConfig,
         ): NetworkingComponent
     }
 }

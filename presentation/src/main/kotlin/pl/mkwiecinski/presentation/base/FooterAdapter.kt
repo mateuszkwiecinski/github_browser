@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class FooterAdapter<TFooter, TItem>(
-    diffCallback: DiffUtil.ItemCallback<TItem>
+    diffCallback: DiffUtil.ItemCallback<TItem>,
 ) : ListAdapter<TItem, RecyclerView.ViewHolder>(diffCallback) {
 
     var footerData: TFooter? = null

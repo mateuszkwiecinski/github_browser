@@ -14,10 +14,10 @@ internal class IssueAdapter : FooterAdapter<Int, IssuePreview>(IssueDiff) {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             ITEM_TYPE -> IssueViewHolder(
-                ItemIssueInfoBinding.inflate(inflater, parent, false)
+                ItemIssueInfoBinding.inflate(inflater, parent, false),
             )
             FOOTER_TYPE -> FooterViewHolder(
-                ItemDetailFooterBinding.inflate(inflater, parent, false)
+                ItemDetailFooterBinding.inflate(inflater, parent, false),
             )
             else -> error("Unsupported type")
         }

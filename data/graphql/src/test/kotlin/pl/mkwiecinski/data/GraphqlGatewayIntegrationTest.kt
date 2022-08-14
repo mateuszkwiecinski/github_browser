@@ -30,7 +30,7 @@ internal class GraphqlGatewayIntegrationTest {
         val component: NetworkingComponent = DaggerNetworkingComponent.factory()
             .create(
                 config = GithubConfig(server.url("/").toString(), "dummyToken"),
-                dispatcher = testCoroutineDispatcher
+                dispatcher = testCoroutineDispatcher,
             )
         details = component.details()
         listing = component.listing()

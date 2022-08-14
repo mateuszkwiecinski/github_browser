@@ -37,7 +37,7 @@ internal class MockedListingGateway @Inject constructor() : ListingGateway {
         delay((MINIMUM_DELAY + Math.random() * DELAY_RANGE).toDuration(DurationUnit.MILLISECONDS))
 
         if (Math.random() < FAILURE_PROBABILITY) {
-            throw IllegalStateException("Random exception")
+            error("Random exception")
         }
     }
 

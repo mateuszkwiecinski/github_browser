@@ -11,6 +11,6 @@ interface ListingGateway {
     suspend fun getPageAfter(
         owner: RepositoryOwner,
         pageKey: String,
-        limit: Int
+        limit: Int,
     ): PagedResult<RepositoryInfo>
 }

@@ -9,5 +9,5 @@ internal fun details(id: String) = RepositoryDetails(
     name = "name$id",
     url = "url$id",
     issues = IssuesInfo(10, emptyList(), 0, emptyList()),
-    pullRequests = PullRequestsInfo(20, emptyList(), 0, emptyList())
+    pullRequests = PullRequestsInfo(20, emptyList(), 0, emptyList()),
 )

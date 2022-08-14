@@ -15,11 +15,11 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         PresentationModule::class,
-        DomainModule::class
+        DomainModule::class,
     ],
     dependencies = [
-        NetworkingComponent::class
-    ]
+        NetworkingComponent::class,
+    ],
 )
 internal interface MainComponent : AndroidInjector<MainApplication> {
 
@@ -28,7 +28,7 @@ internal interface MainComponent : AndroidInjector<MainApplication> {
 
         fun create(
             @BindsInstance application: MainApplication,
-            networking: NetworkingComponent
+            networking: NetworkingComponent,
         ): MainComponent
     }
 }

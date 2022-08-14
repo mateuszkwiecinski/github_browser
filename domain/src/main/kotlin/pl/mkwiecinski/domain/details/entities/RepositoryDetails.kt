@@ -5,5 +5,5 @@ data class RepositoryDetails(
     val name: String,
     val url: String,
     val issues: IssuesInfo,
-    val pullRequests: PullRequestsInfo
+    val pullRequests: PullRequestsInfo,
 )

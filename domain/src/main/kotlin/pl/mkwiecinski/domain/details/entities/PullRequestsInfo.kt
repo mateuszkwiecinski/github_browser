@@ -7,12 +7,12 @@ data class PullRequestsInfo(
     val openedTotalCount: Int,
     val openedPreview: List<PullRequestPreview>,
     val closedTotalCount: Int,
-    val closedPreview: List<PullRequestPreview>
+    val closedPreview: List<PullRequestPreview>,
 )
 
 data class PullRequestPreview(
     val id: String,
     val number: Int,
     val name: String,
-    val url: String
+    val url: String,
 )

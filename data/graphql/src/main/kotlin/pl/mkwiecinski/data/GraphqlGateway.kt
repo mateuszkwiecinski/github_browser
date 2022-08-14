@@ -41,9 +41,9 @@ internal class GraphqlGateway @Inject constructor(
             ),
         ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
-        val data =
-            repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
-                ?: throw IllegalStateException("No data")
+        val data = repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
+        checkNotNull(data) { "No data" }
+
         val nexPageKey = repositories.pageInfo.endCursor
         PagedResult(data, nexPageKey)
     }
@@ -61,9 +61,9 @@ internal class GraphqlGateway @Inject constructor(
             ),
         ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
         val repositories = result.repositoryOwner?.repositories
-        val data =
-            repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
-                ?: throw IllegalStateException("No data")
+        val data = repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
+        checkNotNull(data) { "No data" }
+
         val nexPageKey = repositories.pageInfo.endCursor
         PagedResult(data, nexPageKey)
     }
