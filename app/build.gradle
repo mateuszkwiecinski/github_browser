@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.starter.easylauncher)
     id("app.android")
+    alias(libs.plugins.starter.easylauncher)
 }
 
 android {
