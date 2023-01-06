@@ -20,7 +20,7 @@ androidtest = "1.5.0"
 androidArchCore = "2.1.0"
 dagger = "2.44.2"
 junit = "4.13.2"
-assertJ = "3.23.1"
+assertJ = "3.24.0"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
