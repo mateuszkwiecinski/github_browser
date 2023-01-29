@@ -1,5 +1,5 @@
 [versions]
-gradle-starter = "0.46.0"
+gradle-starter = "0.56.1"
 gradle-easylauncher = "6.1.0"
 gradle-gradledoctor = "0.8.1"
 gradle-kotlinter = "3.13.0"
@@ -11,7 +11,6 @@ paging = "3.1.1"
 pagingCompose = "1.0.0-alpha17"
 apollo = "3.7.4"
 okhttp = "4.10.0"
-starter = "0.56.1"
 appcompat = "1.6.0"
 swiperefreshlayout = "1.1.0"
 constraintLayout = "2.1.4"
@@ -52,7 +51,7 @@ androidtest-core = { module = "androidx.test:core-ktx", version.ref = "androidte
 androidtest-rules = { module = "androidx.test:rules", version.ref = "androidtest" }
 androidtest-coretesting = { module = "androidx.arch.core:core-testing", version.ref = "androidArchCore" }
 
-starter-android = { module = "com.project.starter:android", version.ref = "starter" }
+starter-android = { module = "com.project.starter:android", version.ref = "gradle-starter" }
 
 dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
@@ -66,8 +65,7 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 [plugins]
 osacky-gradledoctor = { id = "com.osacky.doctor", version.ref = "gradle-gradledoctor" }
 starter-easylauncher = { id = "com.starter.easylauncher", version.ref = "gradle-easylauncher" }
-jmailen-kotlinter = { id = "org.jmailen.kotlinter", version.ref = "gradle-kotlinter" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "mavencentral-kotlin" }
+starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
 
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
