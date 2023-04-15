@@ -46,7 +46,7 @@ internal class ConnectionModule {
         ApolloClient.Builder().apply {
             serverUrl(config.url)
             okHttpClient(client)
-            requestedDispatcher(dispatcher)
+            dispatcher(dispatcher)
             normalizedCache(
                 normalizedCacheFactory = MemoryCacheFactory(maxSizeBytes = CACHE_SIZE),
                 cacheResolver = IdBasedCacheKeyResolver,
