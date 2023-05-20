@@ -38,10 +38,7 @@ class ExampleLoadStateAdapter(
         ItemNetworkStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             .let(::LoadStateViewHolder)
 
-    override fun onBindViewHolder(
-        holder: LoadStateViewHolder,
-        loadState: LoadState,
-    ) {
+    override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.binding.model = when (loadState) {
             is LoadState.NotLoading -> null
             LoadState.Loading -> LoadingState.RUNNING

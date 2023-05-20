@@ -16,9 +16,6 @@ interface NetworkingComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(
-            @BindsInstance dispatcher: CoroutineDispatcher,
-            @BindsInstance config: GithubConfig,
-        ): NetworkingComponent
+        fun create(@BindsInstance dispatcher: CoroutineDispatcher, @BindsInstance config: GithubConfig): NetworkingComponent
     }
 }

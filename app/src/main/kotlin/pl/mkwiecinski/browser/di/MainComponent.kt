@@ -26,9 +26,6 @@ internal interface MainComponent : AndroidInjector<MainApplication> {
     @Component.Factory
     interface Factory {
 
-        fun create(
-            @BindsInstance application: MainApplication,
-            networking: NetworkingComponent,
-        ): MainComponent
+        fun create(@BindsInstance application: MainApplication, networking: NetworkingComponent): MainComponent
     }
 }

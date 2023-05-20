@@ -27,33 +27,26 @@ internal class ConnectionModule {
 
     @IntoSet
     @Provides
-    fun interceptor(authInterceptor: AuthInterceptor): Interceptor =
-        authInterceptor
+    fun interceptor(authInterceptor: AuthInterceptor): Interceptor = authInterceptor
 
     @Provides
-    fun okHttp(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient =
-        OkHttpClient.Builder().apply {
-            interceptors.forEach(::addInterceptor)
-        }.build()
+    fun okHttp(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient = OkHttpClient.Builder().apply {
+        interceptors.forEach(::addInterceptor)
+    }.build()
 
     @Provides
     @Reusable
-    fun apollo(
-        client: OkHttpClient,
-        dispatcher: CoroutineDispatcher,
-        config: GithubConfig,
-    ): ApolloClient =
-        ApolloClient.Builder().apply {
-            serverUrl(config.url)
-            okHttpClient(client)
-            dispatcher(dispatcher)
-            normalizedCache(
-                normalizedCacheFactory = MemoryCacheFactory(maxSizeBytes = CACHE_SIZE),
-                cacheResolver = IdBasedCacheKeyResolver,
-                cacheKeyGenerator = IdBasedCacheKeyResolver,
-            )
-            addCustomScalarAdapter(URI.type, UriToStringAdapter)
-        }.build()
+    fun apollo(client: OkHttpClient, dispatcher: CoroutineDispatcher, config: GithubConfig): ApolloClient = ApolloClient.Builder().apply {
+        serverUrl(config.url)
+        okHttpClient(client)
+        dispatcher(dispatcher)
+        normalizedCache(
+            normalizedCacheFactory = MemoryCacheFactory(maxSizeBytes = CACHE_SIZE),
+            cacheResolver = IdBasedCacheKeyResolver,
+            cacheKeyGenerator = IdBasedCacheKeyResolver,
+        )
+        addCustomScalarAdapter(URI.type, UriToStringAdapter)
+    }.build()
 
     companion object {
         private const val CACHE_SIZE = 1024 * 1024

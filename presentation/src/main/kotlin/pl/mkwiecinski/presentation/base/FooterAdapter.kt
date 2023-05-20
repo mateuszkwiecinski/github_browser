@@ -29,15 +29,13 @@ abstract class FooterAdapter<TFooter, TItem>(
 
     protected abstract fun hasExtraRow(): Boolean
 
-    override fun getItemCount() =
-        super.getItemCount() + if (hasExtraRow()) FOOTER else 0
+    override fun getItemCount() = super.getItemCount() + if (hasExtraRow()) FOOTER else 0
 
-    override fun getItemViewType(position: Int) =
-        if (hasExtraRow() && position == itemCount - FOOTER) {
-            FOOTER_TYPE
-        } else {
-            ITEM_TYPE
-        }
+    override fun getItemViewType(position: Int) = if (hasExtraRow() && position == itemCount - FOOTER) {
+        FOOTER_TYPE
+    } else {
+        ITEM_TYPE
+    }
 
     companion object {
         const val FOOTER_TYPE = 420

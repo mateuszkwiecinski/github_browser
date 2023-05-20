@@ -10,6 +10,5 @@ class GetRepositoryDetailsUseCase @Inject constructor(
     private val name: String,
 ) {
 
-    operator fun invoke() =
-        gateway.getRepositoryDetails(owner, name)
+    operator fun invoke() = gateway.getRepositoryDetails(owner, name)
 }

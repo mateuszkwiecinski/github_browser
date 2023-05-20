@@ -14,11 +14,10 @@ class GetPagedRepositoriesUseCase @Inject constructor(
     private val pagingSourceFactory: Provider<RepositoriesPagingSource>,
 ) {
 
-    operator fun invoke() =
-        Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = pagingSourceFactory::get,
-        ).flow
+    operator fun invoke() = Pager(
+        config = PagingConfig(pageSize = 20),
+        pagingSourceFactory = pagingSourceFactory::get,
+    ).flow
 }
 
 class RepositoriesPagingSource @Inject constructor(
@@ -44,9 +43,8 @@ class RepositoriesPagingSource @Inject constructor(
             .getOrElse { LoadResult.Error(it) }
     }
 
-    override fun getRefreshKey(state: PagingState<String, RepositoryInfo>) =
-        state.anchorPosition?.let {
-            state.closestPageToPosition(it)?.nextKey
-                ?: state.closestPageToPosition(it)?.prevKey
-        }
+    override fun getRefreshKey(state: PagingState<String, RepositoryInfo>) = state.anchorPosition?.let {
+        state.closestPageToPosition(it)?.nextKey
+            ?: state.closestPageToPosition(it)?.prevKey
+    }
 }
