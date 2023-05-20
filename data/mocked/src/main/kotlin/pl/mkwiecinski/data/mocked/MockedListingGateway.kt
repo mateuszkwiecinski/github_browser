@@ -20,18 +20,16 @@ internal class MockedListingGateway @Inject constructor() : ListingGateway {
         RepositoryInfo("$it", "Repository name $it", "https://repository/$it")
     }
 
-    override suspend fun getFirstPage(owner: RepositoryOwner, limit: Int) =
-        withContext(Dispatchers.Default) {
-            randomize()
-            PagedResult(all.subList(0, limit), limit.toString())
-        }
+    override suspend fun getFirstPage(owner: RepositoryOwner, limit: Int) = withContext(Dispatchers.Default) {
+        randomize()
+        PagedResult(all.subList(0, limit), limit.toString())
+    }
 
-    override suspend fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) =
-        withContext(Dispatchers.Default) {
-            val current = pageKey.toInt()
-            randomize()
-            PagedResult(all.subList(current, current + limit), (current + limit).toString())
-        }
+    override suspend fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int) = withContext(Dispatchers.Default) {
+        val current = pageKey.toInt()
+        randomize()
+        PagedResult(all.subList(current, current + limit), (current + limit).toString())
+    }
 
     private suspend fun randomize() = withContext(Dispatchers.Default) {
         delay((MINIMUM_DELAY + Math.random() * DELAY_RANGE).toDuration(DurationUnit.MILLISECONDS))

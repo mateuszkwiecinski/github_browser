@@ -29,10 +29,7 @@ internal class GraphqlGateway @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
 ) : ListingGateway, DetailsGateway {
 
-    override suspend fun getFirstPage(
-        owner: RepositoryOwner,
-        limit: Int,
-    ): PagedResult<RepositoryInfo> = withContext(dispatcher) {
+    override suspend fun getFirstPage(owner: RepositoryOwner, limit: Int): PagedResult<RepositoryInfo> = withContext(dispatcher) {
         val result = client.query(
             RepositoriesQuery(
                 owner = owner.name,
@@ -48,30 +45,24 @@ internal class GraphqlGateway @Inject constructor(
         PagedResult(data, nexPageKey)
     }
 
-    override suspend fun getPageAfter(
-        owner: RepositoryOwner,
-        pageKey: String,
-        limit: Int,
-    ): PagedResult<RepositoryInfo> = withContext(dispatcher) {
-        val result = client.query(
-            RepositoriesQuery(
-                owner = owner.name,
-                count = limit,
-                after = Optional.presentIfNotNull(pageKey),
-            ),
-        ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
-        val repositories = result.repositoryOwner?.repositories
-        val data = repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
-        checkNotNull(data) { "No data" }
+    override suspend fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int): PagedResult<RepositoryInfo> =
+        withContext(dispatcher) {
+            val result = client.query(
+                RepositoriesQuery(
+                    owner = owner.name,
+                    count = limit,
+                    after = Optional.presentIfNotNull(pageKey),
+                ),
+            ).fetchPolicyInterceptor(NetworkOnlyInterceptor).getDataOrThrow()
+            val repositories = result.repositoryOwner?.repositories
+            val data = repositories?.nodes?.mapNotNull { it?.toIssueInfo() }
+            checkNotNull(data) { "No data" }
 
-        val nexPageKey = repositories.pageInfo.endCursor
-        PagedResult(data, nexPageKey)
-    }
+            val nexPageKey = repositories.pageInfo.endCursor
+            PagedResult(data, nexPageKey)
+        }
 
-    override fun getRepositoryDetails(
-        owner: RepositoryOwner,
-        name: String,
-    ) = client.query(repositoryDetailsQuery(owner, name))
+    override fun getRepositoryDetails(owner: RepositoryOwner, name: String) = client.query(repositoryDetailsQuery(owner, name))
         .fetchPolicy(FetchPolicy.CacheOnly)
         .refetchPolicy(FetchPolicy.CacheOnly)
         .watch()
@@ -83,19 +74,15 @@ internal class GraphqlGateway @Inject constructor(
             .getDataOrThrow()
     }
 
-    private fun repositoryDetailsQuery(
-        owner: RepositoryOwner,
-        name: String,
-    ) = RepositoryDetailsQuery(
+    private fun repositoryDetailsQuery(owner: RepositoryOwner, name: String) = RepositoryDetailsQuery(
         owner = owner.name,
         name = name,
         previewCount = DEFAULT_PREVIEW_COUNT,
     )
 
-    private suspend fun <T : Operation.Data> ApolloCall<T>.getDataOrThrow() =
-        execute().let {
-            it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
-        }
+    private suspend fun <T : Operation.Data> ApolloCall<T>.getDataOrThrow() = execute().let {
+        it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
+    }
 
     companion object {
         private const val DEFAULT_PREVIEW_COUNT = 5

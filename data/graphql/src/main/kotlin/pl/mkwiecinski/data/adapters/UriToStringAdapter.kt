@@ -7,8 +7,7 @@ import com.apollographql.apollo3.api.json.JsonWriter
 
 internal object UriToStringAdapter : Adapter<String?> {
 
-    override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters) =
-        reader.nextString()
+    override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters) = reader.nextString()
 
     override fun toJson(writer: JsonWriter, customScalarAdapters: CustomScalarAdapters, value: String?) {
         if (value == null) {

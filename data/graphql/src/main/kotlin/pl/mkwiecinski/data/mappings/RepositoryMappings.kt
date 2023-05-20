@@ -9,21 +9,19 @@ import pl.mkwiecinski.domain.listing.entities.RepositoryInfo
 import pl.mkwiecinski.graphql.RepositoriesQuery
 import pl.mkwiecinski.graphql.RepositoryDetailsQuery
 
-internal fun RepositoriesQuery.Node.toIssueInfo() =
-    RepositoryInfo(
-        id,
-        name,
-        url.toString(),
-    )
+internal fun RepositoriesQuery.Node.toIssueInfo() = RepositoryInfo(
+    id,
+    name,
+    url.toString(),
+)
 
-internal fun RepositoryDetailsQuery.Repository.toIssueInfo() =
-    RepositoryDetails(
-        id = id,
-        name = name,
-        url = url.toString(),
-        issues = toIssuesInfo(),
-        pullRequests = toPullRequestData(),
-    )
+internal fun RepositoryDetailsQuery.Repository.toIssueInfo() = RepositoryDetails(
+    id = id,
+    name = name,
+    url = url.toString(),
+    issues = toIssuesInfo(),
+    pullRequests = toPullRequestData(),
+)
 
 private fun RepositoryDetailsQuery.Repository.toIssuesInfo() = IssuesInfo(
     openedTotalCount = openedIssues.totalCount,

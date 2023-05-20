@@ -8,9 +8,5 @@ interface ListingGateway {
 
     suspend fun getFirstPage(owner: RepositoryOwner, limit: Int): PagedResult<RepositoryInfo>
 
-    suspend fun getPageAfter(
-        owner: RepositoryOwner,
-        pageKey: String,
-        limit: Int,
-    ): PagedResult<RepositoryInfo>
+    suspend fun getPageAfter(owner: RepositoryOwner, pageKey: String, limit: Int): PagedResult<RepositoryInfo>
 }
