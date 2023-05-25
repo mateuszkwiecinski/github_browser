@@ -62,20 +62,6 @@ private String findGithubToken() {
     if (hasProperty('github.token')) {
         return getProperty("github.token")
     }
-    def env = System.getenv('github_token') ?: System.getenv("GITHUB_TOKEN")
-    if (env != null) {
-        return env
-    }
-    def localProperties = rootProject.file('local.properties')
-    if (localProperties.exists()) {
-        Properties properties = new Properties()
-        properties.load(rootProject.file('local.properties').newDataInputStream())
-
-        def token = properties.getProperty('github.token')
-        if (token != null) {
-            return token
-        }
-    }
 
     logger.error("Could not find github api token. " +
             "Set a `github_token` environment variable, " +
