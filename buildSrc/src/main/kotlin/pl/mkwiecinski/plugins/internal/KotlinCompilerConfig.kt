@@ -23,8 +23,8 @@ internal fun Project.configureCompilerFlags() {
 internal fun Project.setupCommonKotlinVersion() {
     val kotlinVersion = project.getKotlinPluginVersion()
 
-    configurations.configureEach { configuration ->
-        configuration.resolutionStrategy.matching { it.name != "detekt" }.eachDependency {
+    configurations.matching { it.name != "detekt" }.configureEach { configuration ->
+        configuration.resolutionStrategy.eachDependency {
             if (it.requested.group == "org.jetbrains.kotlin" && it.requested.name.startsWith("kotlin")) {
                 it.useVersion(kotlinVersion)
             }
