@@ -1,6 +1,9 @@
 name: Diffuse
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -9,6 +12,10 @@ on:
       - develop
       - maine
       - mane
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
   run-diffuse:
@@ -21,19 +28,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 20
 
-      - name: Assemble
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assembleGraphqlRelease
+      - uses: gradle/gradle-build-action@v2
+
+      - run: ./gradlew assembleGraphqlRelease
 
       - uses: actions/cache@v3
         name: Download base
+        if: github.event_name == 'pull_request'
         with:
           path: |
             diffuse-source-file-release
@@ -43,6 +49,7 @@ jobs:
 
       - id: diffuse
         uses: usefulness/diffuse-action@master
+        if: github.event_name == 'pull_request'
         with:
           debug: true
           old-file-path: diffuse-source-file-release
@@ -52,6 +59,7 @@ jobs:
 
       - uses: peter-evans/find-comment@v2
         id: find_comment
+        if: github.event_name == 'pull_request'
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body-includes: Diffuse output
@@ -71,6 +79,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/upload-artifact@v3
+        if: github.event_name == 'pull_request'
         with:
           name: diffuse-output
           path: ${{ steps.diffuse.outputs.diff-file }}

@@ -1,5 +1,5 @@
 # Github Repo Browser 
-![Build project](https://github.com/mateuszkwiecinski/github_browser/workflows/Build%20project/badge.svg)&nbsp;[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+[![After merge build](https://github.com/mateuszkwiecinski/github_browser/actions/workflows/after_merge.yml/badge.svg)](https://github.com/mateuszkwiecinski/github_browser/actions/workflows/after_merge.yml)&nbsp;[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 ## General
 App shows list of [Toptal's](https://github.com/toptal) repositories on Github and shows selected repository details, such as number of opened issues, number of closed, number of the opened pull request and number of closed* pull requests.  

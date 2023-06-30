@@ -9,14 +9,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 internal fun Project.configureCompilerFlags() {
     tasks.withType(KotlinCompile::class.java).configureEach {
         it.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs +
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
-                "-opt-in=kotlin.RequiresOptIn" +
-                "-Xjvm-default=all"
+            freeCompilerArgs = freeCompilerArgs + "-Xjvm-default=all"
         }
     }
     extensions.getByType(JavaPluginExtension::class.java).toolchain {
-        it.languageVersion.set(JavaLanguageVersion.of(17))
+        it.languageVersion.set(JavaLanguageVersion.of(20))
     }
 }
 

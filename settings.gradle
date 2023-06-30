@@ -1,9 +1,36 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    repositories { // https://github.com/gradle/gradle/issues/20866
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
     id "com.gradle.enterprise" version "3.13.4"
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
 rootProject.name = "github_browser"
 
+includeBuild("gradle/plugins")
 include ':app'
 include ':presentation'
 include ':domain'

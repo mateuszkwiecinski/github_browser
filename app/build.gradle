@@ -11,6 +11,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        dataBinding = true
     }
     buildTypes {
         named("debug") {
@@ -22,7 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures.dataBinding true
 
     signingConfigs {
         debug {
@@ -64,7 +64,6 @@ private String findGithubToken() {
     }
 
     logger.error("Could not find github api token. " +
-            "Set a `github_token` environment variable, " +
             "pass it as a project property `./gradlew -Pgithub.token=\"TOKEN\"` " +
             "or add `github.token` entry to your `local.properties` file")
 
