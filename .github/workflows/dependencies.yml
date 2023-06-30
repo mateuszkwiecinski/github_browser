@@ -31,12 +31,14 @@ jobs:
       - run: ./gradlew app:dependencies
 
       - id: dependency-diff
+        if: github.event_name == 'pull_request'
         name: Generate dependency diff
         uses: usefulness/dependency-tree-diff-action@v1
         with:
           configuration: graphqlReleaseRuntimeClasspath
 
       - uses: peter-evans/find-comment@v2
+        if: github.event_name == 'pull_request'
         id: find_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
