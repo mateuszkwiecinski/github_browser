@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.map
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.base.BaseFragment
@@ -16,8 +15,6 @@ internal class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsVie
 
     override val layoutId = R.layout.fragment_details
     override val viewModelClass = DetailsViewModel::class
-
-    internal val args by navArgs<DetailsFragmentArgs>()
 
     override fun init(savedInstanceState: Bundle?) {
         bindIssues()

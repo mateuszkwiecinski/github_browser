@@ -20,6 +20,6 @@ internal abstract class DetailsModule {
     companion object {
 
         @Provides
-        fun repoName(fragment: DetailsFragment): String = fragment.args.name
+        fun repoName(fragment: DetailsFragment): String = fragment.requireArguments().getString("name", "")
     }
 }

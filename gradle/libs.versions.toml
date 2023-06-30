@@ -32,7 +32,6 @@ lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", v
 
 navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
-navigation-gradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
@@ -66,6 +65,8 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 osacky-gradledoctor = { id = "com.osacky.doctor", version.ref = "gradle-gradledoctor" }
 starter-easylauncher = { id = "com.starter.easylauncher", version.ref = "gradle-easylauncher" }
 starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
+starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-starter" }
+starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
 
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]

@@ -1,7 +1,8 @@
 plugins {
-    id("com.starter.config")
-    id("com.starter.versioning")
+    alias(libs.plugins.starter.config)
+    alias(libs.plugins.starter.versioning)
     alias(libs.plugins.osacky.gradledoctor)
+    id("app.android") apply(false)
 }
 
 commonConfig {

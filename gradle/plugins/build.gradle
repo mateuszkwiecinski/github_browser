@@ -3,21 +3,15 @@ plugins {
     alias(libs.plugins.starter.library.kotlin)
 }
 
-repositories {
-    google()
-    gradlePluginPortal()
-}
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
     implementation(gradleApi())
-    implementation(libs.navigation.gradle)
     implementation(libs.apollo.gradle)
     implementation(libs.starter.android)
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(20)
 }
 
 gradlePlugin {

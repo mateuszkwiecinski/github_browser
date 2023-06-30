@@ -9,12 +9,8 @@
         android:id="@+id/mainList"
         android:label="@string/list_title"
         android:name="pl.mkwiecinski.presentation.list.ui.ListFragment"
-        tools:layout="@layout/fragment_list">
-
-        <action
-            android:id="@+id/action_list_to_details"
-            app:destination="@id/details" />
-    </fragment>
+        tools:layout="@layout/fragment_list"
+        />
 
     <fragment
         android:id="@+id/details"

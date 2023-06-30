@@ -2,6 +2,7 @@ package pl.mkwiecinski.presentation.list.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.LoadState
@@ -19,7 +20,7 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
 
     override fun init(savedInstanceState: Bundle?) {
         val adapter = RepoAdapter(
-            onItemSelected = { navController.navigate(ListFragmentDirections.actionListToDetails(it.name)) },
+            onItemSelected = { navController.navigate(R.id.details, bundleOf("name" to it.name)) },
         )
         val concatAdapter = adapter.withLoadStateFooter(ExampleLoadStateAdapter(adapter::retry))
         binding.repoList.adapter = concatAdapter
@@ -33,6 +34,7 @@ internal class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>()
                     is LoadState.NotLoading,
                     is LoadState.Error,
                     -> false
+
                     LoadState.Loading -> true
                 }
             }

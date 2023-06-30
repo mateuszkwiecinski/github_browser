@@ -1,7 +1,14 @@
 name: Build project
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
   cancel-previous-workflows:
@@ -22,14 +29,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 20
 
-      - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1
+      - uses: gradle/wrapper-validation-action@v1
 
       - uses: gradle/gradle-build-action@v2
 
@@ -40,6 +45,8 @@ jobs:
       - run: ./gradlew projectTest
 
       - run: ./gradlew projectLint
+
+      - run: ./gradlew check --scan
 
       - uses: actions/upload-artifact@v3
         with:
