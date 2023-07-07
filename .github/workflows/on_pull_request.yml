@@ -38,9 +38,9 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
 
-      - run: ./gradlew projectCodestyle
+      - run: ./gradlew projectCodestyle --scan
 
-      - run: ./gradlew assembleGraphqlRelease assembleMockedRelease
+      - run: ./gradlew assembleGraphqlRelease assembleMockedRelease  --scan
 
       - run: ./gradlew projectTest
 
