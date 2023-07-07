@@ -12,3 +12,16 @@ commonConfig {
         minSdkVersion 26
     }
 }
+
+allprojects {
+    configurations.configureEach {
+        resolutionStrategy {
+            force("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.6.2")
+            eachDependency { details ->
+                if (details.requested.group == 'com.google.dagger') {
+                    details.useVersion "HEAD-SNAPSHOT"
+                }
+            }
+        }
+    }
+}
