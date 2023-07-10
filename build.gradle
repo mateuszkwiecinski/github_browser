@@ -1,3 +1,11 @@
+buildscript {
+    configurations.configureEach {
+        resolutionStrategy {
+            force("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.6.2")
+        }
+    }
+}
+
 plugins {
     alias(libs.plugins.starter.config)
     alias(libs.plugins.starter.versioning)
