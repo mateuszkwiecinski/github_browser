@@ -10,8 +10,8 @@ import pl.mkwiecinski.domain.listing.gateways.ListingGateway
 internal abstract class DataModule {
 
     @Binds
-    abstract fun GraphqlGateway.listing(): ListingGateway
+    abstract fun listing(impl: GraphqlGateway): ListingGateway
 
     @Binds
-    abstract fun GraphqlGateway.details(): DetailsGateway
+    abstract fun details(impl: GraphqlGateway): DetailsGateway
 }

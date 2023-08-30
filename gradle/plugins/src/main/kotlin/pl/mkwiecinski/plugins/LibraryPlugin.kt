@@ -16,7 +16,6 @@ class LibraryPlugin : Plugin<Project> {
         pluginManager.apply("com.starter.library.android")
 
         setupCommonKotlinVersion()
-        applyDagger()
         applyDaggerAndroid()
         extensions.getByType(LibraryExtension::class.java).apply {
             namespace = "pl.mkwiecinski${path.replace(":", ".").replace("-", "_")}"

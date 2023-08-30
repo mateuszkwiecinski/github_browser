@@ -1,9 +1,7 @@
 [versions]
-gradle-starter = "0.63.0"
+gradle-starter = "0.64.0"
 gradle-easylauncher = "6.2.0"
 gradle-gradledoctor = "0.8.1"
-gradle-kotlinter = "3.13.0"
-mavencentral-kotlin = "1.8.0"
 navigation = "2.7.1"
 lifecycle = "2.6.1"
 coroutines = "1.7.3"
@@ -17,9 +15,10 @@ constraintLayout = "2.1.4"
 material = "1.9.0"
 androidtest = "1.5.0"
 androidArchCore = "2.2.0"
-dagger = "2.47"
+dagger = "2.48"
 junit = "4.13.2"
 assertJ = "3.24.2"
+ksp = "1.9.10-1.0.13"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -67,6 +66,7 @@ starter-easylauncher = { id = "com.starter.easylauncher", version.ref = "gradle-
 starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
 starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-starter" }
 starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
