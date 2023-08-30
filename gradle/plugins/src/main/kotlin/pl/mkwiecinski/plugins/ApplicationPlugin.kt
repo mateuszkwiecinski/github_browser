@@ -13,7 +13,6 @@ class ApplicationPlugin : Plugin<Project> {
         pluginManager.apply("com.starter.application.android")
 
         setupCommonKotlinVersion()
-        applyDagger()
         applyDaggerAndroid()
 
         configureUnitTest()
