@@ -11,9 +11,8 @@ import pl.mkwiecinski.domain.listing.models.LoadingState
 import pl.mkwiecinski.presentation.databinding.ItemNetworkStateBinding
 import pl.mkwiecinski.presentation.databinding.ItemRepoInfoBinding
 
-internal class RepoAdapter(
-    private val onItemSelected: (RepositoryInfo) -> Unit,
-) : PagingDataAdapter<RepositoryInfo, RepoAdapter.RepoViewHolderViewHolder>(RepoDiff) {
+internal class RepoAdapter(private val onItemSelected: (RepositoryInfo) -> Unit) :
+    PagingDataAdapter<RepositoryInfo, RepoAdapter.RepoViewHolderViewHolder>(RepoDiff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ItemRepoInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,9 +29,7 @@ internal class RepoAdapter(
 
 class LoadStateViewHolder(val binding: ItemNetworkStateBinding) : RecyclerView.ViewHolder(binding.root)
 
-class ExampleLoadStateAdapter(
-    private val onRetry: () -> Unit,
-) : LoadStateAdapter<LoadStateViewHolder>() {
+class ExampleLoadStateAdapter(private val onRetry: () -> Unit) : LoadStateAdapter<LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
         ItemNetworkStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)

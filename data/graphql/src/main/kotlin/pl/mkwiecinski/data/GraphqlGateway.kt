@@ -24,10 +24,9 @@ import pl.mkwiecinski.graphql.RepositoriesQuery
 import pl.mkwiecinski.graphql.RepositoryDetailsQuery
 import javax.inject.Inject
 
-internal class GraphqlGateway @Inject constructor(
-    private val client: ApolloClient,
-    private val dispatcher: CoroutineDispatcher,
-) : ListingGateway, DetailsGateway {
+internal class GraphqlGateway @Inject constructor(private val client: ApolloClient, private val dispatcher: CoroutineDispatcher) :
+    ListingGateway,
+    DetailsGateway {
 
     override suspend fun getFirstPage(owner: RepositoryOwner, limit: Int): PagedResult<RepositoryInfo> = withContext(dispatcher) {
         val result = client.query(
