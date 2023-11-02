@@ -1,10 +1,16 @@
-[{*.kt,*.kts}]
+root = true
+
+[*]
+insert_final_newline = true
+
+[*.{kt,kts}]
 charset = utf-8
 end_of_line = lf
-insert_final_newline = true
 max_line_length = 140
-indent_style = space
 indent_size = 4
+indent_style = space
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true
-
+ktlint_code_style = intellij_idea
+ktlint_standard_property-naming = disabled
+ktlint_standard_class-signature = disabled
