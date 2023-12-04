@@ -8,7 +8,7 @@ import pl.mkwiecinski.presentation.list.di.ListModule
 import pl.mkwiecinski.presentation.list.ui.ListFragment
 
 @Module
-internal abstract class MainActivityInjectors {
+abstract class MainActivityInjectors {
 
     @ContributesAndroidInjector(modules = [ListModule::class])
     abstract fun list(): ListFragment
