@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.mkwiecinski.domain.details.entities.IssuePreview
+import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.base.FooterAdapter
 import pl.mkwiecinski.presentation.databinding.ItemDetailFooterBinding
 import pl.mkwiecinski.presentation.databinding.ItemIssueInfoBinding
@@ -16,17 +17,29 @@ internal class IssueAdapter : FooterAdapter<Int, IssuePreview>(IssueDiff) {
             ITEM_TYPE -> IssueViewHolder(
                 ItemIssueInfoBinding.inflate(inflater, parent, false),
             )
+
             FOOTER_TYPE -> FooterViewHolder(
                 ItemDetailFooterBinding.inflate(inflater, parent, false),
             )
+
             else -> error("Unsupported type")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val context = holder.itemView.context
         when (holder) {
-            is IssueViewHolder -> holder.binding.model = getItem(position)
-            is FooterViewHolder -> holder.binding.count = footerData?.minus(actualItemsCount)
+            is IssueViewHolder -> {
+                val item = getItem(position)
+                holder.binding.txtNumber.text = context.getString(R.string.issue_number_format, item.number)
+                holder.binding.txtName.text = item.name
+                holder.binding.txtUrl.text = item.url
+            }
+
+            is FooterViewHolder -> {
+                holder.binding.root.text = footerData?.minus(actualItemsCount)
+                    ?.let { context.getString(R.string.details_preview_footer, it) }
+            }
         }
     }
 

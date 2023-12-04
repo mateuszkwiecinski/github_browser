@@ -8,5 +8,5 @@ import pl.mkwiecinski.presentation.MainActivity
 abstract class PresentationModule {
 
     @ContributesAndroidInjector(modules = [MainActivityInjectors::class])
-    internal abstract fun mainActivity(): MainActivity
+    abstract fun mainActivity(): MainActivity
 }

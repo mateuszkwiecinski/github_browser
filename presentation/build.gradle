@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    buildFeatures.dataBinding true
+    buildFeatures.viewBinding true
     lint {
         disable("UnknownNullness")
     }

@@ -2,6 +2,7 @@ package pl.mkwiecinski.presentation.list.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.paging.PagingDataAdapter
@@ -19,9 +20,8 @@ internal class RepoAdapter(private val onItemSelected: (RepositoryInfo) -> Unit)
             .let(::RepoViewHolderViewHolder)
 
     override fun onBindViewHolder(holder: RepoViewHolderViewHolder, position: Int) {
-        holder.binding.model = getItem(position)
+//        holder.binding.model = getItem(position)
         holder.binding.root.setOnClickListener { getItem(holder.bindingAdapterPosition)?.let(onItemSelected) }
-        holder.binding.executePendingBindings()
     }
 
     class RepoViewHolderViewHolder(val binding: ItemRepoInfoBinding) : RecyclerView.ViewHolder(binding.root)
@@ -36,11 +36,13 @@ class ExampleLoadStateAdapter(private val onRetry: () -> Unit) : LoadStateAdapte
             .let(::LoadStateViewHolder)
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
-        holder.binding.model = when (loadState) {
+        val loadingState = when (loadState) {
             is LoadState.NotLoading -> null
             LoadState.Loading -> LoadingState.RUNNING
             is LoadState.Error -> LoadingState.FAILED
         }
+        holder.binding.pbProgress.isVisible = loadingState == LoadingState.RUNNING
+        holder.binding.txtError.isVisible = loadingState == LoadingState.FAILED
         holder.binding.btnRetry.setOnClickListener { onRetry() }
     }
 }

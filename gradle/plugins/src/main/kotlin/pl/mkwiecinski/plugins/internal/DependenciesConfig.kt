@@ -13,14 +13,14 @@ internal fun Project.applyDagger() {
 }
 
 internal fun Project.applyDaggerAndroid() {
-    if (!pluginManager.hasPlugin("org.jetbrains.kotlin.kapt")) {
-        pluginManager.apply("org.jetbrains.kotlin.kapt")
+    if (!pluginManager.hasPlugin("com.google.devtools.ksp")) {
+        pluginManager.apply(versionCatalog.findPlugin("google-ksp").get().get().pluginId)
     }
     dependencies.add("implementation", versionCatalog.findLibrary("dagger-core").get())
     dependencies.add("implementation", versionCatalog.findLibrary("dagger-android").get())
     dependencies.add("implementation", versionCatalog.findLibrary("dagger-android-support").get())
-    dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler").get())
-    dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler-android").get())
+    dependencies.add("ksp", versionCatalog.findLibrary("dagger-compiler").get())
+    dependencies.add("ksp", versionCatalog.findLibrary("dagger-compiler-android").get())
 }
 
 private val Project.versionCatalog

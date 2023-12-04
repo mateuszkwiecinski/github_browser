@@ -6,7 +6,7 @@ import pl.mkwiecinski.domain.listing.GetPagedRepositoriesUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
-internal class ListViewModel @Inject constructor(getPagedRepositories: GetPagedRepositoriesUseCase) : BaseViewModel() {
+class ListViewModel @Inject constructor(getPagedRepositories: GetPagedRepositoriesUseCase) : BaseViewModel() {
 
     val listPaging = getPagedRepositories()
         .cachedIn(viewModelScope)

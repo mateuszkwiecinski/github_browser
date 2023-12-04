@@ -9,7 +9,7 @@ import pl.mkwiecinski.domain.details.LoadDetailsUseCase
 import pl.mkwiecinski.presentation.base.BaseViewModel
 import javax.inject.Inject
 
-internal class DetailsViewModel @Inject constructor(
+class DetailsViewModel @Inject constructor(
     getRepositoryDetails: GetRepositoryDetailsUseCase,
     private val refresh: LoadDetailsUseCase,
 ) : BaseViewModel() {
