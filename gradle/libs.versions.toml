@@ -17,7 +17,7 @@ androidtest = "1.5.0"
 androidArchCore = "2.2.0"
 dagger = "2.50"
 junit = "4.13.2"
-assertJ = "3.25.1"
+assertJ = "3.25.2"
 ksp = "1.9.22-1.0.17"
 
 [libraries]
