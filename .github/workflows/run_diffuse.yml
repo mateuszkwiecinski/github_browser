@@ -57,7 +57,7 @@ jobs:
           new-file-path: app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk
           new-mapping-path: app/build/outputs/mapping/graphqlRelease/mapping.txt
 
-      - uses: peter-evans/find-comment@v2
+      - uses: peter-evans/find-comment@v3
         id: find_comment
         if: github.event_name == 'pull_request'
         with:
