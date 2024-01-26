@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           java-version: 20
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
 
       - run: ./gradlew assembleGraphqlRelease assembleMockedRelease
 
