@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 21
 
       - uses: gradle/gradle-build-action@v3
 
@@ -40,6 +40,7 @@ jobs:
             diffuse-source-file-release
             diffuse-mapping-file-release
           key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/release/**.apk') }}
+          enableCrossOsArchive: true
 
       - run: cp app/build/outputs/apk/graphql/release/app-graphql-release-unsigned.apk diffuse-source-file-release
         shell: bash
@@ -52,6 +53,7 @@ jobs:
         with:
           path: diffuse-source-file-debug
           key: diffuse-${{ github.sha }}-${{ hashFiles('**/apk/graphql/debug/**.apk') }}
+          enableCrossOsArchive: true
 
       - run: cp app/build/outputs/apk/graphql/debug/app-graphql-debug.apk diffuse-source-file-debug
         shell: bash
