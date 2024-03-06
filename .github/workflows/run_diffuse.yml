@@ -46,6 +46,7 @@ jobs:
             diffuse-mapping-file-release
           key: diffuse-${{ github.event.pull_request.base.sha }}-always-cache-miss
           restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
+          enableCrossOsArchive: true
 
       - id: diffuse
         uses: usefulness/diffuse-action@master
