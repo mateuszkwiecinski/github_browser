@@ -13,3 +13,5 @@ jobs:
       - uses: usefulness/update-gradle-wrapper-action@master
         with:
           set-distribution-checksum: false
+          git-user-name: "Mateusz Kwiecinski"
+          git-user-email: "36954793+mateuszkwiecinski@users.noreply.github.com"
