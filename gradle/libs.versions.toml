@@ -1,5 +1,5 @@
 [versions]
-gradle-starter = "0.72.0"
+gradle-starter = "0.73.0"
 gradle-easylauncher = "6.3.0"
 gradle-gradledoctor = "0.10.0"
 navigation = "2.7.7"
@@ -18,7 +18,7 @@ androidArchCore = "2.2.0"
 dagger = "2.51.1"
 junit = "4.13.2"
 assertJ = "3.25.3"
-ksp = "1.9.23-1.0.20"
+ksp = "1.9.24-1.0.20"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
