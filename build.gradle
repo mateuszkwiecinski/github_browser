@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.starter.config)
     alias(libs.plugins.starter.versioning)
-    alias(libs.plugins.osacky.gradledoctor)
     alias(libs.plugins.google.ksp) apply(false)
     id("app.android") apply(false)
 }
