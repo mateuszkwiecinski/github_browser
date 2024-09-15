@@ -1,7 +1,6 @@
 [versions]
 gradle-starter = "0.77.0"
 gradle-easylauncher = "6.4.0"
-gradle-gradledoctor = "0.10.0"
 navigation = "2.8.0"
 lifecycle = "2.8.5"
 coroutines = "1.9.0"
@@ -61,7 +60,6 @@ junit-core = { module = "junit:junit", version.ref = "junit" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 
 [plugins]
-osacky-gradledoctor = { id = "com.osacky.doctor", version.ref = "gradle-gradledoctor" }
 starter-easylauncher = { id = "com.starter.easylauncher", version.ref = "gradle-easylauncher" }
 starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
 starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-starter" }
