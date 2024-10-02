@@ -1,7 +1,7 @@
 [versions]
 gradle-starter = "0.77.0"
 gradle-easylauncher = "6.4.0"
-navigation = "2.8.1"
+navigation = "2.8.2"
 lifecycle = "2.8.6"
 coroutines = "1.9.0"
 paging = "3.3.2"
