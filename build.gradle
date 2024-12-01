@@ -9,6 +9,6 @@ commonConfig {
     javaFilesAllowed false
     javaVersion = JavaVersion.VERSION_11
     androidPlugin {
-        minSdkVersion 26
+        minSdkVersion 29
     }
 }
