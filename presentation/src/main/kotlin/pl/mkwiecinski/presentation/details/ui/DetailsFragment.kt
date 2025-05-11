@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.map
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import pl.mkwiecinski.presentation.R
 import pl.mkwiecinski.presentation.base.BaseFragment
@@ -25,7 +26,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>()
             bindIssues()
             bindPullRequests()
             bindFab()
-            toolbar.setupWithNavController(root.findNavController())
+            toolbar.setupWithNavController(findNavController())
 
             viewModel.error.observe(viewLifecycleOwner) {
                 errorContainer.isVisible = it != null

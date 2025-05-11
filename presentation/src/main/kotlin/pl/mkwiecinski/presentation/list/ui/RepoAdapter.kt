@@ -20,8 +20,10 @@ internal class RepoAdapter(private val onItemSelected: (RepositoryInfo) -> Unit)
             .let(::RepoViewHolderViewHolder)
 
     override fun onBindViewHolder(holder: RepoViewHolderViewHolder, position: Int) {
-//        holder.binding.model = getItem(position)
-        holder.binding.root.setOnClickListener { getItem(holder.bindingAdapterPosition)?.let(onItemSelected) }
+        val item = getItem(position)
+        holder.binding.txtName.text = item?.name
+        holder.binding.txtUrl.text = item?.url
+        holder.binding.root.setOnClickListener { item?.let(onItemSelected) }
     }
 
     class RepoViewHolderViewHolder(val binding: ItemRepoInfoBinding) : RecyclerView.ViewHolder(binding.root)
