@@ -1,12 +1,12 @@
 plugins {
     id("library.kotlin")
-    id("com.apollographql.apollo3")
+    id("com.apollographql.apollo")
 }
 
 apollo {
     service("service") {
         packageName.set("pl.mkwiecinski.graphql")
-        customScalarsMapping = ["URI": "String"]
+        mapScalar("URI", "String")
     }
 }
 

@@ -1,16 +1,16 @@
 package pl.mkwiecinski.data
 
-import com.apollographql.apollo3.ApolloCall
-import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.api.Operation
-import com.apollographql.apollo3.api.Optional
-import com.apollographql.apollo3.cache.normalized.FetchPolicy
-import com.apollographql.apollo3.cache.normalized.NetworkOnlyInterceptor
-import com.apollographql.apollo3.cache.normalized.fetchPolicy
-import com.apollographql.apollo3.cache.normalized.fetchPolicyInterceptor
-import com.apollographql.apollo3.cache.normalized.refetchPolicy
-import com.apollographql.apollo3.cache.normalized.watch
-import com.apollographql.apollo3.exception.ApolloException
+import com.apollographql.apollo.ApolloCall
+import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.Operation
+import com.apollographql.apollo.api.Optional
+import com.apollographql.apollo.cache.normalized.FetchPolicy
+import com.apollographql.apollo.cache.normalized.NetworkOnlyInterceptor
+import com.apollographql.apollo.cache.normalized.fetchPolicy
+import com.apollographql.apollo.cache.normalized.fetchPolicyInterceptor
+import com.apollographql.apollo.cache.normalized.refetchPolicy
+import com.apollographql.apollo.cache.normalized.watch
+import com.apollographql.apollo.exception.DefaultApolloException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -80,7 +80,7 @@ internal class GraphqlGateway @Inject constructor(private val client: ApolloClie
     )
 
     private suspend fun <T : Operation.Data> ApolloCall<T>.getDataOrThrow() = execute().let {
-        it.data ?: throw ApolloException(it.errors.orEmpty().joinToString(separator = ","))
+        it.data ?: throw DefaultApolloException(it.errors.orEmpty().joinToString(separator = ","))
     }
 
     companion object {

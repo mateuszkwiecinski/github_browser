@@ -1,16 +1,16 @@
 package pl.mkwiecinski.data.di
 
-import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.api.CompiledField
-import com.apollographql.apollo3.api.Executable
-import com.apollographql.apollo3.cache.normalized.api.CacheKey
-import com.apollographql.apollo3.cache.normalized.api.CacheKeyGenerator
-import com.apollographql.apollo3.cache.normalized.api.CacheKeyGeneratorContext
-import com.apollographql.apollo3.cache.normalized.api.CacheKeyResolver
-import com.apollographql.apollo3.cache.normalized.api.MemoryCacheFactory
-import com.apollographql.apollo3.cache.normalized.api.TypePolicyCacheKeyGenerator
-import com.apollographql.apollo3.cache.normalized.normalizedCache
-import com.apollographql.apollo3.network.okHttpClient
+import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.CompiledField
+import com.apollographql.apollo.api.Executable
+import com.apollographql.apollo.cache.normalized.api.CacheKey
+import com.apollographql.apollo.cache.normalized.api.CacheKeyGenerator
+import com.apollographql.apollo.cache.normalized.api.CacheKeyGeneratorContext
+import com.apollographql.apollo.cache.normalized.api.CacheKeyResolver
+import com.apollographql.apollo.cache.normalized.api.MemoryCacheFactory
+import com.apollographql.apollo.cache.normalized.api.TypePolicyCacheKeyGenerator
+import com.apollographql.apollo.cache.normalized.normalizedCache
+import com.apollographql.apollo.network.okHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -59,5 +59,5 @@ internal object IdBasedCacheKeyResolver : CacheKeyResolver(), CacheKeyGenerator 
         obj["id"]?.toString()?.let(::CacheKey) ?: TypePolicyCacheKeyGenerator.cacheKeyForObject(obj, context)
 
     override fun cacheKeyForField(field: CompiledField, variables: Executable.Variables): CacheKey? =
-        (field.resolveArgument("id", variables) as? String)?.let(::CacheKey)
+        (field.argumentValue("id", variables).getOrNull() as? String)?.let(::CacheKey)
 }
