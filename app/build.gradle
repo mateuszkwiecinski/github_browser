@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "pl.mateuszkwiecinski.browser"
     }
-    namespace "pl.mkwiecinski.browser"
+    namespace = "pl.mkwiecinski.browser"
 
     buildFeatures {
         buildConfig = true
@@ -15,7 +15,7 @@ android {
     }
     buildTypes {
         named("debug") {
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
         }
         named('release') {
             matchingFallbacks += ["debug"]

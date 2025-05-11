@@ -13,7 +13,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(20)
+    jvmToolchain(24)
 }
 
 gradlePlugin {

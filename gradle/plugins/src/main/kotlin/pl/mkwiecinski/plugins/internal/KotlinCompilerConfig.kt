@@ -1,20 +1,20 @@
 package pl.mkwiecinski.plugins.internal
 
+import com.apollographql.apollo3.gradle.api.kotlinProjectExtension
+import com.apollographql.apollo3.gradle.api.kotlinProjectExtensionOrThrow
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.jetbrains.kotlin.gradle.dsl.HasConfigurableKotlinCompilerOptions
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureCompilerFlags() {
-    tasks.withType(KotlinCompile::class.java).configureEach {
-        it.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xjvm-default=all"
+    (kotlinProjectExtension as HasConfigurableKotlinCompilerOptions<*>).apply {
+        compilerOptions {
+            freeCompilerArgs.add("-Xjvm-default=all")
         }
     }
-    extensions.getByType(JavaPluginExtension::class.java).toolchain {
-        it.languageVersion.set(JavaLanguageVersion.of(20))
-    }
+    kotlinProjectExtensionOrThrow.jvmToolchain(24)
 }
 
 internal fun Project.setupCommonKotlinVersion() {
