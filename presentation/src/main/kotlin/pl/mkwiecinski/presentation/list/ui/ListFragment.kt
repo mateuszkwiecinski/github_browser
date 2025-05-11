@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.LoadState
 import kotlinx.coroutines.flow.collectLatest
@@ -22,8 +22,9 @@ class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>() {
 
     override fun init(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentListBinding.inflate(inflater, container, false).apply {
+            val navController = findNavController()
             val adapter = RepoAdapter(
-                onItemSelected = { root.findNavController().navigate(R.id.details, bundleOf("name" to it.name)) },
+                onItemSelected = { navController.navigate(R.id.details, bundleOf("name" to it.name)) },
             )
             val concatAdapter = adapter.withLoadStateFooter(ExampleLoadStateAdapter(adapter::retry))
             repoList.adapter = concatAdapter
@@ -43,6 +44,6 @@ class ListFragment : BaseFragment<FragmentListBinding, ListViewModel>() {
                 }
             }
             swipeRefresh.setOnRefreshListener { adapter.refresh() }
-            toolbar.setupWithNavController(root.findNavController())
+            toolbar.setupWithNavController(navController)
         }
 }
