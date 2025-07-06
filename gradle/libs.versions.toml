@@ -42,7 +42,7 @@ apollo-cache = { module = "com.apollographql.apollo:apollo-normalized-cache", ve
 apollo-cache-sqlite = { module = "com.apollographql.apollo:apollo-normalized-cache-sqlite", version.ref = "apollo" }
 apollo-gradle = { module = "com.apollographql.apollo:apollo-gradle-plugin", version.ref = "apollo" }
 okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "okhttp" }
 
 androidtest-core = { module = "androidx.test:core-ktx", version.ref = "androidtest" }
 androidtest-rules = { module = "androidx.test:rules", version.ref = "androidtest" }
