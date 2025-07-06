@@ -3,9 +3,10 @@ package pl.mkwiecinski.data
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
+import mockwebserver3.MockResponse
+import mockwebserver3.MockWebServer
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import pl.mkwiecinski.data.di.DaggerNetworkingComponent
@@ -27,6 +28,7 @@ internal class GraphqlGatewayIntegrationTest {
 
     @Before
     fun setUp() {
+        server.start()
         val component: NetworkingComponent = DaggerNetworkingComponent.factory()
             .create(
                 config = GithubConfig(server.url("/").toString(), "dummyToken"),
@@ -35,6 +37,9 @@ internal class GraphqlGatewayIntegrationTest {
         details = component.details()
         listing = component.listing()
     }
+
+    @After
+    fun tearDown() = server.close()
 
     @Test
     fun `correctly maps first page`() {
@@ -75,8 +80,6 @@ internal class GraphqlGatewayIntegrationTest {
 
     private fun mockJson(fileName: String): MockResponse {
         val file = File(javaClass.classLoader.getResource(fileName).file)
-        return MockResponse().apply {
-            setBody(file.readText())
-        }
+        return MockResponse(body = file.readText())
     }
 }
