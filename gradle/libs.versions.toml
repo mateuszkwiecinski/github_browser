@@ -1,5 +1,5 @@
 [versions]
-gradle-starter = "0.86.0"
+gradle-starter = "0.86.1"
 gradle-easylauncher = "6.4.1"
 navigation = "2.9.1"
 lifecycle = "2.9.1"
