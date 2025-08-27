@@ -2,7 +2,7 @@
 gradle-starter = "0.88.0"
 gradle-easylauncher = "6.4.1"
 navigation = "2.9.3"
-lifecycle = "2.9.2"
+lifecycle = "2.9.3"
 coroutines = "1.10.2"
 paging = "3.3.6"
 pagingCompose = "3.3.6"
