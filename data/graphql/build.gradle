@@ -10,13 +10,6 @@ apollo {
     }
 }
 
-tasks.named("lintKotlinMain") {
-    exclude { it.file.path.contains("/generated/") }
-}
-tasks.named("formatKotlinMain") {
-    exclude { it.file.path.contains("/generated/") }
-}
-
 dependencies {
     implementation(projects.domain)
 
