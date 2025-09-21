@@ -10,7 +10,7 @@ apollo {
     }
 }
 
-tasks.named("kspKotlin") {
+tasks.named { it == "kspKotlin" }.configureEach {
     mustRunAfter("generateServiceApolloSources")
 }
 
