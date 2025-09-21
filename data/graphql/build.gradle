@@ -10,6 +10,10 @@ apollo {
     }
 }
 
+tasks.named("kspKotlin") {
+    mustRunAfter("generateServiceApolloSources")
+}
+
 dependencies {
     implementation(projects.domain)
 
