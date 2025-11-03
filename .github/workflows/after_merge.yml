@@ -58,7 +58,7 @@ jobs:
       - run: cp app/build/outputs/apk/graphql/debug/app-graphql-debug.apk diffuse-source-file-debug
         shell: bash
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: artifacts
           path: |
