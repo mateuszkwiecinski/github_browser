@@ -37,7 +37,7 @@ jobs:
 
       - run: ./gradlew assembleGraphqlRelease
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         name: Download base
         if: github.event_name == 'pull_request'
         with:
