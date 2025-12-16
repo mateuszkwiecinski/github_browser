@@ -17,7 +17,7 @@ androidArchCore = "2.2.0"
 dagger = "2.57.2"
 junit = "4.13.2"
 assertJ = "3.27.6"
-ksp = "2.3.3"
+ksp = "2.3.4"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
