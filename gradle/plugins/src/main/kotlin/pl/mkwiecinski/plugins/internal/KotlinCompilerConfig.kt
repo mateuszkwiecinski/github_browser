@@ -11,13 +11,14 @@ internal fun Project.configureCompilerFlags() {
             freeCompilerArgs.add("-Xjvm-default=all")
         }
     }
-    kotlinExtension.jvmToolchain(24)
+    kotlinExtension.jvmToolchain(25)
 }
 
 internal fun Project.setupCommonKotlinVersion() {
     val kotlinVersion = project.getKotlinPluginVersion()
 
-    configurations.matching { it.name != "detekt" }.configureEach { configuration ->
+    // ktlint bundles its own kotlin-compiler-embeddable and fails to initialize when forced to a newer Kotlin version
+    configurations.matching { it.name != "detekt" && !it.name.startsWith("ktlint") }.configureEach { configuration ->
         configuration.resolutionStrategy.eachDependency {
             if (it.requested.group == "org.jetbrains.kotlin" && it.requested.name.startsWith("kotlin")) {
                 it.useVersion(kotlinVersion)
